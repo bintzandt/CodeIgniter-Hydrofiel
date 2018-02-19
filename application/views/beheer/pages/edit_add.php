@@ -9,7 +9,10 @@
 </script>
 
 <div style="text-align:right; padding: 20px;"><a href="/beheer"><b>Terug</b></a></div>
-<?= form_open_multipart("<?= ($edit_mode) ? '/page/edit':'/page/toevoegen'?>", array("class" => "form-horizontal"));?>
+<?php
+    if ($edit_mode) echo form_open_multipart("/page/edit", array("class" => "form-horizontal"));
+    else echo form_open_multipart("/page/toevoegen", array("class" => "form-horizontal"))
+?>
     <?php if ($edit_mode) { ?>
         <input type="hidden" name="id" value="<?= $page->id?>"/>
     <?php } ?>

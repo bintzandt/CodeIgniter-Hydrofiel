@@ -29,21 +29,30 @@ class Mail extends _SiteController
             redirect('beheer/mail');
         }
 
-        //Attach the attachments to the mail class.
-        foreach(glob('/home/bintza1q/attachments/*.*') as $file) {
-            $this->email->attach($file);
-        }
         //Create an array to which the mail will be send.
         $bcc = array();
         if (!empty($data["email"])){
-            $bcc = array_merge($this->set_emails($data["email"]), $bcc);
+            $bcc = array_merge($this->get_emails($data["email"]), $bcc);
         }
         //Nederlands mailen.
+
+        //Attach the attachments to the mail class.
+        foreach(glob('/home/bintza1q/attachments/nederlands/*.*') as $file) {
+            $this->email->attach($file);
+        }
+
         //Group
         $bcc = array_merge($this->set_group($data["aan"], FALSE), $bcc);
         //ID's
         if (!empty($data["los"])){
             $bcc = array_merge($this->set_ids($data["los"], FALSE), $bcc);
+        }
+        if ($data['layout'] === 'nieuwsbrief') {
+            $text = $this->mail_model->get_vrienden();
+            if ($text != NULL) {
+                $email = $this->get_emails($text->vrienden_van);
+                $bcc = array_merge($email, $bcc);
+            }
         }
 
         $this->set_from($data["van"]);
@@ -70,9 +79,15 @@ class Mail extends _SiteController
         }
 
         //Clear email variables
-        $this->email->clear();
+        $this->email->clear(TRUE);
 
         //Engels mailen
+
+        //Attach the attachments to the mail class.
+        foreach(glob('/home/bintza1q/attachments/engels/*.*') as $file) {
+            $this->email->attach($file);
+        }
+
         $bcc = array();
         $bcc = array_merge($this->set_group($data["aan"], TRUE), $bcc);
 
@@ -104,7 +119,10 @@ class Mail extends _SiteController
         }
 
         //Afwikkeling
-        foreach(glob('/home/bintza1q/attachments/*.*') as $file) {
+        foreach(glob('/home/bintza1q/attachments/nederlands/*.*') as $file) {
+            unlink($file);
+        }
+        foreach(glob('/home/bintza1q/attachments/engels/*.*') as $file) {
             unlink($file);
         }
 
@@ -148,7 +166,7 @@ class Mail extends _SiteController
         redirect('/mail/history');
     }
 
-    private function set_emails($emails){
+    private function get_emails($emails){
         $mail = array();
         $emails = preg_replace('/\s+/', '', $emails);
         $test_mail = explode(',', $emails);
@@ -168,7 +186,6 @@ class Mail extends _SiteController
                 array_push($mail, $email->email);
             }
         }
-//        var_dump($mail); exit();
         return $mail;
     }
 

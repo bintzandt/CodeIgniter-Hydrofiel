@@ -36,12 +36,13 @@ class Home extends _SiteController
         }
         $data["posts"] = $posts;
         $data["events"] = $this->agenda_model->get_event(NULL, 3);
+        $data['login'] = $this->session->userdata('logged_in');
         $data["verjaardagen"] = $this->profile_model->get_verjaardagen(3);
-        parent::loadView('templates/home', $data);
+        $data["tekst"] = $this->page_model->get(1)->tekst;
+        $this->loadView('templates/home', $data);
     }
 
     public function language(){
-        $this->load->library('user_agent');
         if (isset($this->session->engels) && $this->session->engels) {
             $this->session->engels = FALSE;
         } else {

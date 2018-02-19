@@ -68,9 +68,22 @@ class Mail_model extends CI_Model
         return $query->result();
     }
 
-    public function delete($hash){
+    public function delete($hash)
+    {
         $this->db->where('hash', $hash);
         $this->db->delete('mail');
+        return ($this->db->affected_rows() > 0);
+    }
+
+    public function get_vrienden(){
+        $query = $this->db->get('vrienden_van');
+        return $query->row();
+    }
+
+    public function set_vrienden($vrienden){
+        $this->db->truncate('vrienden_van');
+        $this->db->set('vrienden_van', $vrienden);
+        $this->db->insert('vrienden_van');
         return ($this->db->affected_rows() > 0);
     }
 }
