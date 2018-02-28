@@ -34,6 +34,8 @@ class Mail extends _BeheerController
 
             $config['upload_path'] = '/home/bintza1q/attachments/engels';
             $this->upload->initialize($config);
+
+
             $this->upload->do_multi_upload('userfile_en');
 
             $data = $this->input->post(NULL, TRUE);

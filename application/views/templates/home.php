@@ -33,52 +33,7 @@
     </div>
 </div>
 <hr>
-<h3 class="oranje_tekst">Nieuws</h3>
+<h3 class="oranje_tekst" style="padding-left: 15px">Nieuws</h3>
 <div><p><?= $tekst ?></p></div>
 <hr>
-<?php foreach ($posts as $post) {
-    if(isset($post->media)){ ?>
-        <div class="container">
-            <div class="col-md-3 visible-sm visible-xs">
-                <img class="img-responsive center-block" src="<?= $post->media->image->src ?>" style="padding-top: 0; padding-bottom: 10px;max-height: 20em">
-            </div>
-            <div class="col-md-3 visible-md visible-mg visible-lg">
-                <img class="img-responsive center-block" src="<?= $post->media->image->src ?>" style="padding-top: 0; padding-bottom: 10px;max-height: 10em">
-            </div>
-            <div class="col-md-9 hidden-xs hidden-sm">
-                <p><?php
-                    $num_words = 100;
-                    $words = explode(" ", $post->message, $num_words);
-                    if (count($words) === $num_words){
-                        $words[99] = '<a href="'.$post->link.'">...Lees meer</a>';
-                    }
-                    echo implode(" ", $words);
-                    ?></p>
-            </div>
-            <div class="col-md-9 visible-xs visible-sm">
-                <p><?php
-                    $num_words = 31;
-                    $words = explode(" ", $post->message, $num_words);
-                    if (count($words) === $num_words){
-                        $words[30] = '<a href="'.$post->link.'">...Lees meer</a>';
-                    }
-                    echo implode(" ", $words);
-                    ?></p>
-            </div>
-        </div>
-        <hr>
-    <?php } else { ?>
-    <div class="container">
-            <div class="col-sm-12" align="left">
-                <p><?php
-                    $num_words = 51;
-                    $words = explode(" ", $post->message, $num_words);
-                    if (count($words) === $num_words){
-                        $words[50] = '<a href="">...Lees meer</a>';
-                    }
-                    echo implode(" ", $words);
-                    ?></p>
-            </div>
-    </div>
-    <hr>
-<?php } }?>
+<div id="facebookfeed"></div>

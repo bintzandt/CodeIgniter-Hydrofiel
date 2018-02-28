@@ -69,6 +69,59 @@
     <!--    multiselect-->
     <script type="text/javascript" src="js/bootstrap-multiselect.min.js"></script>
     <link href="https://opensource.keycdn.com/fontawesome/4.7.0/font-awesome.min.css" rel="stylesheet">
+
+    <!-- small script for getting data from facebook -->
+    <script>
+        function getImage(id){
+            var url = "https://graph.facebook.com/";
+            var access_token = "/attachments?access_token=1787347374631170|MVXgVmEVfr8FjeOrCV_M-fP68Ys";
+            $.getJSON(url + id + access_token, function (json) {
+                if (json.data.length > 0) {
+                    $.each(json.data, function (i, media){
+                        if (media.media !== undefined) {
+                            $('#' + id).html("<img class='img-responsive' src='" + media.media.image.src + "'>");
+                        }
+                        else if (media.subattachments !== undefined) {
+                            $('#' + id).html("<img class='img-responsive' src='" + media.subattachments.data[0].media.image.src + "'>");
+                        }
+                    });
+                }
+                else {
+                    console.debug(id);
+                    $('#' + id).remove();
+                    $('#txt_' + id).toggleClass('col-md-9 col-sm-12');
+                }
+            });
+        }
+
+        if ($('#facebookfeed').length > 0) {
+            // URL to access
+            var url = "https://graph.facebook.com/hydrofiel/feed?access_token=1787347374631170|MVXgVmEVfr8FjeOrCV_M-fP68Ys&limit=7&fields=id,message&callback=?";
+            // JSON request to get the data
+            $.getJSON(url, function (json) {
+                var html = "";
+                //Add some formatting to the message
+                $.each(json.data, function (i, fb) {
+                    if (fb.message != null) {
+                        html += "<div class='container'>" +
+                                    "<div class='col-md-3' id='" + fb.id + "'></div>" +
+                                    "<div class='col-md-9' id='txt_" + fb.id + "' align='left'>" +
+                                        "<p>" +
+                                            $('<div>').html(fb.message).text() +
+                                        "</p>" +
+                                    "</div>" +
+                                "</div>" +
+                                "<hr>";
+                        getImage(fb.id);
+                    }
+                });
+                //Remove the last <hr>
+                html = html.slice(0, -4);
+                $('#facebookfeed').html(html);
+            });
+        }
+    </script>
+
 </div>
 </body>
 </html>
