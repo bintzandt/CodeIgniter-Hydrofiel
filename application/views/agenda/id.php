@@ -66,7 +66,7 @@
     </div>
     <div class="col-sm-12">
 <?php if ($event->inschrijfsysteem) { ?>
-        <?= form_open("<?= ($event->soort === 'nszk')? '/agenda/nszk':'/agenda/aanmelden'?>", array("id" => "aanmelden", "name" => "aanmelden")); ?>
+        <?= form_open(($event->soort === 'nszk') ? '/agenda/nszk' : '/agenda/aanmelden', array("id" => "aanmelden", "name" => "aanmelden")); ?>
         <input type="hidden" value="<?=$event->event_id?>" name="event_id"/>
         <input type="hidden" value="<?=$event->soort?>" name="event_soort">
     <?php if (!$aangemeld) { ?>

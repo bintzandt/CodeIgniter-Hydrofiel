@@ -1,18 +1,26 @@
 <?php
 /**
- * Created by PhpStorm.
- * User: bintzandt
- * Date: 29/11/17
- * Time: 14:53
+ * Class Page_model
+ * Handles all page related database actions
  */
-
 class Page_model extends CI_Model
 {
+    /**
+     * Queries the database for a certain page_id
+     * @param $page_id
+     * @return mixed
+     */
     public function view($page_id){
         $query = $this->db->get_where('pagina', array('id' => $page_id));
         return $query->row_array();
     }
 
+    /**
+     * Get a page from the database
+     * @param null $id
+     * @param bool $array
+     * @return array
+     */
     public function get($id = NULL, $array = false){
         if ($id === NULL){
             $this->db->select('*');
@@ -32,6 +40,11 @@ class Page_model extends CI_Model
         return $query->result()[0];
     }
 
+    /**
+     * Get all subpages for a certain ID
+     * @param $id
+     * @return null
+     */
     public function get_subpages($id){
         $this->db->select('*');
         $this->db->from('pagina');
@@ -45,6 +58,12 @@ class Page_model extends CI_Model
         return $submenu;
     }
 
+    /**
+     * Get the maximum position for a certain submenu
+     * TODO: Move this to the menu model
+     * @param $submenu
+     * @return int
+     */
     public function get_max_plaats($submenu){
         $this->db->select('MAX(plaats) as max');
         $this->db->from('pagina');
@@ -56,11 +75,22 @@ class Page_model extends CI_Model
         else return 0;
     }
 
+    /**
+     * Add a page to the databse
+     * @param $data
+     * @return mixed
+     */
     public function add($data){
         $this->db->insert('pagina', $data);
         return $this->db->affected_rows();
     }
 
+    /**
+     * Make room in a submenu after a certain position
+     * @param $submenu
+     * @param $na
+     * @return int
+     */
     public function make_room($submenu, $na){
         $plaats = $this->get_plaats($na)->plaats + 1;
         $to_move = $this->get_id($submenu, $plaats);
@@ -69,6 +99,11 @@ class Page_model extends CI_Model
         return $plaats;
     }
 
+    /**
+     * Save edits to a page to the database
+     * @param $data
+     * @return mixed
+     */
     public function save($data){
         $this->db->set($data);
         $this->db->where('id', $data['id']);
@@ -76,12 +111,23 @@ class Page_model extends CI_Model
         return $this->db->affected_rows();
     }
 
+    /**
+     * Delete a certain page from the database
+     * @param $page_id
+     * @return mixed
+     */
     public function delete($page_id){
         $this->db->delete('pagina', array('id' => $page_id));
         $this->db->cache_delete('beheer', 'page');
         return $this->db->affected_rows();
     }
 
+    /**
+     * Get the plaats in the menu for a certain id
+     * TODO: Move this to the menu model
+     * @param $id
+     * @return bool
+     */
     public function get_plaats($id){
         $query = $this->db->get_where('pagina', array('id' => $id));
         if ($query->num_rows() > 0) {
@@ -90,6 +136,12 @@ class Page_model extends CI_Model
         return FALSE;
     }
 
+    /**
+     * Translate a submenu and a position into an page_id
+     * @param $submenu
+     * @param $plaats
+     * @return bool
+     */
     public function get_id($submenu, $plaats){
         $query = $this->db->get_where('pagina', array('plaats' => $plaats, 'submenu' => $submenu));
         if ($query->num_rows() > 0) {

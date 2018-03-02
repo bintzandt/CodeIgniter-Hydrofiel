@@ -1,11 +1,9 @@
 <?php
 /**
- * Created by PhpStorm.
- * User: bintzandt
- * Date: 04/12/17
- * Time: 12:57
+ * Class Upload
+ * Handles file uploading on the server
+ * TODO: Move this controller to beheer/Upload.php
  */
-
 class Upload extends _SiteController
 {
     public function __construct()
@@ -21,6 +19,9 @@ class Upload extends _SiteController
         $this->load->model('profile_model');
     }
 
+    /**
+     * Function to import users from file
+     */
     public function import_users(){
         $config['upload_path']          = '/home/bintza1q/uploads/';
         $config['allowed_types']        = 'csv';
@@ -33,7 +34,7 @@ class Upload extends _SiteController
         if ( ! $this->upload->do_upload('leden'))
         {
             $error = array('error' => $this->upload->display_errors());
-            parent::loadViewBeheer('beheer/leden/importeren', $error);
+            $this->loadViewBeheer('beheer/leden/importeren', $error);
         }
         else
         {
@@ -48,6 +49,9 @@ class Upload extends _SiteController
         }
     }
 
+    /**
+     * Function to upload files from the beheer panel
+     */
     public function files(){
         $config['upload_path']          = './uploads/';
         $config['allowed_types']        = 'jpg|pdf';
@@ -107,6 +111,11 @@ class Upload extends _SiteController
         }
     }
 
+    /**
+     * Function to delete a file
+     * @param $foto boolean Is the file a boolean
+     * @param $path string Path to the file
+     */
     public function delete($foto, $path){
         if ($foto){
             $url = './fotos/';

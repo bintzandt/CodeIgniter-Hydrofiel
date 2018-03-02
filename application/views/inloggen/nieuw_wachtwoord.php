@@ -10,7 +10,7 @@
             </div>
         <?php } ?>
         <?php echo validation_errors(); ?>
-        <?= form_open("/inloggen/reset/<?=$recovery?>", array("class" => "form-signin")); ?>
+        <?= form_open("/inloggen/reset/" . $recovery, array("class" => "form-signin")); ?>
             <input type="hidden" name="recovery" value="<?=$recovery?>">
             <input type="password" name="wachtwoord1" class="form-control" placeholder="Wachtwoord">
             <input type="password" name="wachtwoord2" class="form-control" placeholder="Herhaal wachtwoord">

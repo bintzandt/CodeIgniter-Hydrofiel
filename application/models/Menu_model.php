@@ -1,13 +1,15 @@
 <?php
 /**
- * Created by PhpStorm.
- * User: bintzandt
- * Date: 29/11/17
- * Time: 14:53
+ * Class Menu_model
+ * Handles all database actions related to the menu
  */
-
 class Menu_model extends CI_Model
 {
+    /**
+     * Get a list of the hoofdmenu
+     * @param bool $include_submenu whether to include all submenus
+     * @return array
+     */
     public function hoofdmenu($include_submenu = true){
         $this->db->select('id, naam, engelse_naam, ingelogd');
         $this->db->from('pagina');
@@ -15,7 +17,7 @@ class Menu_model extends CI_Model
         $this->db->where('bereikbaar', 'ja');
         $this->db->order_by('plaats');
         $query = $this->db->get();
-        $result = [];
+        $result = array();
         foreach ($query->result_array() as $hoofdmenu){
             if ($include_submenu) $hoofdmenu['submenu'] = $this->submenu($hoofdmenu['id']);
             $result[] = $hoofdmenu;
@@ -23,6 +25,11 @@ class Menu_model extends CI_Model
         return $result;
     }
 
+    /**
+     * Get a submenu for a certain menu id
+     * @param $id
+     * @return null
+     */
     public function submenu($id){
         $this->db->select('id, naam, engelse_naam, ingelogd');
         $this->db->from('pagina');

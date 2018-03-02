@@ -1,3 +1,12 @@
+<?php if (isset($success)) { ?>
+    <div class="alert alert-success">
+        <strong><?= $success ?></strong>
+    </div>
+<?php } if (isset($fail)) { ?>
+    <div class="alert alert-danger">
+        <strong><?= $fail?></strong>
+    </div>
+<?php } ?>
 <h1>Profiel van <?=$profile->naam?><?= ($profile->id===$this->session->id || $superuser) ? ' <a href="/profile/edit/'.$profile->id.'"><span class="fa fa-pencil-square"></span></a>' : ''?><?=$superuser?' <a href="/profile/delete/'.$profile->id.'"><span class="fa fa-trash"></span></a>':''?></h1>
 <div class="table-responsive">
     <table class="table table-condensed table-responsive table-user-information">

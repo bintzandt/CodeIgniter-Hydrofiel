@@ -1,5 +1,5 @@
 <h1>Profiel van <?= $profile->naam?></h1>
-<?= form_open("/profile/save/<?= $profile->id?>", array("class" => "form")); ?>
+<?= form_open("/profile/save/" . $profile->id, array("class" => "form")); ?>
     <div class="form-group">
         <div class="col-sm-2">
             <label class="control-label" for="naam">Naam</label>

@@ -1,11 +1,8 @@
 <?php
 /**
- * Created by PhpStorm.
- * User: bintzandt
- * Date: 02/02/18
- * Time: 22:51
+ * Class Agenda
+ * Used for handling all beheer functions related to the Agenda
  */
-
 class Agenda extends _BeheerController
 {
     public function __construct()
@@ -13,6 +10,9 @@ class Agenda extends _BeheerController
         parent::__construct();
     }
 
+    /**
+     * Load the index page
+     */
     public function index(){
         $data['success'] = $this->session->flashdata('success');
         $data['fail'] = $this->session->flashdata('fail');
@@ -20,6 +20,9 @@ class Agenda extends _BeheerController
         $this->loadView('beheer/agenda/agenda', $data);
     }
 
+    /**
+     * Load the inschrijvingen pagina, possibly for a specific member
+     */
     public function inschrijvingen($event_id, $member_id = NULL){
         if ($member_id !== NULL){
             $inschrijving = $this->agenda_model->get_inschrijvingen($event_id, $member_id);

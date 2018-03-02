@@ -1,11 +1,9 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: bintzandt
- * Date: 01/12/17
- * Time: 16:41
- */
 
+/**
+ * Used for sending mails to leden
+ * Class Mail
+ */
 class Mail extends _SiteController
 {
     public function __construct()
@@ -20,7 +18,11 @@ class Mail extends _SiteController
         $this->load->model('agenda_model');
     }
 
+    /**
+     * Function to send the mail
+     */
     public function send(){
+        //Make sure that flashdata is set, else this function will not work
         if (NULL !== $this->session->flashdata('data')){
             $data = $this->session->flashdata('data');
         }
@@ -136,13 +138,17 @@ class Mail extends _SiteController
         redirect('beheer/mail');
     }
 
+    /**
+     * Show an overview of the mail history, or, when a hash is provided, show that mail
+     * @param null $hash string Hash of the mail
+     */
     public function history($hash = NULL){
         if ($hash === NULL && $this->session->superuser) {
             $data['success'] = $this->session->flashdata('success');
             $data['fail'] = $this->session->flashdata('fail');
             $data['email'] = $this->mail_model->get_mail();
 
-            parent::loadViewBeheer('mail/overview', $data);
+            $this->loadViewBeheer('mail/overview', $data);
         }
         else {
             //Show details of mail or show error
@@ -156,6 +162,10 @@ class Mail extends _SiteController
         }
     }
 
+    /**
+     * Delete a mail with certain hash
+     * @param $hash string Which mail needs to be deleted
+     */
     public function delete($hash){
         if ($this->mail_model->delete($hash)) {
             $this->session->set_flashdata('success', 'Mail verwijderd.');
@@ -166,10 +176,18 @@ class Mail extends _SiteController
         redirect('/mail/history');
     }
 
+    /**
+     * Turns a string of emails into an array
+     * @param $emails A string contain email adresses
+     * @return array An array containing all the valid email adresses provided in the string
+     */
     private function get_emails($emails){
         $mail = array();
+        // Regex to filter out all the spaces
         $emails = preg_replace('/\s+/', '', $emails);
+        // Create an array of the string using ',' as delimiter
         $test_mail = explode(',', $emails);
+        // Run over the array to check whether each mail adress is valid
         if (!empty($test_mail)) {
             foreach ($test_mail as $adress) {
                 if (filter_var($adress, FILTER_VALIDATE_EMAIL)) array_push($mail, $adress);
@@ -178,8 +196,14 @@ class Mail extends _SiteController
         return $mail;
     }
 
+    /**
+     * Returns an array of mailadress based on which group has been selected
+     * @param $group string Specifies which group needs to be mailed
+     * @param $engels boolean Specifies whether this mail is English or Dutch
+     * @return array An array containing all the emailadress belonging to the group
+     */
     private function set_group($group, $engels){
-        $mail = [];
+        $mail = array();
         $emails = $this->mail_model->get_group($group, $engels);
         if (!empty($emails)){
             foreach ($emails as $email){
@@ -189,8 +213,14 @@ class Mail extends _SiteController
         return $mail;
     }
 
+    /**
+     * Returns an array of mailadresses based on which ids have been selected
+     * @param $ids array An array of ids
+     * @param $engels boolean Whether this mail is English or Dutch
+     * @return array An array containing mailadresses for all the ids
+     */
     private function set_ids($ids, $engels){
-        $mail = [];
+        $mail = array();
         $emails = $this->mail_model->get_emails($ids, $engels);
         if (!empty($emails)){
             foreach ($emails as $email){
@@ -200,6 +230,10 @@ class Mail extends _SiteController
         return $mail;
     }
 
+    /**
+     * Function to set the correct from mailadress
+     * @param $from string From which mailadress the mail will be sent
+     */
     private function set_from($from){
         switch ($from){
             case 'bestuur'          : $this->email->from('bestuur@hydrofiel.nl', 'Bestuur N.S.Z.&W.V. Hydrofiel'); break;
@@ -214,6 +248,14 @@ class Mail extends _SiteController
         }
     }
 
+    /**
+     * Function to create the actual email
+     * @param $layout string Which layout need to be chosen
+     * @param $content string The text which will be send
+     * @param $hash string Hash of the mail
+     * @param $engels boolean English or Dutch mail
+     * @return string A HTML string representing the final mail
+     */
     private function get_message($layout, $content, $hash, $engels){
         $data["content"] = $content;
         $data["hash"] = $hash;

@@ -1,11 +1,8 @@
 <?php
 /**
- * Created by PhpStorm.
- * User: bintzandt
- * Date: 29/11/17
- * Time: 15:09
+ * Class Inloggen
+ * Handles shit related to logging in on the website.
  */
-
 class Inloggen extends _SiteController
 {
     public function __construct()
@@ -15,6 +12,9 @@ class Inloggen extends _SiteController
         $this->load->model('profile_model');
     }
 
+    /**
+     * Show the default login page
+     */
     public function index(){
         $this->load->helper(array('form', 'url'));
 
@@ -40,6 +40,9 @@ class Inloggen extends _SiteController
         }
     }
 
+    /**
+     * Verify the login
+     */
     public function verify_login(){
         $data = $this->input->post(NULL, TRUE);
         $email = strtolower($data['email']);
@@ -59,7 +62,6 @@ class Inloggen extends _SiteController
                 'logged_in' => true,
                 'engels' => $login->engels
             );
-//            $this->cache->delete('menu');
             $this->session->set_userdata($userdata);
             $this->login_model->unset_recovery($login->id);
             if (!empty(explode('/inloggen', $data['referer'], -1))) {
@@ -72,7 +74,10 @@ class Inloggen extends _SiteController
              redirect('/inloggen');
         }
     }
-    
+
+    /**
+     * Show password forgotten page
+     */
     public function forgot_password(){
         $this->load->helper(array('form', 'url'));
         $this->load->library('form_validation');
@@ -87,6 +92,13 @@ class Inloggen extends _SiteController
         }
     }
 
+    /**
+     * Private function to send recovery email
+     * @param $email string Receiving emailadress
+     * @param $recovery string The recovery that the user can use
+     * @param $valid string until which time is the recovery valid
+     * @return true | false
+     */
     private function send_password_recovery_mail($email, $recovery, $valid){
         $data = array(
             'recovery' => $recovery,
@@ -99,7 +111,12 @@ class Inloggen extends _SiteController
         return $this->email->send();
     }
 
+    /**
+     * Function to reset the password or to send the mail
+     * @param null $recovery string the recovery ccode provided in the mail
+     */
     public function reset($recovery = NULL){
+        //If no recovery has been provided we will generate one and send an email.
         if ($recovery === NULL){
             $data = $this->input->post(NULL, TRUE);
             if (empty($data)) redirect('/inloggen');
@@ -115,6 +132,7 @@ class Inloggen extends _SiteController
             }
             redirect('/inloggen');
         }
+        //Check if we can reset this password
         else {
             $result = $this->login_model->get_id_and_mail($recovery);
             if ($result !== FALSE) {
@@ -142,8 +160,12 @@ class Inloggen extends _SiteController
         }
     }
 
+    /**
+     * Function to actually set a new password
+     */
     public function set_new_pass(){
         $data = $this->input->post(NULL, TRUE);
+        // Check if we still have a valid recovery...
         $result = $this->login_model->get_id_and_mail($data['recovery']);
         if ($result === FALSE) {
             $this->session->set_flashdata('fail','Deze recovery is onbekend.');

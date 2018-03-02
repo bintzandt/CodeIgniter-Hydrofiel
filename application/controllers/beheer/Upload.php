@@ -1,11 +1,8 @@
 <?php
 /**
- * Created by PhpStorm.
- * User: bintzandt
- * Date: 02/02/18
- * Time: 22:52
+ * Class Upload
+ * Handles file uploads
  */
-
 class Upload extends _BeheerController
 {
     public function __construct()
