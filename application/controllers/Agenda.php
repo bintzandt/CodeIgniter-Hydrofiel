@@ -27,6 +27,12 @@ class Agenda extends _SiteController
             show_error("Je bent niet bevoegd!");
         }
         $this->load->model('agenda_model');
+        if ($this->session->engels) {
+            $this->lang->load("agenda", "english");
+        }
+        else {
+            $this->lang->load("agenda");
+        }
     }
 
     /**
@@ -36,6 +42,11 @@ class Agenda extends _SiteController
         if (($data['events'] = $this->agenda_model->get_event()) !== FALSE){
             foreach ($data['events'] as $event){
                 $event->aanmeldingen = $this->agenda_model->get_aantal_aanmeldingen($event->event_id);
+		if ($this->session->engels) {
+	                $event->naam = $event->en_naam;
+	        } else {
+	                $event->naam = $event->nl_naam;
+	        }
             }
             $this->loadView('agenda/index', $data);
         } else {
@@ -56,6 +67,15 @@ class Agenda extends _SiteController
             if (empty($event)){
                 show_404();
             }
+
+            if ($this->session->engels) {
+                $event->naam = $event->en_naam;
+                $event->omschrijving = $event->en_omschrijving;
+            } else {
+                $event->naam = $event->nl_naam;
+                $event->omschrijving = $event->nl_omschrijving;
+            }
+
             $data['event'] = $event;
             $data['success'] = $this->session->flashdata('success');
             $data['fail'] = $this->session->flashdata('fail');
@@ -125,7 +145,7 @@ class Agenda extends _SiteController
         $data['tot'] = date_format(date_create($data['tot']), 'Ymd');
         $data['inschrijfdeadline'] = date_format(date_create($data['inschrijfdeadline']), 'Ymd');
         if ($data['soort'] === 'nszk') {
-            //we moeten de slagen verwerken naar json
+            $data['slagen'] = json_encode($data['slagen']);
         } else {
             unset($data['slagen']);
         }

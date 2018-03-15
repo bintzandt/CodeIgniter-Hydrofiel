@@ -10,6 +10,12 @@ class Inloggen extends _SiteController
         parent::__construct();
         $this->load->model('login_model');
         $this->load->model('profile_model');
+        if ($this->session->engels) {
+            $this->lang->load("inloggen", "english");
+        }
+        else {
+            $this->lang->load("inloggen");
+        }
     }
 
     /**
@@ -17,13 +23,12 @@ class Inloggen extends _SiteController
      */
     public function index(){
         $this->load->helper(array('form', 'url'));
-
         $this->load->library('form_validation');
-        $this->form_validation->set_rules('email', 'Email', 'required|valid_email',
+        $this->form_validation->set_rules('email', 'email', 'required|valid_email',
             array('required' => 'Je moet een %s opgeven!',
-                  'valid_email' => 'Dit is geen geldig %s-adres!'));
-        $this->form_validation->set_rules('wachtwoord', 'Wachtwoord', 'required',
-            array('required' => 'Je moet een %s opgeven!'));
+                  'valid_email' => 'Email en/of wachtwoord onjuist.'));
+        $this->form_validation->set_rules('wachtwoord', 'wachtwoord', 'required',
+            array('required' => 'Je moet een %s opgeven.'));
 
         if ($this->session->logged_in){
             $this->session->sess_destroy();
@@ -70,7 +75,7 @@ class Inloggen extends _SiteController
             redirect($data['referer']);
         }
         else {
-             $this->session->set_flashdata('fail', 'Email  en/of wachtwoord onjuist.');
+             $this->session->set_flashdata('fail', 'Email en/of wachtwoord onjuist.');
              redirect('/inloggen');
         }
     }

@@ -5,7 +5,14 @@
             .dropdown, li
                 padding: 0 10px 0 0
                 font-weight: 400
-                .dropdown-toggle, a
+                .dropdown-toggle
+                    color: white
+                    padding: 1em
+                    line-height: 20px
+                    &:hover, &:focus, &:active
+                        color: $hover_color
+                a
+                    padding-left: 14px
                     color: white
                     line-height: 20px
                     &:hover, &:focus, &:active
@@ -13,6 +20,8 @@
             .open
                 .dropdown-menu
                     background-color: $transparent_blue
+                    border: 0
+                    margin-top: 1px
                     text-align: left
                     left: 0
                     li > a

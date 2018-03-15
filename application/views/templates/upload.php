@@ -94,8 +94,8 @@
         <td>
             <p class="name">
                 {% if (file.url) { %}
-                    <a target="_blank" href="{%=file.url%}" >{%=file.name%}</a>
-                    <!-- <a onclick="" href="{%=file.url%}" onclick="CopyToClipboard('{%=file.url%}')" title="" download="{%=file.name%}" {%=file.thumbnailUrl?'data-gallery':''%}>{%=file.name%}</a> -->
+                    <!--<a target="_blank" href="{%=file.url%}" >{%=file.name%}</a>-->
+                    <a onclick="CopyToClipboard('{%=file.url%}')" title="">{%=file.name%}</a>
                 {% } else { %}
                     <span>{%=file.name%}</span>
                 {% } %}
@@ -125,6 +125,8 @@
 </script>
 <script>
     function CopyToClipboard(link) {
+        // Cut off https://www.hydrofiel.nl/.
+        link = link.slice(26, link.length);
         var success   = true,
             range     = document.createRange(),
             selection;

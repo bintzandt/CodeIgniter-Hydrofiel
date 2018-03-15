@@ -1,19 +1,19 @@
-<div style="text-align:right; vertical-align: top; padding: 20px;"><a href="/beheer/inschrijvingen/<?=$event_id?>"><b>Terug</b></a></div>
+<div style="text-align:right; vertical-align: top; padding: 20px;"><a href="/beheer/agenda/inschrijvingen/<?=$event_id?>"><b>Terug</b></a></div>
 <?= form_open("", array("class" => "form-horizontal")); ?>
     <div class="form-group">
         <div class="col-sm-4">
-            <label for="naam">Naam</label>
+            <label class="control-label" for="naam">Naam</label>
         </div>
         <div class="col-sm-8">
-            <input disabled id="naam" type="text" value="<?= $inschrijving->naam?>">
+            <input disabled id="naam" class="form-control" type="text" value="<?= $inschrijving->naam?>">
         </div>
     </div>
     <div class="form-group">
         <div class="col-sm-4">
-            <label for="opmerking">Opmerking</label>
+            <label class="control-label" for="opmerking">Opmerking</label>
         </div>
         <div class="col-sm-8">
-            <input disabled id="opmerking" type="text" value="<?= $inschrijving->opmerking?>">
+            <input disabled id="opmerking" class="form-control" type="text" value="<?= $inschrijving->opmerking?>">
         </div>
     </div>
     <div class="<?= ($nszk) ? '' : 'hidden'?>">
@@ -22,14 +22,15 @@
         <?php if (!empty($slagen)) { foreach ($slagen as $slag => $tijd){ ?>
             <div class="form-group">
                 <div class="col-sm-4">
-                    <label><?=$slag?></label>
+                    <label class="control-label"><?=$slag?></label>
                 </div>
                 <div class="col-sm-8">
-                    <input disabled type="text" value="<?= $tijd ?>">
+                    <input disabled class="form-control" type="text" value="<?= $tijd ?>">
                 </div>
             </div>
         <?php }} if (!empty($details)) { ?>
         <hr>
+        <h3>Details</h3><br>
         <div class="form-group">
             <div class="col-sm-4">
                 <label for="preborrel">Ik ga mee naar de preborrel</label>

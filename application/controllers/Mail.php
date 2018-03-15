@@ -84,7 +84,6 @@ class Mail extends _SiteController
         $this->email->clear(TRUE);
 
         //Engels mailen
-
         //Attach the attachments to the mail class.
         foreach(glob('/home/bintza1q/attachments/engels/*.*') as $file) {
             $this->email->attach($file);
@@ -146,7 +145,7 @@ class Mail extends _SiteController
         if ($hash === NULL && $this->session->superuser) {
             $data['success'] = $this->session->flashdata('success');
             $data['fail'] = $this->session->flashdata('fail');
-            $data['email'] = $this->mail_model->get_mail();
+            $data['email'] = $this->mail_model->get_mail($limit = 1000);
 
             $this->loadViewBeheer('mail/overview', $data);
         }

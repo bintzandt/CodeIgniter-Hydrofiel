@@ -31,34 +31,30 @@
                             <?php
                             }
                             else { ?>
-                                <li><a href="/page/id/<?=$hoofdmenu['id']?>"><?= $engels? $hoofdmenu['engelse_naam']:$hoofdmenu['naam'] ?></a></li>
+                                <li class="dropdown"><a class="dropdown-toggle" href="/page/id/<?=$hoofdmenu['id']?>"><?= $engels? $hoofdmenu['engelse_naam']:$hoofdmenu['naam'] ?></a></li>
                             <?php
                             }
                         }
                         if ($logged_in) { ?>
-                            <li><a href="/agenda"><span class="fa fa-calendar"></span> Agenda</a></li>
-                            <li><a href="/profile"><span class="fa fa-user"></span> Profiel </a></li>
+                            <li class="dropdown"><a href="/agenda" class="dropdown-toggle"><span class="fa fa-calendar"></span> <?= lang('general_calendar')?></a></li>
+                            <li class="dropdown"><a href="/profile" class="dropdown-toggle"><span class="fa fa-user"></span> <?= lang('general_profile')?> </a></li>
                             <?php if ($superuser) { ?>
-                                <li><a href="/beheer"><span class="fa fa-gears"></span> Beheerpanel </a></li>
+                                <li class="dropdown"><a href="/beheer" class="dropdown-toggle"><span class="fa fa-gears"></span> <?= lang('general_control_panel')?></a></li>
                             <?php } ?>
-                            <li><a href="/inloggen" style="margin-bottom: 25px"><span class="fa fa-sign-out"></span> Uitloggen </a></li>
+                            <li class="dropdown"><a href="/inloggen" class="dropdown-toggle"><span class="fa fa-sign-out"></span> <?= lang('general_sign_out')?> </a></li>
                         <?php
                         }
                         else { ?>
-                            <li><a href="/inloggen"><span class="fa fa-sign-in"></span> Inloggen </a></li>
+                            <li class="dropdown"><a href="/inloggen" class="dropdown-toggle"><span class="fa fa-sign-in"></span> <?= lang('general_sign_in')?> </a></li>
                         <?php
-                        }
-                        if ($engels) { ?>
-                            <li><a href="/home/language" style="margin-bottom: 25px"><span class="fa fa-flag"></span> Nederlands</a></li>
-                        <?php } else { ?>
-                            <li><a href="/home/language" style="margin-bottom: 25px"><span class="fa fa-flag"></span> English</a></li>
-                        <?php } ?>
+                        } ?>
+                        <li class="dropdown"><a href="/home/language" class="dropdown-toggle"><span class="fa fa-flag"></span> <?= lang('general_language') ?></a></li>
                     </ul>
                 </div>
             </nav>
         </div>
     <div class="banner-info clickable-row" id="info" data-href="/">
-        <p>Zwem & Waterpolovereniging</p>
+        <p><?= lang('general_info') ?></p>
 <!--        <label></label>-->
         <h2>N.S.Z.&W.V. Hydrofiel</h2>
     </div>

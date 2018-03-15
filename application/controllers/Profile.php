@@ -19,6 +19,12 @@ class Profile extends _SiteController
 
         $this->load->model('profile_model');
         $this->load->helper('url_helper');
+        if ($this->session->engels) {
+            $this->lang->load("profile", "english");
+        }
+        else {
+            $this->lang->load("profile");
+        }
     }
 
     /**
@@ -38,7 +44,7 @@ class Profile extends _SiteController
         }
 
         $data['profile']->lidmaatschap = $this->lidmaatschap($data['profile']->lidmaatschap);
-        parent::loadView('profile/view', $data);
+        $this->loadView('profile/view', $data);
     }
 
     /**

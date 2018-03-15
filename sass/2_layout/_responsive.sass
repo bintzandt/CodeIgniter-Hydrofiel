@@ -32,7 +32,7 @@
     border-color: #e7e7e7
     background: rgba(0, 0, 0, 0.83)
     position: absolute
-    width: 80%
+    width: 100%
 
   .navbar-default .navbar-toggle
     border-color: #fff
@@ -54,28 +54,7 @@
     margin: 0
     float: none !important
 
-@media (max-width: 426px)
-  .banner-info
-    p
-      display: none
 
-@media (max-width: 520px)
-  .banner
-    height: 10em !important
-  .banner-info
-    margin: 0
-    h2
-      width: 55%
-    p
-      height: 10px
-  .navbar-default
-    margin-bottom: 0
-
-@media(max-width: 850px)
-  .banner-info h2
-    width: 71%
-  .banner
-    height: 24em
 
 @media(max-width: 1200px)
   .banner
@@ -87,10 +66,26 @@
   .navbar-right
     margin-right: 0
 
+@media (min-width: 1200px)
+  .banner-info
+    margin-top: 10em
+
 @media(max-width: 600px)
   .banner-info h2
     font-size: 2em
 
+@media (max-width: 520px)
+  .banner
+    height: 10em !important
+  .banner-info
+    h2
+      //width: 71%
+      font-size: 1.2em
+      width: 55%
+    p
+      display: none
+  .navbar-default
+    margin-bottom: 0
 
 @media(max-width: 480px)
   .agileinfo-social-grids ul li a i.fa.fa-facebook,.agileinfo-social-grids ul li a i.fa.fa-snapchat-ghost,.agileinfo-social-grids ul li a i.fa.fa-envelope, .agileinfo-social-grids ul li a i.fa.fa-instagram
@@ -112,10 +107,6 @@
 
   .navbar-toggle
     margin: .5em 0 0 0
-
-  .banner-info h2
-    font-size: 1.2em
-
 
 @media(max-width: 384px)
   .navbar-header h1 a

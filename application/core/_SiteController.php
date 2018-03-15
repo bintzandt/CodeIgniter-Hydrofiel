@@ -12,6 +12,12 @@ class _SiteController extends CI_Controller
             $this->output->enable_profiler(TRUE);
         }
         $this->load->driver('cache', array('adapter' => 'file'));
+        if ($this->session->engels) {
+            $this->lang->load("general", "english");
+        }
+        else {
+            $this->lang->load("general");
+        }
     }
 
     /**

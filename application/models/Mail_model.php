@@ -77,9 +77,9 @@ class Mail_model extends CI_Model
      * @param null $hash
      * @return mixed
      */
-    public function get_mail($hash = NULL){
+    public function get_mail($hash = NULL, $limit = 10){
         if ($hash === NULL){
-            $this->db->limit(10);
+            $this->db->limit($limit);
             $query = $this->db->get('mail');
             return $query->result();
         }

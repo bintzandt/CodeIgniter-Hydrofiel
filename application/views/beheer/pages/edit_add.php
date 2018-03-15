@@ -19,13 +19,13 @@
     <div class="form-group">
         <label for="naam" class="col-sm-2 control-label">Nederlandse naam</label>
         <div class="col-sm-10">
-            <input required class="form-control" type="text" name="naam" id="naam" value="<?= ($edit_mode)? $page->naam : ''?>" placeholder="Naam">
+            <input class="form-control" type="text" name="naam" id="naam" value="<?= ($edit_mode)? $page->naam : ''?>" placeholder="Naam">
         </div>
     </div>
     <div class="form-group">
         <label for="englelse_naam" class="col-sm-2 control-label">Engelse naam</label>
         <div class="col-sm-10">
-            <input required class="form-control" type="text" name="engelse_naam" id="engelse_naam" value="<?= ($edit_mode)? $page->engelse_naam: ''?>" placeholder="Name">
+            <input class="form-control" type="text" name="engelse_naam" id="engelse_naam" value="<?= ($edit_mode)? $page->engelse_naam: ''?>" placeholder="Name">
         </div>
     </div>
     <div class="form-group">
@@ -70,13 +70,13 @@
     <div class="form-group">
         <label for="summernote" class="col-sm-2 control-label">Nederlands</label>
         <div class="col-sm-10">
-            <textarea class="input-block-level" id="summernote" name="tekst" required><?= ($edit_mode)? $page->tekst: ''?></textarea>
+            <textarea class="input-block-level" id="summernote" name="tekst"><?= ($edit_mode)? $page->tekst: ''?></textarea>
         </div>
     </div>
     <div class="form-group">
         <label for="summernote" class="col-sm-2 control-label">Engels</label>
         <div class="col-sm-10">
-            <textarea class="input-block-level" id="engels" name="engels" required><?= ($edit_mode)? $page->engels: ''?></textarea>
+            <textarea class="input-block-level" id="engels" name="engels"><?= ($edit_mode)? $page->engels: ''?></textarea>
         </div>
     </div>
     <?php } ?>

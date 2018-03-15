@@ -39,11 +39,7 @@ class Page extends _SiteController
         if ($data['pagina']['ingelogd'] && !$this->session->logged_in){
             redirect('/inloggen');
         }
-        //If this is not a CMS page we redirect to the correct URL
-        //TODO: Is this still used?
-        if ($data['pagina']['cmspagina'] === 'nee'){
-            redirect($data['pagina']['navigatie']);
-        }
+
         //Check if we are in an English setting
         if ($this->session->engels) {
             $data['tekst'] = $data['pagina']['engels'];

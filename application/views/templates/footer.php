@@ -16,8 +16,8 @@
         </div>
     </div>
     <!--  SummerNote  -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.8/summernote.js" async></script>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.8/summernote.css" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.10/summernote.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.10/summernote.css" />
 
     <script src="/js/bootstrap-model-wrapper.min.js"></script>
     <script type="text/javascript">
@@ -67,7 +67,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.7.1/css/bootstrap-datepicker.min.css" />
 
     <!--    multiselect-->
-    <script type="text/javascript" src="js/bootstrap-multiselect.min.js"></script>
+    <script type="text/javascript" src="/js/bootstrap-multiselect.min.js"></script>
     <link href="https://opensource.keycdn.com/fontawesome/4.7.0/font-awesome.min.css" rel="stylesheet">
 
     <!-- small script for getting data from facebook -->
@@ -79,15 +79,15 @@
                 if (json.data.length > 0) {
                     $.each(json.data, function (i, media){
                         if (media.media !== undefined) {
-                            $('#' + id).html("<img class='img-responsive' src='" + media.media.image.src + "'>");
+                            $('#' + id).html("<img class='img-responsive no_margin' src='" + media.media.image.src + "'>");
                         }
                         else if (media.subattachments !== undefined) {
-                            $('#' + id).html("<img class='img-responsive' src='" + media.subattachments.data[0].media.image.src + "'>");
+                            $('#' + id).html("<img class='img-responsive no_margin' src='" + media.subattachments.data[0].media.image.src + "'>");
                         }
                     });
                 }
                 else {
-                    console.debug(id);
+                    //console.debug(id);
                     $('#' + id).remove();
                     $('#txt_' + id).toggleClass('col-md-9 col-sm-12');
                 }
@@ -103,8 +103,8 @@
                 //Add some formatting to the message
                 $.each(json.data, function (i, fb) {
                     if (fb.message != null) {
-                        html += "<div class='container'>" +
-                                    "<div class='col-md-3' id='" + fb.id + "'></div>" +
+                        html += "<div class='container container-item'>" +
+                                        "<div class='col-md-3' id='" + fb.id + "'></div>" +
                                     "<div class='col-md-9' id='txt_" + fb.id + "' align='left'>" +
                                         "<p>" +
                                             $('<div>').html(fb.message).text() +
@@ -120,6 +120,20 @@
                 $('#facebookfeed').html(html);
             });
         }
+        $(function(){
+            $("h1").each(function(){
+                $(this).addClass("oranje_tekst");
+            });
+            $("h3").each(function(){
+                $(this).addClass("oranje_tekst");
+            });
+            $("h4").each(function(){
+                $(this).addClass("oranje_tekst");
+            });
+            $("img").each(function(){
+                $(this).addClass("img-responsive");
+            });
+        });
     </script>
 
 </div>

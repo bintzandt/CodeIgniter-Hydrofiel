@@ -1,8 +1,8 @@
-<h1>Profiel van <?= $profile->naam?></h1>
+<h1><?= lang('profile_title')?><?= $profile->naam?></h1>
 <?= form_open("/profile/save/" . $profile->id, array("class" => "form")); ?>
     <div class="form-group">
         <div class="col-sm-2">
-            <label class="control-label" for="naam">Naam</label>
+            <label class="control-label" for="naam"><?= lang("profile_name")?></label>
         </div>
         <div class="col-sm-10">
             <input id="naam" type="text" class="form-control" disabled value="<?= $profile->naam?>">
@@ -11,17 +11,17 @@
     </div>
     <div class="form-group">
         <div class="col-sm-2">
-            <label class="control-label" for="wachtwoord">Wachtwoord</label>
+            <label class="control-label" for="wachtwoord"><?= lang("profile_password")?></label>
         </div>
         <div class="col-sm-10">
             <input id="wachtwoord" name="wachtwoord1" type="password" class="form-control" value="wachtwoord">
             <input id="wachtwoord2" name="wachtwoord2" type="password" class="form-control" value="wachtwoord">
-            <span class="help-block">Laat dit veld leeg als je het wachtwoord niet wilt aanpassen.</span>
+            <span class="help-block"><?= lang("profile_password_help") ?></span>
         </div>
     </div>
     <div class="form-group">
         <div class="col-sm-2">
-            <label class="control-label" for="mobiel">Telefoon</label>
+            <label class="control-label" for="mobiel"><?= lang("profile_mobile")?></label>
         </div>
         <div class="col-sm-10">
             <input id="mobiel" type="text" name="mobielnummer" value="<?= $profile->mobielnummer?>" class="form-control">
@@ -29,7 +29,7 @@
     </div>
     <div class="form-group">
         <div class="col-sm-2">
-            <label class="control-label" for="mobiel">Email</label>
+            <label class="control-label" for="email"><?= lang("profile_email")?></label>
         </div>
         <div class="col-sm-10">
             <input id="email" type="text" name="email" value="<?= $profile->email?>" class="form-control">
@@ -37,7 +37,7 @@
     </div>
     <div class="form-group">
         <div class="col-sm-2">
-            <label class="control-label" for="adres">Adres</label>
+            <label class="control-label" for="adres"><?= lang("profile_address") ?></label>
         </div>
         <div class="col-sm-10">
             <input id="adres" type="text" name="adres" value="<?= $profile->adres?>" class="form-control"/>
@@ -47,20 +47,20 @@
     </div>
     <div class="form-group">
         <div class="col-sm-2">
-            <label class="control-label">Zichtbaar in Profiel</label>
+            <label class="control-label"><?= lang("profile_visible") ?></label>
         </div>
         <div class="col-sm-10">
-            <label class="checkbox inline"><input type="checkbox" class="form-control" name="zichtbaar_telefoonnummer" value="1" <?= ($profile->zichtbaar_telefoonnummer)? 'checked':''?>> Laat mijn telefoonnummer zien</label>
-            <label class="checkbox inline"><input type="checkbox" class="form-control" name="zichtbaar_email" value="1" <?= ($profile->zichtbaar_email)? 'checked':''?>> Laat mijn email zien</label>
-            <label class="checkbox inline"><input type="checkbox" class="form-control" name="zichtbaar_adres" value="1" <?= ($profile->zichtbaar_adres)? 'checked':''?>> Laat mijn adres zien</label>
+            <input type="checkbox" name="zichtbaar_telefoonnummer" value="1" <?= ($profile->zichtbaar_telefoonnummer)? 'checked':''?>> <?= lang("profile_show_phone")?><br>
+            <input type="checkbox" name="zichtbaar_email" value="1" <?= ($profile->zichtbaar_email)? 'checked':''?>> <?= lang("profile_show_email")?><br>
+            <input type="checkbox" name="zichtbaar_adres" value="1" <?= ($profile->zichtbaar_adres)? 'checked':''?>>  <?= lang("profile_show_address")?>
         </div>
     </div>
     <div class="form-group">
         <div class="col-sm-2">
-            <label class="control-label">Nieuwsbrief</label>
+            <label class="control-label"><?= lang("profile_newsletter")?></label>
         </div>
         <div class="col-sm-10">
-            <input type="checkbox" name="nieuwsbrief" value="1" <?= ($profile->nieuwsbrief)? 'checked':''?>> Ik wil graag de nieuwsbrief ontvangen
+            <input type="checkbox" name="nieuwsbrief" value="1" <?= ($profile->nieuwsbrief)? 'checked':''?>> <?= lang("profile_newsletter_msg")?>
         </div>
     </div>
     <div class="form-group">
@@ -73,8 +73,8 @@
     </div>
     <div class="form-group">
         <div class="col-sm-10">
-            <input type="submit" class="btn btn-primary" value="Opslaan">
-            <input type="reset" class="btn btn-warning" onclick="window.location.replace(document.referrer)" value="Annuleren">
+            <input type="submit" class="btn btn-primary" value="<?= lang('profile_save')?>">
+            <input type="reset" class="btn btn-warning" onclick="window.location.replace(document.referrer)" value="<?= lang('profile_cancel')?>">
         </div>
     </div>
 <?= form_close(); ?>
