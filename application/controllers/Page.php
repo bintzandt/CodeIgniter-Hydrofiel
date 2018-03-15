@@ -1,11 +1,8 @@
 <?php
 /**
- * Created by PhpStorm.
- * User: bintzandt
- * Date: 29/11/17
- * Time: 14:31
+ * Handles all page related stuff
+ * Class Page
  */
-
 class Page extends _SiteController
 {
     public function __construct()
@@ -17,23 +14,33 @@ class Page extends _SiteController
         }
     }
 
+    /**
+     * Index function, refers to id
+     * @param string $page Which page needs to be shown
+     */
     public function index($page = '1'){
         $this->id($page);
     }
 
+    /**
+     * Actual function to get page contents
+     * @param string $page
+     */
     public function id($page = '1'){
         $this->db->cache_on();
+        //Get the page from the model
         $data['pagina'] = $this->page_model->view($page);
+
+        //Check if this is an actual page
         if (empty($data['pagina'])){
             show_404();
         }
+        //Check if we need to be logged in to visit this page
         if ($data['pagina']['ingelogd'] && !$this->session->logged_in){
             redirect('/inloggen');
         }
-        if ($data['pagina']['cmspagina'] === 'nee'){
-            redirect($data['pagina']['navigatie']);
-        }
 
+        //Check if we are in an English setting
         if ($this->session->engels) {
             $data['tekst'] = $data['pagina']['engels'];
         }
@@ -41,9 +48,13 @@ class Page extends _SiteController
             $data['tekst'] = $data['pagina']['tekst'];
         }
         $this->db->cache_off();
-        parent::loadView('templates/page', $data);
+        $this->loadView('templates/page', $data);
     }
 
+    /**
+     * Function to add a new page
+     * TODO: Move this to the beheer/page controller
+     */
     public function toevoegen(){
         $data = $this->input->post(NULL, TRUE);
         if ($data['hoofdmenu']) {
@@ -65,6 +76,10 @@ class Page extends _SiteController
         }
     }
 
+    /**
+     * Function to edit a page
+     * TODO: Move this function to the beheer/page controller
+     */
     public function edit(){
         $data = $this->input->post(NULL, TRUE);
         $page = $this->page_model->view($data['id']);
@@ -90,6 +105,11 @@ class Page extends _SiteController
         }
     }
 
+    /**
+     * Function to delete a page
+     * @param $id int ID of the page to be deleted
+     * TODO: Move this function to the beheer/page controller
+     */
     public function delete($id){
         if ($this->page_model->delete($id) > 0) {
             $this->session->set_flashdata('success', 'De pagina is verwijderd!');

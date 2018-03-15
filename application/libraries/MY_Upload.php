@@ -2,6 +2,7 @@
 
 /**
  * Exenstion File Uploading Class
+ * Handles multiple file uploads.
  */
 		
 class MY_Upload extends CI_Upload {

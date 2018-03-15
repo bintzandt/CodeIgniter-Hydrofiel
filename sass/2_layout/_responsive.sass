@@ -20,7 +20,7 @@
     margin-right: 0
     float: none !important
 
-@media(max-width: 908px)
+@media(max-width: 1000px)
   .navbar-toggle
     float: left
     margin: 1em 0 0 0
@@ -32,7 +32,7 @@
     border-color: #e7e7e7
     background: rgba(0, 0, 0, 0.83)
     position: absolute
-    width: 80%
+    width: 100%
 
   .navbar-default .navbar-toggle
     border-color: #fff
@@ -55,32 +55,37 @@
     float: none !important
 
 
-@media (max-width: 520px)
-  .banner
-    height: 10em !important
-  .banner-info
-    margin: 0
-    h2
-      width: 55%
-    p
-      height: 10px
-  .navbar-default
-    margin-bottom: 0
-
-@media(max-width: 850px)
-  .banner-info h2
-    width: 71%
-  .banner
-    height: 17em
 
 @media(max-width: 1200px)
   .banner
     height: 24em
 
+@media (min-width: 908px), (max-width: 1000px)
+  .banner-info
+    margin-top: 0
+  .navbar-right
+    margin-right: 0
+
+@media (min-width: 1200px)
+  .banner-info
+    margin-top: 10em
+
 @media(max-width: 600px)
   .banner-info h2
     font-size: 2em
 
+@media (max-width: 520px)
+  .banner
+    height: 10em !important
+  .banner-info
+    h2
+      //width: 71%
+      font-size: 1.2em
+      width: 55%
+    p
+      display: none
+  .navbar-default
+    margin-bottom: 0
 
 @media(max-width: 480px)
   .agileinfo-social-grids ul li a i.fa.fa-facebook,.agileinfo-social-grids ul li a i.fa.fa-snapchat-ghost,.agileinfo-social-grids ul li a i.fa.fa-envelope, .agileinfo-social-grids ul li a i.fa.fa-instagram
@@ -96,24 +101,19 @@
 @media(max-width: 850px)
   .navbar-header h1
     font-size: 2em
-
-  .navbar-header h1 a
-    padding: .2em 0em
-    letter-spacing: 5px
+    a
+      padding: .2em 0
+      letter-spacing: 5px
 
   .navbar-toggle
     margin: .5em 0 0 0
-
-  .banner-info h2
-    font-size: 1.2em
-
 
 @media(max-width: 384px)
   .navbar-header h1 a
     letter-spacing: 3px
 
 
-@media(max-width: 908px)
+@media(max-width: 1000px)
   .navbar-default .navbar-collapse, .navbar-default .navbar-form
     z-index: 99
 
@@ -140,7 +140,7 @@
     padding: 1em 0
 
 
-@media (max-width: 908px)
+@media (max-width: 1000px)
   .navbar-header
     float: none
 

@@ -1,4 +1,13 @@
-<h1>Profiel van <?=$profile->naam?><?= ($profile->id===$this->session->id || $superuser) ? ' <a href="/profile/edit/'.$profile->id.'"><span class="fa fa-pencil-square"></span></a>' : ''?><?=$superuser?' <a href="/profile/delete/'.$profile->id.'"><span class="fa fa-trash"></span></a>':''?></h1>
+<?php if (isset($success)) { ?>
+    <div class="alert alert-success">
+        <strong><?= $success ?></strong>
+    </div>
+<?php } if (isset($fail)) { ?>
+    <div class="alert alert-danger">
+        <strong><?= $fail?></strong>
+    </div>
+<?php } ?>
+<h1><?= lang("profile_title")?><?=$profile->naam?><?= ($profile->id===$this->session->id || $superuser) ? ' <a href="/profile/edit/'.$profile->id.'"><span class="fa fa-pencil-square"></span></a>' : ''?><?=$superuser?' <a href="/profile/delete/'.$profile->id.'"><span class="fa fa-trash"></span></a>':''?></h1>
 <div class="table-responsive">
     <table class="table table-condensed table-responsive table-user-information">
         <tbody>
@@ -6,7 +15,7 @@
             <td>
                 <strong>
                     <span class="glyphicon glyphicon-user  text-primary"></span>
-                    Naam
+                    <?= lang("profile_name"); ?>
                 </strong>
             </td>
             <td class="text-primary">
@@ -17,7 +26,7 @@
             <td>
                 <strong>
                     <span class="glyphicon glyphicon-gift  text-primary"></span>
-                    Geboortedatum
+                    <?= lang("profile_birthday"); ?>
                 </strong>
             </td>
             <td class="text-primary">
@@ -28,7 +37,7 @@
             <td>
                 <strong>
                     <span class="glyphicon glyphicon-phone text-primary"></span>
-                    Mobielnummer
+                    <?= lang("profile_mobile"); ?>
                 </strong>
             </td>
             <td class="text-primary">
@@ -39,7 +48,7 @@
             <td>
                 <strong>
                     <span class="glyphicon glyphicon-envelope text-primary"></span>
-                    Email
+                    <?= lang("profile_email"); ?>
                 </strong>
             </td>
             <td class="text-primary">
@@ -50,7 +59,7 @@
             <td>
                 <strong>
                     <span class="glyphicon glyphicon-home text-primary"></span>
-                    Adres
+                    <?= lang("profile_address"); ?>
                 </strong>
             </td>
             <td class="text-primary">
@@ -61,7 +70,7 @@
             <td>
                 <strong>
                     <span class="glyphicon glyphicon-tint text-primary"></span>
-                    Lidmaatschap
+                    <?= lang("profile_membership"); ?>
                 </strong>
             </td>
             <td class="text-primary">

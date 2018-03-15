@@ -1,11 +1,9 @@
 <?php
 /**
- * Created by PhpStorm.
- * User: bintzandt
- * Date: 02/02/18
- * Time: 23:34
+ * Class _BeheerController
+ * Handles loading the beheer view
+ * This core controller can be extended with other functionality that needs to be accessed in beheer controllers
  */
-
 class _BeheerController extends CI_Controller
 {
     public function __construct()
@@ -25,6 +23,11 @@ class _BeheerController extends CI_Controller
         }
     }
 
+    /**
+     * Function to load a certain view in a controller
+     * @param $view string Specifies which view needs to be loaded
+     * @param null | array $data Specifies which data needs to be passed to the view
+     */
     protected function loadView($view, $data = NULL){
         $this->load->view('templates/header');
         $this->load->view('templates/beheermenu');

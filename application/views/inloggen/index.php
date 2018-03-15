@@ -9,14 +9,13 @@
                 <strong><?= $fail?></strong>
             </div>
         <?php } ?>
+        <?php echo form_error('wachtwoord'); ?>
+        <?php echo form_error('email'); ?>
         <?php echo form_open('/inloggen', array('class' => 'form-signin')); ?>
-            <?php echo form_error('email'); ?>
             <input type="text" name="email" class="form-control" placeholder="Email" value="<?php echo set_value('email'); ?>" autofocus>
-            <?php echo form_error('wachtwoord'); ?>
-            <input type="password" name="wachtwoord" id="wachtwoord" class="form-control" placeholder="Wachtwoord">
-            <button class="btn btn-lg btn-primary btn-block" type="submit">
-                Inloggen</button>
-            <a href="/inloggen/forgot_password" class="pull-right need-help">Wachtwoord vergeten? </a><span class="clearfix"></span>
+            <input type="password" name="wachtwoord" id="wachtwoord" class="form-control" placeholder="<?= lang('inloggen_password') ?>">
+            <button class="btn btn-lg btn-primary btn-block" type="submit"><?= lang('inloggen_login')?></button>
+            <a href="/inloggen/forgot_password" class="pull-right need-help"><?= lang('inloggen_forgot_password')?></a><span class="clearfix"></span>
             <input type="hidden" name="referer" value="<?=isset($_SERVER['HTTP_REFERER'])?$_SERVER['HTTP_REFERER']:'/'?>">
         <?= form_close() ?>
     </div>

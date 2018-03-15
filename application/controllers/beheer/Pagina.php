@@ -1,11 +1,8 @@
 <?php
 /**
- * Created by PhpStorm.
- * User: bintzandt
- * Date: 02/02/18
- * Time: 22:47
+ * Class Pagina
+ * Handles all page related stuff in the beheer panel
  */
-
 class Pagina extends _BeheerController
 {
     public function __construct()
@@ -13,6 +10,9 @@ class Pagina extends _BeheerController
         parent::__construct();
     }
 
+    /**
+     * Show index
+     */
     public function index(){
         $this->db->cache_delete('menu', 'hoofdmenu');
         $this->db->cache_delete('page', 'id');
@@ -22,13 +22,23 @@ class Pagina extends _BeheerController
         $this->loadView('beheer/pages/pages', $data);
     }
 
+    /**
+     * Add a page
+     */
     public function toevoegen(){
+        //Note: Edit mode is false because we use the same view for editing and adding pages
+        //      Only different controllers handle the request.
         $data['edit_mode'] = false;
         $data['hoofdmenu'] = $this->menu_model->hoofdmenu(false);
         $this->loadView('beheer/pages/edit_add', $data);
     }
 
+    /**
+     * Edit a page
+     * @param null $id int which page needs to be edited
+     */
     public function edit($id = NULL){
+        //If no id has been provided show a 404
         if ($id===NULL) show_404();
         $data['edit_mode'] = true;
         $data['hoofdmenu'] = $this->menu_model->hoofdmenu(false);
@@ -37,7 +47,9 @@ class Pagina extends _BeheerController
     }
 
     /**
-     * @param null $id
+     * Move a page up in the menu
+     * @param null $id int which page needs to move up
+     * TODO: Make this async using javascript
      */
     public function up($id=NULL){
         $this->db->cache_delete('menu', 'hoofdmenu');
@@ -65,7 +77,9 @@ class Pagina extends _BeheerController
     }
 
     /**
-     * @param null $id
+     * Move a page down in the menu
+     * @param null $id int which page needs to move down
+     * TODO: Make this async using javascript
      */
     public function down($id=NULL){
         $this->db->cache_delete('menu', 'hoofdmenu');

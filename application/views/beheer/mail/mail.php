@@ -126,12 +126,6 @@
         </div>
     </div>
     <div class="form-group">
-        <label for="file" class="col-sm-2 control-label">Bijlage</label>
-        <div class="col-sm-10">
-            <input type="file" name="userfile[]" size="20" multiple>
-        </div>
-    </div>
-    <div class="form-group">
         <label for="onderwerp" class="col-sm-2 control-label">Onderwerp (NL)</label>
         <div class="col-sm-10">
             <?php echo form_error('onderwerp', '<div class="alert alert-danger">', '</div>'); ?>
@@ -142,7 +136,12 @@
         <label for="summernote" class="col-sm-2 control-label">Tekst (NL)</label>
         <div class="col-sm-10">
             <textarea class="input-block-level" id="summernote" name="content" required><?php echo set_value('content')?></textarea>
-<!--            <input id="send" onclick="showModal()" type="button" class="btn btn-primary center-block" value="Versturen">-->
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="file" class="col-sm-2 control-label">Bijlage (NL)</label>
+        <div class="col-sm-10">
+            <input type="file" name="userfile_nl[]" size="20" multiple>
         </div>
     </div>
     <div class="form-group">
@@ -156,9 +155,16 @@
         <label for="engels" class="col-sm-2 control-label">Tekst (EN)</label>
         <div class="col-sm-10">
             <textarea class="input-block-level" id="engels" name="en_content" required><?php echo set_value('en_content')?></textarea>
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="file" class="col-sm-2 control-label">Bijlage (EN)</label>
+        <div class="col-sm-10">
+            <input type="file" name="userfile_en[]" size="20" multiple>
             <input id="send" onclick="showModal()" type="button" class="btn btn-primary center-block" value="Versturen">
         </div>
     </div>
 </form>
+<div style="text-align:right; vertical-align: top; padding: 20px;"><a href="/beheer/mail/vrienden"><b>Vrienden van Hydrofiel</b></a></div>
 </body>
 </html>

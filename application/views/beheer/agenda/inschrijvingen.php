@@ -22,8 +22,8 @@
         <tbody>
         <?php foreach ($inschrijvingen as $inschrijving) { ?>
             <tr>
-                <td class="clickable-row" data-href="/beheer/inschrijvingen/<?=$event_id?>/<?= $inschrijving->member_id ?>"><?=$inschrijving->naam?></td>
-                <td class="clickable-row" data-href="/beheer/inschrijvingen/<?=$event_id?>/<?= $inschrijving->member_id ?>"><?= date_format(date_create($inschrijving->datum), 'd-m-Y H:i') ?></td>
+                <td class="clickable-row" data-href="/beheer/agenda/inschrijvingen/<?=$event_id?>/<?= $inschrijving->member_id ?>"><?=$inschrijving->naam?></td>
+                <td class="clickable-row" data-href="/beheer/agenda/inschrijvingen/<?=$event_id?>/<?= $inschrijving->member_id ?>"><?= date_format(date_create($inschrijving->datum), 'd-m-Y H:i') ?></td>
                 <td>
                     <a onclick="showModal('<?=$inschrijving->naam?>',<?=$event_id?>, <?=$inschrijving->member_id?>)"><span class="fa fa-trash"></span></a>
                 </td>

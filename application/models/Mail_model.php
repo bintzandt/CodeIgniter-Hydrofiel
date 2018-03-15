@@ -1,13 +1,16 @@
 <?php
 /**
- * Created by PhpStorm.
- * User: bintzandt
- * Date: 02/12/17
- * Time: 13:10
+ * Class Mail_model
+ * Handles all database actions related to mailing
  */
-
 class Mail_model extends CI_Model
 {
+    /**
+     * Gets a list of user from a certain group
+     * @param $group
+     * @param $engels
+     * @return array
+     */
     public function get_group($group, $engels){
         $this->db->select('email');
         $this->db->from('gebruikers');
@@ -43,6 +46,12 @@ class Mail_model extends CI_Model
         return $query->result();
     }
 
+    /**
+     * Get emails belonging to an array of ids
+     * @param $ids
+     * @param $engels
+     * @return mixed
+     */
     public function get_emails($ids, $engels){
         $this->db->select('email');
         $this->db->from('gebruikers');
@@ -52,15 +61,25 @@ class Mail_model extends CI_Model
         return $query->result();
     }
 
+    /**
+     * Save a mail for 'cannot read'
+     * @param $data
+     * @return bool
+     */
     public function save_mail($data){
         $this->db->set($data);
         $this->db->insert('mail');
         return ($this->db->affected_rows() > 0);
     }
 
-    public function get_mail($hash = NULL){
+    /**
+     * Get a mail to view
+     * @param null $hash
+     * @return mixed
+     */
+    public function get_mail($hash = NULL, $limit = 10){
         if ($hash === NULL){
-            $this->db->limit(10);
+            $this->db->limit($limit);
             $query = $this->db->get('mail');
             return $query->result();
         }
@@ -68,9 +87,36 @@ class Mail_model extends CI_Model
         return $query->result();
     }
 
-    public function delete($hash){
+    /**
+     * Delete a mail from the database
+     * @param $hash
+     * @return bool
+     */
+    public function delete($hash)
+    {
         $this->db->where('hash', $hash);
         $this->db->delete('mail');
+        return ($this->db->affected_rows() > 0);
+    }
+
+    /**
+     * Gets a list of vrienden_van_hydrofiel that automatically need to get the nieuwsbrief
+     * @return mixed
+     */
+    public function get_vrienden(){
+        $query = $this->db->get('vrienden_van');
+        return $query->row();
+    }
+
+    /**
+     * Set a list of vrienden_van_hydrofiel
+     * @param $vrienden
+     * @return bool
+     */
+    public function set_vrienden($vrienden){
+        $this->db->truncate('vrienden_van');
+        $this->db->set('vrienden_van', $vrienden);
+        $this->db->insert('vrienden_van');
         return ($this->db->affected_rows() > 0);
     }
 }

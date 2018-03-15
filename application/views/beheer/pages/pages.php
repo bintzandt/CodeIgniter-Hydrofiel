@@ -57,7 +57,7 @@
     <tbody>
     <?php foreach ($hoofdpagina as $hoofd) { ?>
     <tr>
-        <td style="padding-right: 0;"><?= $hoofd->naam?></td>
+        <td class="clickable-row" data-href="/beheer/pagina/edit/<?=$hoofd->id?>" style="padding-right: 0;"><?= $hoofd->naam?></td>
         <td class="hidden-xs"><?= get_status($hoofd->bereikbaar, $hoofd->zichtbaar)?></td>
         <td><?= form_open(''); ?>
                 <a href="/beheer/pagina/up/<?=$hoofd->id?>"><i class="fa fa-arrow-up"></i></a>
@@ -69,7 +69,7 @@
     </tr>
     <?php if ($hoofd->subpagina !== NULL) { foreach ($hoofd->subpagina as $sub) { ?>
             <tr>
-                <td style="padding-left: 20px;padding-right: 0;"><?= $sub->naam?></td>
+                <td class="clickable-row" data-href="/beheer/pagina/edit/<?=$sub->id?>" style="padding-left: 20px;padding-right: 0;"><?= $sub->naam?></td>
                 <td class="hidden-xs"><?= get_status($sub->bereikbaar, $sub->zichtbaar)?></td>
                 <td><?= form_open(''); ?>
                         <a href="/beheer/pagina/up/<?=$sub->id?>"><i class="fa fa-arrow-up"></i></a>
@@ -84,7 +84,7 @@
     </tbody>
 </table>
 <table><tr>
-        <th>Legenda:</th>
+        <th>Legenda</th>
     </tr>
     <tr>
         <td colspan="4" style="border-bottom: 2px solid #000000;"></td>

@@ -22,11 +22,11 @@
     <tbody>
     <?php foreach ($events as $event) { ?>
     <tr>
-        <td class="clickable-row" data-href="/beheer/inschrijvingen/<?=$event->event_id?>"><?=$event->naam?></td>
-        <td class="clickable-row" data-href="/beheer/inschrijvingen/<?=$event->event_id?>"><?= date_format(date_create($event->van), 'd-m-Y') ?></td>
+        <td class="clickable-row" data-href="/beheer/agenda/inschrijvingen/<?=$event->event_id?>"><?=$event->nl_naam?></td>
+        <td class="clickable-row" data-href="/beheer/agenda/inschrijvingen/<?=$event->event_id?>"><?= date_format(date_create($event->van), 'd-m-Y') ?></td>
         <td>
             <a href="/agenda/edit/<?=$event->event_id?>"><span class="fa fa-edit"></span></a>
-            <a onclick="showModal('<?=$event->naam?>', <?=$event->event_id?>)"><span class="fa fa-trash"></span></a>
+            <a onclick="showModal('<?=$event->nl_naam?>', <?=$event->event_id?>)"><span class="fa fa-trash"></span></a>
         </td>
     </tr>
     <?php } ?>
