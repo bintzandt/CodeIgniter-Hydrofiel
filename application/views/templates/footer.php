@@ -32,7 +32,7 @@
                         ['font', ['bold', 'italic', 'underline', 'clear']],
                         ['color', ['color']],
                         ['para', ['ul', 'ol', 'paragraph']],
-                        ['table', ['table']],
+                        ['table', ['table', 'picture']],
                         ['insert', ['link', 'hr']],
                         ['view', ['fullscreen', 'codeview']],
                         ['help', ['help']]
@@ -49,7 +49,7 @@
                         ['font', ['bold', 'italic', 'underline', 'clear']],
                         ['color', ['color']],
                         ['para', ['ul', 'ol', 'paragraph']],
-                        ['table', ['table']],
+                        ['table', ['table', 'picture']],
                         ['insert', ['link', 'hr']],
                         ['view', ['fullscreen', 'codeview']],
                         ['help', ['help']]
