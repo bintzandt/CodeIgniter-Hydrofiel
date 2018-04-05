@@ -18,6 +18,7 @@
     <!--  SummerNote  -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.10/summernote.min.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.10/summernote.css" />
+    <script src="/js/summernote-cleaner.min.js"></script>
 
     <script src="/js/bootstrap-model-wrapper.min.js"></script>
     <script type="text/javascript">

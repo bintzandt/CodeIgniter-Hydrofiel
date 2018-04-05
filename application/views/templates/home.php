@@ -2,6 +2,8 @@
     <p>
         <?= lang('home_welcome'); ?>
     </p>
+    <p>Draag Hydrofiel een warm hart toe via SponsorKliks!
+        Ga naar <a href="//www.sponsorkliks.com/products/shops.php?club=8634" target="_blank">onze pagina</a> en sponsor Hydrofiel <b>GRATIS!</b></p>
 </div>
 <hr>
 <div class="container-fluid" align="left">

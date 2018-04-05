@@ -28,14 +28,14 @@
                     <b>Aankomende evenementen:</b><br>
                     <ul>
                         <?php foreach ($events as $event) { ?>
-                            <li><a href="<?= site_url('/agenda/id/' . $event->event_id )?>"><?= $event->naam?> op <?= date_format(date_create($event->van), 'm-d-Y')?></a></li>
+                            <li><a href="<?= site_url('/agenda/id/' . $event->event_id )?>"><?= $event->nl_naam?> op <?= date_format(date_create($event->van), 'd-m-Y')?></a></li>
                         <?php } ?>
                     </ul>
                     In de bijlage vind je onze welkomstbrief. Mocht je nog vragen hebben, dan hoor ik deze graag. Dit kan persoonlijk of via een mailtje naar <a href="mailto:secretaris@hydrofiel.nl">secretaris@hydrofiel.nl</a>.<br>
                     <br>
                     Vergeet ons vooral niet te liken op Facebook: <a href="https://www.facebook.com/Hydrofiel/">https://www.facebook.com/Hydrofiel/</a><br>
                     <br>
-                    Tot op het bad!<br>
+                    Tot in het bad!<br>
                     <br>
                     Met Harde en Natte groet,<br>
                     <br>

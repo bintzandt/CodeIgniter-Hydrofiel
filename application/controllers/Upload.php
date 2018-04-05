@@ -23,7 +23,7 @@ class Upload extends _SiteController
      * Function to import users from file
      */
     public function import_users(){
-        $config['upload_path']          = '/home/bintza1q/uploads/';
+        $config['upload_path']          = '/home/hydrof1q/uploads/';
         $config['allowed_types']        = 'csv';
         $config['max_size']             = 100;
         $config['max_width']            = 1024;

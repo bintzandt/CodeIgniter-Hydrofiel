@@ -78,7 +78,10 @@ class Agenda_model extends CI_Model
         $this->db->where('event_id', $event_id);
         if ($id !== NULL) $this->db->where('member_id', $id);
         $query = $this->db->get('inschrijvingen');
-        if ($query->num_rows() > 0 ) return $query->result()[0]->aantal;
+        if ($query->num_rows() > 0 ){
+            $result = $query->result();
+            return $result[0]->aantal;
+        }
         return 0;
     }
 
@@ -128,6 +131,7 @@ class Agenda_model extends CI_Model
      */
     public function get_inschrijvingen($event_id, $member_id = NULL, $limit=NULL){
         if ($member_id === NULL && $limit===NULL) {
+            $this->db->order_by('datum asc');
             $query = $this->db->get_where('inschrijvingen', array('event_id' => $event_id));
         } elseif ($member_id === NULL){
             $this->db->limit($limit);

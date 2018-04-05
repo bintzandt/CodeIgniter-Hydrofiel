@@ -11,6 +11,42 @@
     <h3 align="center"><b><?= $event->naam ?></b></h3>
     <p><?= $event->omschrijving ?></p>
     <div class="col-sm-6" style="padding-left: 0">
+        <?php if(isset($inschrijvingen) && $event->inschrijfsysteem) { ?>
+            <h4><?= lang('agenda_recent')?></h4>
+            <table style="width: 100%">
+                <?php $i = 0; foreach ($inschrijvingen as $inschrijving) { $i++; if ($i <= 5) { ?>
+                    <tr>
+                        <td><?=$inschrijving->naam?></td>
+                        <?php if ($inschrijving->opmerking !== "") { ?> <td><?=$inschrijving->opmerking?></td> <?php } ?>
+                    </tr>
+                <?php } else { ?>
+                    <tr class="inschrijving hidden">
+                        <td><?=$inschrijving->naam?></td>
+                        <?php if ($inschrijving->opmerking !== "") { ?> <td><?=$inschrijving->opmerking?></td> <?php } ?>
+                    </tr>
+                <?php }}  ?>
+            </table>
+            <?php if ($i > 6) { ?>
+                <a class="show_all" onclick="showAll()"><?= lang('agenda_show_registrations')?></a>
+                <a class="hide_all hidden" onclick="hideAll()"><?= lang('agenda_hide_registrations')?></a>
+            <?php }?>
+        <?php } elseif ($event->inschrijfsysteem) { ?>
+            <br><br>
+            <table style="width: 100%;">
+                <tr>
+                    <td><?= lang('agenda_no_registrations')?></td>
+                </tr>
+            </table>
+        <?php } else { ?>
+            <br><br>
+            <table style="width: 100%">
+                <tr>
+                    <td><?= lang('agenda_no_registrations_needed') ?></td>
+                </tr>
+            </table>
+        <?php } ?>
+    </div>
+    <div class="col-sm-6" style="padding-left: 0">
         <h4>Details</h4>
         <table style="width:100%;">
             <tr>
@@ -36,33 +72,6 @@
                 <td><?=$event->soort?></td>
             </tr>
         </table>
-    </div>
-    <div class="col-sm-6" style="padding-left: 0">
-        <?php if(isset($inschrijvingen) && $event->inschrijfsysteem) { ?>
-            <h4><?= lang('agenda_recent')?></h4>
-            <table style="width: 100%">
-                <?php foreach ($inschrijvingen as $inschrijving) { ?>
-                    <tr>
-                        <td><?=$inschrijving->naam?></td>
-                        <?php if ($inschrijving->opmerking !== "") { ?> <td><?=$inschrijving->opmerking?></td> <?php } ?>
-                    </tr>
-                <?php } ?>
-            </table>
-        <?php } elseif ($event->inschrijfsysteem) { ?>
-            <br><br>
-            <table style="width: 100%;">
-                <tr>
-                    <td><?= lang('agenda_no_registrations')?></td>
-                </tr>
-            </table>
-        <?php } else { ?>
-            <br><br>
-            <table style="width: 100%">
-                <tr>
-                    <td><?= lang('agenda_no_registrations_needed') ?></td>
-                </tr>
-            </table>
-        <?php } ?>
     </div>
     <div class="col-sm-12 no_padding margin_10_top">
 <?php if ($event->inschrijfsysteem) { ?>
@@ -104,5 +113,15 @@
 <script>
     function submitForm(){
         $('#aanmelden').submit();
+    }
+    function hideAll(){
+        $('.inschrijving').toggleClass('hidden', true);
+        $('.show_all').toggleClass('hidden', false);
+        $('.hide_all').toggleClass('hidden', true);
+    }
+    function showAll(){
+        $('.inschrijving').toggleClass('hidden', false);
+        $('.show_all').toggleClass('hidden', true);
+        $('.hide_all').toggleClass('hidden', false);
     }
 </script>
