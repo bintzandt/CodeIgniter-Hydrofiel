@@ -80,7 +80,7 @@ class Agenda extends _SiteController
             $data['success'] = $this->session->flashdata('success');
             $data['fail'] = $this->session->flashdata('fail');
             $data['aangemeld'] = ($this->agenda_model->get_aantal_aanmeldingen($event_id, $this->session->id) == 1);
-            $data['inschrijvingen'] = $this->agenda_model->get_inschrijvingen($event_id, NULL, 5);
+            $data['inschrijvingen'] = $this->agenda_model->get_inschrijvingen($event_id, NULL);
             if (empty($data['inschrijvingen'])) unset($data['inschrijvingen']);
 
             $this->loadView('agenda/id', $data);
