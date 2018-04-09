@@ -114,14 +114,4 @@
     function submitForm(){
         $('#aanmelden').submit();
     }
-    function hideAll(){
-        $('.inschrijving').toggleClass('hidden', true);
-        $('.show_all').toggleClass('hidden', false);
-        $('.hide_all').toggleClass('hidden', true);
-    }
-    function showAll(){
-        $('.inschrijving').toggleClass('hidden', false);
-        $('.show_all').toggleClass('hidden', true);
-        $('.hide_all').toggleClass('hidden', false);
-    }
 </script>

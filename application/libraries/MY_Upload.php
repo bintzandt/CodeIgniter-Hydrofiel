@@ -17,9 +17,8 @@ class MY_Upload extends CI_Upload {
 			return FALSE;
 			
 		}
-		
+
 		//If not every file filled was used, clear the empties
-		
 		foreach( $_FILES[$field]['name'] as $k => $n )
 		{
 	
