@@ -55,13 +55,14 @@ class Upload extends _SiteController
     public function files(){
         $config['upload_path']          = './uploads/';
         $config['allowed_types']        = 'jpg|pdf';
-        $config['max_size']             = 100000;
+        $config['max_size']             = 10000;
         $config['remove_spaces']        = FALSE;
 
         $this->load->library('upload', $config);
-        if (($data = $this->upload->do_multi_upload()) !== NULL){
+        if (($data = $this->upload->do_multi_upload()) !== NULL && $data !== FALSE){
             foreach ($data as $file) {
                 if ($file['is_image']) {
+                    $this->create_thumbnail($file['full_path'], './fotos/thumb/' . $file['file_name'], 60);
                     rename($file['full_path'], './fotos/' . $file['file_name']);
                 } else {
                     rename($file['full_path'], './files/' . $file['file_name']);
@@ -69,7 +70,11 @@ class Upload extends _SiteController
             }
             $this->session->set_flashdata('success', 'Bestand(en) succesvol geupload!');
         } else {
-            $this->session->set_flashdata('fail', 'Er is iets mis gegaan met uploaden.');
+            if ($data === NULL) {
+                $this->session->set_flashdata('fail', "Geen bestand(en) geselecteerd");
+            } else {
+                $this->session->set_flashdata('fail', $this->upload->display_errors());
+            }
         }
         redirect('beheer/upload');
     }
@@ -95,5 +100,30 @@ class Upload extends _SiteController
             $this->session->set_flashdata('fail', "Er is iets mis gegaan.");
         }
         redirect('/beheer/upload');
+    }
+
+    /**
+     * Function to create a thumbnail from an uploaded image.
+     * @param $src String The source image
+     * @param $dest String The destination
+     * @param $desired_width Int The desired width
+     */
+    private function create_thumbnail($src, $dest, $desired_width){
+        /* read the source image */
+        $source_image = imagecreatefromjpeg($src);
+        $width = imagesx($source_image);
+        $height = imagesy($source_image);
+
+        /* find the "desired height" of this thumbnail, relative to the desired width  */
+        $desired_height = floor($height * ($desired_width / $width));
+
+        /* create a new, "virtual" image */
+        $virtual_image = imagecreatetruecolor($desired_width, $desired_height);
+
+        /* copy source image at a resized size */
+        imagecopyresampled($virtual_image, $source_image, 0, 0, 0, 0, $desired_width, $desired_height, $width, $height);
+
+        /* create the physical thumbnail image to its destination */
+        imagejpeg($virtual_image, $dest);
     }
 }

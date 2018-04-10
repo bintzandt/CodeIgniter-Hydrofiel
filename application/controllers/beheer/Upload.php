@@ -23,6 +23,7 @@ class Upload extends _BeheerController
             $naam = implode(" ", $naam);
             $image->naam = $naam;
             $image->url = site_url('/fotos/' . basename($file));
+            $image->thumb = site_url('/fotos/thumb/' . basename($file));
             $image->deleteUrl = site_url('/upload/delete/fotos/' . basename($file));
             array_push($files, $image);
         }
@@ -49,4 +50,31 @@ class Upload extends _BeheerController
         $data['files'] = $this->get_file_list();
         $this->loadView('beheer/upload/upload', $data);
     }
+
+//    UNCOMMENT IF YOU WANT TO MANUALLY GENERATE THUMBNAILS!
+//    public function generate_thumbnails(){
+//        foreach(glob('./fotos/*.*') as $file) {
+//            if ($file === './fotos/index.php') continue;
+//            $this->create_thumbnail('./fotos/' . basename($file), './fotos/thumb/' .basename($file), 60);
+//        }
+//    }
+//
+//    private function create_thumbnail($src, $dest, $desired_width){
+//        /* read the source image */
+//        $source_image = imagecreatefromjpeg($src);
+//        $width = imagesx($source_image);
+//        $height = imagesy($source_image);
+//
+//        /* find the "desired height" of this thumbnail, relative to the desired width  */
+//        $desired_height = floor($height * ($desired_width / $width));
+//
+//        /* create a new, "virtual" image */
+//        $virtual_image = imagecreatetruecolor($desired_width, $desired_height);
+//
+//        /* copy source image at a resized size */
+//        imagecopyresampled($virtual_image, $source_image, 0, 0, 0, 0, $desired_width, $desired_height, $width, $height);
+//
+//        /* create the physical thumbnail image to its destination */
+//        imagejpeg($virtual_image, $dest);
+//    }
 }

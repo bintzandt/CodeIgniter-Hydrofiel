@@ -1,4 +1,4 @@
-<div>
+<a style="float: left; position: relative" href="https://www.sponsorkliks.com/winkels.php?club=8634" target="_blank"><img class="no_margin" style="margin-right: 10px !important;" src="https://www.sponsorkliks.com/gfx/sk_lr_logos/donker_100_100.gif" alt="SponsorKliks, gratis sponsoren!" title="SponsorKliks, sponsor jouw sponsordoel gratis!" Border="0"></a><div>
     <p>
         <?= lang('home_welcome'); ?>
     </p>
@@ -32,6 +32,26 @@
 </div>
 <hr>
 <h3 class="oranje_tekst" style="padding-left: 15px"><?= lang('home_news') ?></h3>
-<div><p><?= $tekst ?></p></div>
-<hr>
+<?php if(isset($posts)) { foreach ($posts as $post) { ?>
+    <?php if ($post->post_image !== "") { ?>
+        <div class='container container-item'>
+            <div class='col-md-3'>
+                <strong><?= $engels ? $post->post_title_en : $post->post_title_nl?></strong>
+                <img class="img-responsive no_margin" src="<?= $post->post_image?>">
+            </div>
+            <div class='col-md-9' align='left'>
+                <p class="news_content">
+                    <?= $engels ? $post->post_text_en : $post->post_text_nl ?>
+                </p>
+            </div>
+        </div>
+    <?php } else { ?>
+        <div class='container container-item'>
+            <div class="col-md-12" align="left">
+                <?= $engels ? $post->post_text_en : $post->post_text_nl ?>
+            </div>
+        </div>
+    <?php } ?>
+    <hr>
+<?php }} ?>
 <div id="facebookfeed"></div>

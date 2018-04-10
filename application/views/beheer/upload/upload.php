@@ -29,7 +29,7 @@
     <tbody>
     <?php foreach ($images as $item) { ?>
         <tr>
-            <td><a href="<?=$item->url?>" target="_blank"><img src="<?= $item->url?>" height="40px" style="max-width: 60px"></a></td>
+            <td><a href="<?=$item->url?>" target="_blank"><img src="<?= $item->thumb?>" style="max-width: 60px"></a></td>
             <td class="hidden-xs" onclick="CopyToClipboard('<?= $item->url?>')" style="cursor: pointer"><?= $item->naam ?></td>
             <td><a onclick="showModal('<?=$item->naam?>', '<?= $item->deleteUrl?>')" ><i class="fa fa-trash"></i></a></td>
         </tr>

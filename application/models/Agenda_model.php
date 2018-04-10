@@ -139,7 +139,7 @@ class Agenda_model extends CI_Model
             $query = $this->db->get_where('inschrijvingen', array('event_id' => $event_id));
         }
         else $query = $this->db->get_where('inschrijvingen', array('event_id' => $event_id, 'member_id' => $member_id));
-        if ($query->num_rows() > 0 ) {  
+        if ($query->num_rows() > 0 ) {
             foreach ($query->result() as $inschrijving) {
                 $inschrijving->naam = $this->profile_model->get_profile($inschrijving->member_id)->naam;
             }
