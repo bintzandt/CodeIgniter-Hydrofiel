@@ -1,13 +1,13 @@
 RewriteEngine on
-# Enforce www
-RewriteCond %{HTTP_HOST} !=""
-RewriteCond %{HTTP_HOST} !^www\. [NC]
-RewriteCond %{HTTPS}s ^on(s)|
-RewriteRule ^ http%1://www.%{HTTP_HOST}%{REQUEST_URI} [R=301,L]
+
+#Force www:
+RewriteEngine on
+RewriteCond %{HTTP_HOST} ^example.com [NC]
+RewriteRule ^(.*)$ https://www.hydrofiel.nl/$1 [L,R=301,NC]
 
 # Enforce https
 RewriteCond %{HTTPS} !=on
-RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+RewriteRule ^ https://www.hydrofiel.nl/%{REQUEST_URI} [L,R=301]
 
 # Remove index.php
 RewriteCond $1 !^(index\.php|resources|robots\.txt)

@@ -20,6 +20,7 @@ class Agenda extends _SiteController
     {
         parent::__construct();
         if (!$this->session->logged_in){
+            $this->session->set_flashdata('redirect', current_url());
             redirect('/inloggen');
         }
         $protected = array('add', 'edit', 'save', 'submit', 'delete');
@@ -42,15 +43,15 @@ class Agenda extends _SiteController
         if (($data['events'] = $this->agenda_model->get_event()) !== FALSE){
             foreach ($data['events'] as $event){
                 $event->aanmeldingen = $this->agenda_model->get_aantal_aanmeldingen($event->event_id);
-		if ($this->session->engels) {
+		        if ($this->session->engels) {
 	                $event->naam = $event->en_naam;
-	        } else {
+	            } else {
 	                $event->naam = $event->nl_naam;
-	        }
+	            }
             }
             $this->loadView('agenda/index', $data);
         } else {
-            echo "NO EVENTS";
+            $this->loadView('agenda/no_events');
         }
     }
 
@@ -119,6 +120,7 @@ class Agenda extends _SiteController
         $data['van'] = date_format(date_create($data['van']), 'Ymd');
         $data['tot'] = date_format(date_create($data['tot']), 'Ymd');
         $data['inschrijfdeadline'] = date_format(date_create($data['inschrijfdeadline']), 'Ymd');
+        $data['afmelddeadline'] = date_format(date_create($data['afmelddeadline']), 'Ymd');
 
         if ($data['soort'] === 'nszk') {
             $data['slagen'] = json_encode($data['slagen']);
@@ -243,9 +245,13 @@ class Agenda extends _SiteController
      * @param integer $event_id specifies for which event the user wants to cancel.
      */
     public function afmelden($event_id, $id = NULL){
+        $event = $this->agenda_model->get_event($event_id);
         if ($id === NULL ) {
             $id = $this->session->id;
-            if ($this->agenda_model->afmelden($id, $event_id)) {
+            if (date('Y-m-d')  > $event->afmelddeadline) {
+                $this->session->set_flashdata('fail', "Je kunt je niet meer afmelden voor dit evenement.");
+            }
+            elseif ($this->agenda_model->afmelden($id, $event_id)) {
                 $this->session->set_flashdata('success', "Afmelden gelukt!");
             } else {
                 $this->session->set_flashdata('fail', "Het is niet gelukt om je af te melden.");

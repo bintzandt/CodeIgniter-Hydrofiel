@@ -11,3 +11,5 @@ $lang["home_no_events"] = "There are no upcoming events.";
 $lang["home_birthdays"] = "Birthdays";
 $lang["home_login"] = "Sign in to see the birthdays";
 $lang["home_news"] = "News";
+$lang["home_sponsor"] = "Contribute to Hydrofiel via SponsorKliks!
+            Go to <a href=\"//www.sponsorkliks.com/products/shops.php?club=8634\" target=\"_blank\">our page</a> and contribute to Hydrofiel <b>FOR FREE!</b>";

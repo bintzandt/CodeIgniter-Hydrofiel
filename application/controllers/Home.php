@@ -26,7 +26,7 @@ class Home extends _SiteController
     public function index(){
         $data["engels"] = $this->session->engels;
         $data["events"] = $this->agenda_model->get_event(NULL, 3);
-        $data['login'] = $this->session->userdata('logged_in');
+        $data["login"] = $this->session->userdata('logged_in');
         $data["verjaardagen"] = $this->profile_model->get_verjaardagen(3);
         $data["posts"] = $this->post_model->get_posts();
         $this->loadView('templates/home', $data);

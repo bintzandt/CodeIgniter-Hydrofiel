@@ -40,6 +40,10 @@ class Page extends _SiteController
             redirect('/inloggen');
         }
 
+        if ($data['pagina']['naam'] == 'Wedstrijden'){
+            $this->loadView('templates/wedstrijden');
+        }
+
         //Check if we are in an English setting
         if ($this->session->engels) {
             $data['tekst'] = $data['pagina']['engels'];
@@ -49,6 +53,10 @@ class Page extends _SiteController
         }
         $this->db->cache_off();
         $this->loadView('templates/page', $data);
+    }
+
+    public function page_missing(){
+        $this->loadView('errors/html/error_404');
     }
 
     /**
@@ -117,6 +125,24 @@ class Page extends _SiteController
         else {
             $this->session->set_flashdata('fail', 'Er is iets fout gegaan.');
         }
+        $this->save_routes();
         redirect('/beheer');
+    }
+
+    public function save_routes(){
+        $pages = $this->page_model->get_all();
+        $data = array();
+
+        if (!empty($pages )) {
+            $data[] = '<?php if ( ! defined(\'BASEPATH\')) exit(\'No direct script access allowed\');';
+
+            foreach ($pages as $page) {
+                $data[] = '$route[\'' . strtolower($page->naam) . '\'] = \'page/id/' . $page->id . '\';';
+                $data[] = '$route[\'' . strtolower($page->engelse_naam) . '\'] = \'page/id/' . $page->id . '\';';
+            }
+            $output = implode("\n", $data);
+
+            write_file(APPPATH . 'cache/routes.php', $output);
+        }
     }
 }

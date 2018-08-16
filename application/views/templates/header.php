@@ -11,7 +11,7 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 
     <!--    meta tags-->
-    <meta name="keywords" content="Hydrofiel, Studenten, Nijmeegse, Vereniging, zwem, zwemmen, waterpolo, Nijmegen" />
+    <meta name="keywords" content="Hydrofiel, Studenten, Nijmeegse, Vereniging, zwem, zwemmen, waterpolo, Nijmegen, gofferttoernooi, nijmegen, gezellig" />
     <meta name="title" content="Nijmeegse Studenten Zwem- en Waterpolo Vereniging" />
     <meta name="description" content="Nijmeegse Studenten Zwem- en Waterpolo Vereniging" />
     <meta name="viewport" content="width=device-width, initial-scale=1">

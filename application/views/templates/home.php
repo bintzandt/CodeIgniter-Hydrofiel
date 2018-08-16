@@ -1,9 +1,15 @@
-<a style="float: left; position: relative" href="https://www.sponsorkliks.com/winkels.php?club=8634" target="_blank"><img class="no_margin" style="margin-right: 10px !important;" src="https://www.sponsorkliks.com/gfx/sk_lr_logos/donker_100_100.gif" alt="SponsorKliks, gratis sponsoren!" title="SponsorKliks, sponsor jouw sponsordoel gratis!" Border="0"></a><div>
-    <p>
-        <?= lang('home_welcome'); ?>
-    </p>
-    <p>Draag Hydrofiel een warm hart toe via SponsorKliks!
-        Ga naar <a href="//www.sponsorkliks.com/products/shops.php?club=8634" target="_blank">onze pagina</a> en sponsor Hydrofiel <b>GRATIS!</b></p>
+<div class="row">
+    <div class="col-sm-2 vcenter hidden-xs">
+        <a href="https://www.sponsorkliks.com/winkels.php?club=8634" target="_blank"><img class="img-rounded" style="margin: 0 auto;" src="/images/sponsorkliks.gif" alt="SponsorKliks, gratis sponsoren!" title="SponsorKliks, sponsor jouw sponsordoel gratis!" Border="0"></a>
+    </div><!--
+    --><div class="col-sm-10 vcenter">
+        <p>
+            <?= lang('home_welcome'); ?>
+        </p>
+        <p>
+            <?= lang('home_sponsor'); ?>
+        </p>
+    </div>
 </div>
 <hr>
 <div class="container-fluid" align="left">

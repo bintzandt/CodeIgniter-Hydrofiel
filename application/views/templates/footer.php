@@ -12,7 +12,7 @@
             </div>
         </div>
         <div class="copyright">
-            <p>Copyright © <?php echo date('Y'); ?> N.S.Z.&W.V. Hydrofiel | <a style="color: white                                                                                                                             " href="https://www.bintzandt.nl/">Design by Bram in 't Zandt</a></p>
+            <p>Copyright © <?php echo date('Y'); ?> N.S.Z.&W.V. Hydrofiel | <a style="color: white                                                                                                                             " href="https://www.bintzandt.nl/">Design&nbsp;by&nbsp;Bram&nbsp;in&nbsp;'t&nbsp;Zandt</a></p>
         </div>
     </div>
     <!--  SummerNote  -->

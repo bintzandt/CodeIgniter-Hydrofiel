@@ -53,7 +53,18 @@
  *
  * NOTE: If you change these, also change the error_reporting() code below
  */
-	define('ENVIRONMENT', ($_SERVER['REMOTE_ADDR']==='213.124.177.148') ? 'development' : 'production');
+
+$url = $_SERVER['REQUEST_URI'];
+$pattern = '/([A-Z]+)/';
+if(preg_match($pattern, $url)) {
+    $new_url = strtolower($url);
+    Header( 'HTTP/1.1 301 Moved Permanently' );
+    Header( 'Location: ' . $new_url );
+    exit;
+}
+
+	define('ENVIRONMENT', ($_SERVER['REMOTE_ADDR']==='213.124.179.80') ? 'development' : 'production');
+//	define('ENVIRONMENT', 'development');
 
 /*
  *---------------------------------------------------------------
