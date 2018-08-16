@@ -2,7 +2,7 @@
 <body>
 <script>
     $(document).ready(function() {
-        $('#rangepicker .input-daterange').datepicker({
+        $('#rangepicker').find('.input-daterange').datepicker({
             format: "dd-mm-yyyy",
             maxViewMode: 2,
             language: "nl",
@@ -10,7 +10,14 @@
             todayHighlight: true
         });
 
-        $('#inschrijfdeadline .input-group.date').datepicker({
+        $('#inschrijfdeadline').find('.input-group.date').datepicker({
+            format: "dd-mm-yyyy",
+            maxViewMode: 2,
+            language: "nl",
+            autoclose: true,
+            todayHighlight: true,
+        });
+        $('#afmelddeadline').find('.input-group.date').datepicker({
             format: "dd-mm-yyyy",
             maxViewMode: 2,
             language: "nl",
@@ -48,9 +55,13 @@
 
     });
     function toggleInschrijf(val){
-        if (val==="1") $('#deadline').toggleClass('hidden', false);
+        if (val==="1") {
+            $('#inschrijfdeadline').toggleClass('hidden', false);
+            $('#afmelddeadline').toggleClass('hidden', false);
+        }
         else {
-            $('#deadline').toggleClass('hidden', true);
+            $('#afmelddeadline').toggleClass('hidden', true);
+            $('#inschrijfdeadline').toggleClass('hidden', true);
         }
     }
 </script>
@@ -123,14 +134,23 @@
         <label class="radio-inline"><input required type="radio" name="inschrijfsysteem" onchange="toggleInschrijf($(this).val())" value="0" <?= ($edit_mode && !$event->inschrijfsysteem) ? 'checked' : ''?>>Nee</label>
     </div>
 </div>
-<div class="form-group <?= ($edit_mode && $event->inschrijfsysteem) ? '' :'hidden'?>" id="deadline">
-    <label for="inschrijfdeadline" class="col-sm-2 control-label">Inschrijf deadline</label>
+<div class="form-group <?= ($edit_mode && $event->inschrijfsysteem) ? '' :'hidden'?>" id="inschrijfdeadline">
+    <label for="inschrijfdeadline" class="col-sm-2 control-label">Inschrijfdeadline</label>
     <div class="col-sm-10" id="inschrijfdeadline">
         <div class="input-group date">
             <input type="text" class="form-control" name="inschrijfdeadline" value="<?= ($edit_mode && $event->inschrijfsysteem) ? date_format(date_create($event->inschrijfdeadline), 'd-m-Y') : ''?>"><span class="input-group-addon"><i class="glyphicon glyphicon-th"></i></span>
         </div>
     </div>
 </div>
+<div class="form-group <?= ($edit_mode && $event->inschrijfsysteem) ? '' :'hidden'?>" id="afmelddeadline">
+    <label for="afmelddeadline" class="col-sm-2 control-label">Afmelddeadline</label>
+    <div class="col-sm-10" id="afmelddeadline">
+        <div class="input-group date">
+            <input type="text" class="form-control" name="afmelddeadline" value="<?= ($edit_mode && $event->inschrijfsysteem && $event->afmelddeadline) ? date_format(date_create($event->afmelddeadline), 'd-m-Y') : ''?>"><span class="input-group-addon"><i class="glyphicon glyphicon-th"></i></span>
+        </div>
+    </div>
+</div>
+
 <div class="form-group">
     <label for="betalen" class="col-sm-2 control-label">Betaalde activiteit</label>
     <div class="col-sm-10">

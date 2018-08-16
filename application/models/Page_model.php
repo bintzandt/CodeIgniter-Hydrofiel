@@ -15,6 +15,11 @@ class Page_model extends CI_Model
         return $query->row_array();
     }
 
+    public function get_all(){
+        $query = $this->db->get('pagina');
+        return $query->result();
+    }
+
     /**
      * Get a page from the database
      * @param null $id

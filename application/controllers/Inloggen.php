@@ -35,21 +35,27 @@ class Inloggen extends _SiteController
             $this->session->logged_in = false;
         }
 
+        $post = $this->input->post(NULL, TRUE);
+
+        if (! isset($post['redirect'])){
+            $data['redirect'] = $this->session->flashdata('redirect');
+        }
+        else {
+            $data['redirect'] = $post['redirect'];
+        }
         $data['success'] = $this->session->flashdata('success');
         $data['fail'] = $this->session->flashdata('fail');
-
         if ($this->form_validation->run() == FALSE) {
-            parent::loadView('inloggen/index', $data);
+            $this->loadView('inloggen/index', $data);
         } else {
-            $this->verify_login();
+            $this->verify_login($post);
         }
     }
 
     /**
      * Verify the login
      */
-    public function verify_login(){
-        $data = $this->input->post(NULL, TRUE);
+    public function verify_login($data){
         $email = strtolower($data['email']);
         $wachtwoord = $data['wachtwoord'];
 
@@ -69,10 +75,11 @@ class Inloggen extends _SiteController
             );
             $this->session->set_userdata($userdata);
             $this->login_model->unset_recovery($login->id);
-            if (!empty(explode('/inloggen', $data['referer'], -1))) {
-                redirect('');
-            }
-            redirect($data['referer']);
+            redirect($data['redirect']);
+//            if (!empty(explode('/inloggen', $data['referer'], -1))) {
+//                redirect('');
+//            }
+//            redirect($data['referer']);
         }
         else {
              $this->session->set_flashdata('fail', 'Email en/of wachtwoord onjuist.');

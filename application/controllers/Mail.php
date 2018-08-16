@@ -1,4 +1,4 @@
-<?php
+    <?php
 
 /**
  * Used for sending mails to leden

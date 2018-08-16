@@ -63,14 +63,14 @@
             </tr>
             <?php if ($event->inschrijfsysteem) { ?>
                 <tr>
-                    <td><b>Deadline</b></td>
+                    <td><b><?= lang('agenda_registration_deadline') ?></b></td>
                     <td><?= date_format(date_create($event->inschrijfdeadline), 'd-m-Y') ?></td>
                 </tr>
+                <tr>
+                    <td><b><?= lang('agenda_cancelation_deadline')?></b></td>
+                    <td><?=date_format(date_create($event->afmelddeadline), 'd-m-Y')?></td>
+                </tr>
             <?php } ?>
-            <tr>
-                <td><b><?= lang('agenda_type')?></b></td>
-                <td><?=$event->soort?></td>
-            </tr>
         </table>
     </div>
     <div class="col-sm-12 no_padding margin_10_top">
@@ -78,7 +78,7 @@
         <?= form_open(($event->soort === 'nszk') ? '/agenda/nszk' : '/agenda/aanmelden', array("id" => "aanmelden", "name" => "aanmelden")); ?>
         <input type="hidden" value="<?=$event->event_id?>" name="event_id"/>
         <input type="hidden" value="<?=$event->soort?>" name="event_soort">
-    <?php if (!$aangemeld) { ?>
+    <?php if (!$aangemeld && date('Y-m-d') <= $event->inschrijfdeadline) { ?>
             <?php if ($event->soort === "nszk"){
                 $slagen = json_decode($event->slagen);
                 foreach ($slagen as $slag) { ?>
@@ -102,9 +102,13 @@
         <div class="form-group">
                 <button type="submit" class="btn btn-primary form-control"><?= lang('agenda_register') ?></button>
         </div>
-    <?php } else { ?>
+    <?php } elseif (date('Y-m-d') <= $event->afmelddeadline) { ?>
         <div class="form-group">
             <a href="/agenda/afmelden/<?= $event->event_id?>" class="btn btn-primary center-block"><?= lang('agenda_cancel'); ?></a>
+        </div>
+    <?php } else { ?>
+        <div class="alert alert-info">
+            <strong>Het is niet meer mogelijk om je af te melden voor dit evenement.</strong>
         </div>
     <?php } ?>
 <?php } echo form_close() ?>
@@ -113,15 +117,5 @@
 <script>
     function submitForm(){
         $('#aanmelden').submit();
-    }
-    function hideAll(){
-        $('.inschrijving').toggleClass('hidden', true);
-        $('.show_all').toggleClass('hidden', false);
-        $('.hide_all').toggleClass('hidden', true);
-    }
-    function showAll(){
-        $('.inschrijving').toggleClass('hidden', false);
-        $('.show_all').toggleClass('hidden', true);
-        $('.hide_all').toggleClass('hidden', false);
     }
 </script>

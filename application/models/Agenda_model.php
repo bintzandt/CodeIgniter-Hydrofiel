@@ -131,7 +131,7 @@ class Agenda_model extends CI_Model
      */
     public function get_inschrijvingen($event_id, $member_id = NULL, $limit=NULL){
         if ($member_id === NULL && $limit===NULL) {
-            $this->db->order_by('datum asc');
+            $this->db->order_by('datum desc');
             $query = $this->db->get_where('inschrijvingen', array('event_id' => $event_id));
         } elseif ($member_id === NULL){
             $this->db->limit($limit);

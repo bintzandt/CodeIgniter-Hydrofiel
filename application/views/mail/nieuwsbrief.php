@@ -15,7 +15,7 @@
             <td style="color:#FFFFFF; background:#315265; padding: 5px;" valign="top">
                 <?php if (!empty($agenda)) { foreach ($agenda as $punt) { ?>
                     <div>
-                       <span><a href="<?= site_url('/agenda/id/' . $punt->event_id) ?>" style="color: #FFF;"><img style="padding-right: 5px" width="16px" height="16px" src="<?=site_url('/images/mail/calendar.png')?>"><?=$punt->naam?></a></span><br/>
+                       <span><a href="<?= site_url('/agenda/id/' . $punt->event_id) ?>" style="color: #FFF;"><img style="padding-right: 5px" width="16px" height="16px" src="<?=site_url('/images/mail/calendar.png')?>"><?= $engels ? $punt->en_naam : $punt->nl_naam ?></a></span><br/>
                             <?= date_format(date_create($punt->van), 'd-m-Y') ?>
 					</div><br/>
 
@@ -23,9 +23,10 @@
         </tr><tr>
             <td style="color: #FFFFFF; background: #315265; padding: 7px;" height="50" colspan="2"></td>
         </tr>
+        <tr align="center">
+            <td><p><a href="<?=site_url('/mail/history/' . $hash)?>"><?= $engels ? "Message not readable?" : "Bericht niet goed leesbaar?"?></a></p></td>
+        </tr>
     </table>
-    <a href="<?=site_url('/mail/history/'.$hash)?>"><?= $engels ? "Message not readable?" : "Bericht niet goed leesbaar?"?></a>
-
 </div>
 
 </body>

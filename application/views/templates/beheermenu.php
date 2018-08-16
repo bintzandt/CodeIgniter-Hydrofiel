@@ -12,6 +12,7 @@
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav navbar-right">
                     <li><a href="/beheer">Pagina</a></li>
+                    <li><a href="/beheer/posts">Posts</a></li>
                     <li><a href="/beheer/upload">Uploaden</a></li>
                     <li><a href="/beheer/agenda">Agenda</a></li>
                     <li><a href="/beheer/mail">Mail</a></li>

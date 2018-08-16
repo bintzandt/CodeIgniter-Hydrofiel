@@ -16,7 +16,7 @@
             <input type="password" name="wachtwoord" id="wachtwoord" class="form-control" placeholder="<?= lang('inloggen_password') ?>">
             <button class="btn btn-lg btn-primary btn-block" type="submit"><?= lang('inloggen_login')?></button>
             <a href="/inloggen/forgot_password" class="pull-right need-help"><?= lang('inloggen_forgot_password')?></a><span class="clearfix"></span>
-            <input type="hidden" name="referer" value="<?=isset($_SERVER['HTTP_REFERER'])?$_SERVER['HTTP_REFERER']:'/'?>">
+            <input type="hidden" name="redirect" value="<?= $redirect ?>">
         <?= form_close() ?>
     </div>
 </div>

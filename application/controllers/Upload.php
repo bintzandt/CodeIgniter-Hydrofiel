@@ -23,7 +23,7 @@ class Upload extends _SiteController
      * Function to import users from file
      */
     public function import_users(){
-        $config['upload_path']          = '/home/hydrof1q/uploads/';
+        $config['upload_path']          = './uploads/';
         $config['allowed_types']        = 'csv';
         $config['max_size']             = 100;
         $config['max_width']            = 1024;
@@ -56,59 +56,27 @@ class Upload extends _SiteController
         $config['upload_path']          = './uploads/';
         $config['allowed_types']        = 'jpg|pdf';
         $config['max_size']             = 10000;
+        $config['remove_spaces']        = FALSE;
 
         $this->load->library('upload', $config);
-
-        if ( $this->upload->do_upload('files')){
-            $data = $this->upload->data();
-            //Process all files accordingly....
-            if ($data['is_image']){
-                $url = './fotos/';
-            } else {
-                $url = './files/';
+        if (($data = $this->upload->do_multi_upload()) !== NULL && $data !== FALSE){
+            foreach ($data as $file) {
+                if ($file['is_image']) {
+                    $this->create_thumbnail($file['full_path'], './fotos/thumb/' . $file['file_name'], 60);
+                    rename($file['full_path'], './fotos/' . $file['file_name']);
+                } else {
+                    rename($file['full_path'], './files/' . $file['file_name']);
+                }
             }
-            rename($data['full_path'], $url . $data['orig_name']);
-            $files = array(
-                "files" => array(
-                    array(
-                     "name" => $data["orig_name"],
-                     "size" => $data["file_size"] * 100,
-                     "url" => site_url($url . $data["orig_name"]),
-                     "thumbnailUrl" => NULL,
-                     "deleteUrl" => site_url('/upload/delete/' . intval($data['is_image']) . '/' . $data["orig_name"]),
-                     "deleteType" => "POST"
-                    )
-                )
-            );
-            echo json_encode($files);
+            $this->session->set_flashdata('success', 'Bestand(en) succesvol geupload!');
         } else {
-            $files = array(
-                "files" => array()
-            );
-            foreach(glob('./fotos/*.*') as $file) {
-                if ($file === './fotos/index.php') continue;
-                array_push($files["files"], array(
-                    "name" => basename($file),
-                    "size" => filesize($file),
-                    "url" => site_url($file),
-                    "thumbnailUrl" => site_url($file),
-                    "deleteUrl" => site_url('/upload/delete/1/' . basename($file)),
-                    "deleteType" => "POST"
-                ));
+            if ($data === NULL) {
+                $this->session->set_flashdata('fail', "Geen bestand(en) geselecteerd");
+            } else {
+                $this->session->set_flashdata('fail', $this->upload->display_errors());
             }
-            foreach(glob('./files/*.*') as $file) {
-                if ($file === './files/index.php') continue;
-                array_push($files["files"], array(
-                    "name" => basename($file),
-                    "size" => filesize($file),
-                    "url" => site_url($file),
-                    "thumbnailUrl" => NULL,
-                    "deleteUrl" => site_url('/upload/delete/0/' . basename($file)),
-                    "deleteType" => "POST"
-                ));
-            }
-            echo json_encode($files);
         }
+        redirect('beheer/upload');
     }
 
     /**
@@ -116,16 +84,46 @@ class Upload extends _SiteController
      * @param $foto boolean Is the file a boolean
      * @param $path string Path to the file
      */
-    public function delete($foto, $path){
-        if ($foto){
-            $url = './fotos/';
-        } else {
+    public function delete($type, $path){
+        if ($type === "files") {
             $url = './files/';
         }
-        if (is_file($url . $path)){
-            unlink($url . $path);
-            echo TRUE;
+        elseif ($type === "fotos") {
+            $url = './fotos/';
         }
-        echo FALSE;
+        $file = rawurldecode($url . $path);
+        if (is_file($file)){
+            unlink($file);
+            $this->session->set_flashdata('success', "Het bestand is verwijderd!");
+        }
+        else {
+            $this->session->set_flashdata('fail', "Er is iets mis gegaan.");
+        }
+        redirect('/beheer/upload');
+    }
+
+    /**
+     * Function to create a thumbnail from an uploaded image.
+     * @param $src String The source image
+     * @param $dest String The destination
+     * @param $desired_width Int The desired width
+     */
+    private function create_thumbnail($src, $dest, $desired_width){
+        /* read the source image */
+        $source_image = imagecreatefromjpeg($src);
+        $width = imagesx($source_image);
+        $height = imagesy($source_image);
+
+        /* find the "desired height" of this thumbnail, relative to the desired width  */
+        $desired_height = floor($height * ($desired_width / $width));
+
+        /* create a new, "virtual" image */
+        $virtual_image = imagecreatetruecolor($desired_width, $desired_height);
+
+        /* copy source image at a resized size */
+        imagecopyresampled($virtual_image, $source_image, 0, 0, 0, 0, $desired_width, $desired_height, $width, $height);
+
+        /* create the physical thumbnail image to its destination */
+        imagejpeg($virtual_image, $dest);
     }
 }
