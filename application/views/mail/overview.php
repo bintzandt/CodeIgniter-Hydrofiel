@@ -1,4 +1,3 @@
-<body>
 <div style="text-align:right; vertical-align: top; padding: 20px;"><a href="/beheer/mail"><b>Terug</b></a></div>
 <?php if (isset($success)) { ?>
     <div class="alert alert-success">
@@ -21,9 +20,9 @@
     <tbody>
     <?php foreach ($email as $mail){ ?>
         <tr>
-            <td class="clickable-row" data-href="/mail/history/<?=$mail->hash?>"><?=date_format(date_create($mail->datum), 'm-d-Y H:i')?></td>
-            <td class="clickable-row" data-href="/mail/history/<?=$mail->hash?>"><?=$mail->onderwerp?></td>
-            <td class="clickable-row" data-href="/mail/history/<?=$mail->hash?>"><?=$mail->van?></td>
+            <td class="clickable-row" data-href="/beheer/mail/view_mail/<?=$mail->hash?>"><?=date_format(date_create($mail->datum), 'd-m-Y H:i')?></td>
+            <td class="clickable-row" data-href="/beheer/mail/view_mail/<?=$mail->hash?>"><?=$mail->onderwerp?></td>
+            <td class="clickable-row" data-href="/beheer/mail/view_mail/<?=$mail->hash?>"><?=$mail->van?></td>
             <td><a style="font-size: larger" onclick="showModal('<?=$mail->onderwerp?>', '<?=$mail->hash?>')"><span class="fa fa-trash"></span></a></td>
         </tr>
     <?php } ?>
@@ -38,7 +37,7 @@
                 label: 'Ja',
                 cssClass: 'btn-danger',
                 onClick: function(e){
-                    window.location.replace('/mail/delete/' + hash);
+                    window.location.replace('/beheer/mail/delete/' + hash);
                 }
             },{
                 label: 'Nee',
@@ -50,4 +49,3 @@
         });
     }
 </script>
-</body>

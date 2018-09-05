@@ -1,4 +1,4 @@
-<div style="text-align:right; vertical-align: top; padding: 20px;"><a href="/agenda/add"><b>Activiteit toevoegen</b></a></div>
+<div style="text-align:right; vertical-align: top; padding: 20px;"><a href="/beheer/agenda/add"><b>Activiteit toevoegen</b></a></div>
 <?php if(empty($events)) { ?>
 <b>Er zijn geen evenementen.</b>
 <?php } else { ?>
@@ -25,7 +25,7 @@
         <td class="clickable-row" data-href="/beheer/agenda/inschrijvingen/<?=$event->event_id?>"><?=$event->nl_naam?></td>
         <td class="clickable-row" data-href="/beheer/agenda/inschrijvingen/<?=$event->event_id?>"><?= date_format(date_create($event->van), 'd-m-Y') ?></td>
         <td>
-            <a href="/agenda/edit/<?=$event->event_id?>"><span class="fa fa-edit"></span></a>
+            <a href="/beheer/agenda/edit/<?=$event->event_id?>"><span class="fa fa-edit"></span></a>
             <a onclick="showModal('<?=$event->nl_naam?>', <?=$event->event_id?>)"><span class="fa fa-trash"></span></a>
         </td>
     </tr>
@@ -42,7 +42,7 @@
                 label: 'Ja',
                 cssClass: 'btn-danger',
                 onClick: function(e){
-                    window.location.replace('/agenda/delete/' + event_id);
+                    window.location.replace('/beheer/agenda/delete/' + event_id);
                 }
             },{
                 label: 'Nee',

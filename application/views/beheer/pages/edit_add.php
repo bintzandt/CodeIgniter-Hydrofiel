@@ -10,8 +10,8 @@
 
 <div style="text-align:right; padding: 20px;"><a href="/beheer"><b>Terug</b></a></div>
 <?php
-    if ($edit_mode) echo form_open_multipart("/page/edit", array("class" => "form-horizontal"));
-    else echo form_open_multipart("/page/toevoegen", array("class" => "form-horizontal"))
+    if ($edit_mode) echo form_open_multipart("/beheer/pagina/save_edit", array("class" => "form-horizontal"));
+    else echo form_open_multipart("/beheer/pagina/save_toevoegen", array("class" => "form-horizontal"))
 ?>
     <?php if ($edit_mode) { ?>
         <input type="hidden" name="id" value="<?= $page->id?>"/>

@@ -4,7 +4,7 @@
         <strong><?= $error?></strong>
     </div>
 <?php } ?>
-<?php echo form_open_multipart('upload/import_users');?>
+<?php echo form_open_multipart('beheer/upload/import_users');?>
 
 <input type="file" name="leden" size="20" />
 

@@ -63,7 +63,17 @@ if(preg_match($pattern, $url)) {
     exit;
 }
 
-	define('ENVIRONMENT', ($_SERVER['REMOTE_ADDR']==='213.124.179.80') ? 'development' : 'production');
+$server_addr = '';
+$server_addr = (isset($_SERVER['HTTP_HOST']))
+    ? $_SERVER['HTTP_HOST']
+    : $_SERVER['CI_ENV'];
+
+// Check if local (development)
+$server_addr = ($_SERVER['REMOTE_ADDR'] === '127.0.0.1' or $_SERVER['REMOTE_ADDR'] === '127.0.1.1' or $_SERVER['REMOTE_ADDR'] === '::1')
+    ? 'development'
+    : $server_addr;
+
+	define('ENVIRONMENT', ($_SERVER['REMOTE_ADDR']==='213.124.179.80' || $server_addr === 'development') ? 'development' : 'production');
 //	define('ENVIRONMENT', 'development');
 
 /*

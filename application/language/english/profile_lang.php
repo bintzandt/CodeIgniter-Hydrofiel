@@ -16,3 +16,4 @@ $lang["profile_newsletter"] = "Newsletter";
 $lang["profile_newsletter_msg"] = "I would like to receive the newsletter";
 $lang["profile_save"] = "Save";
 $lang["profile_cancel"] = "Cancel";
+$lang["profile_hidden"] = "Hidden";

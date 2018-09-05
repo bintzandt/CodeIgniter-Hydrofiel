@@ -9,7 +9,7 @@
 <?php } ?>
 <div style="padding-bottom: 15px">
 <h3>Bestanden uploaden</h3><br>
-<?= form_open_multipart("/upload/files")?>
+<?= form_open_multipart("/beheer/upload/files")?>
     <input name="userfile[]" type="file" multiple><br><br>
     <button class="btn btn-primary" type="submit">Uploaden</button><br>
 <?= form_close()?>

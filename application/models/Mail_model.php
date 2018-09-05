@@ -80,6 +80,7 @@ class Mail_model extends CI_Model
     public function get_mail($hash = NULL, $limit = 10){
         if ($hash === NULL){
             $this->db->limit($limit);
+            $this->db->order_by('datum', 'desc');
             $query = $this->db->get('mail');
             return $query->result();
         }

@@ -1,11 +1,10 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: bintzandt
- * Date: 09/04/18
- * Time: 14:48
- */
 
+/**
+ * Class Migrate
+ * Used to execute the migrations on the site.
+ * Note: enable migrations in application/config/config.php first!
+ */
 class Migrate extends _BeheerController
 {
     public function __construct()

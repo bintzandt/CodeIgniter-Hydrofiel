@@ -16,7 +16,6 @@ class _BeheerController extends CI_Controller
         if (!$this->session->superuser){
             show_error("Je hebt geen toegang tot het beheer gedeelte!");
         }
-        $this->load->model('profile_model');
         $this->load->model('agenda_model');
         if(ENVIRONMENT === 'development') {
             $this->output->enable_profiler(TRUE);

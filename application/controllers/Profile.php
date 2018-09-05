@@ -11,14 +11,6 @@ class Profile extends _SiteController
         if (!$this->session->logged_in){
             redirect('/inloggen', 'refresh');
         }
-
-        $protected = array('delete');
-        if (in_array($this->router->method, $protected) && !$this->session->superuser){
-            show_error("Je bent niet bevoegd!");
-        }
-
-        $this->load->model('profile_model');
-        $this->load->helper('url_helper');
         if ($this->session->engels) {
             $this->lang->load("profile", "english");
         }
@@ -39,6 +31,13 @@ class Profile extends _SiteController
         $data['profile'] = $this->profile_model->get_profile($id);
         $data['success'] = $this->session->flashdata('success');
         $data['fail'] = $this->session->flashdata('fail');
+
+        if (!($this->session->superuser || $this->session->id === $id)){
+            $data['profile']->email = $data['profile']->zichtbaar_email ? $data['profile']->email : lang("profile_hidden");
+            $data['profile']->mobielnummer = $data['profile']->zichtbaar_telefoonnummer ? $data['profile']->mobielnummer: lang("profile_hidden");
+            $data['profile']->adres = $data['profile']->zichtbaar_adres ? $data['profile']->adres : lang("profile_hidden");
+        }
+
         if (empty($data['profile'])){
             show_404();
         }
@@ -126,21 +125,6 @@ class Profile extends _SiteController
             $this->session->set_flashdata('fail', 'Gebruiker is niet veranderd');
         }
         redirect('/profile/index/'.$id);
-    }
-
-    /**
-     * Delete a certain profile
-     * @param int|null $id
-     */
-    public function delete($id=NULL){
-        if ($id !== NULL){
-            if ($this->profile_model->delete($id)){
-                $this->session->set_flashdata('success', 'Gebruiker verwijderd.');
-            } else {
-                $this->session->set_flashdata('fail', 'Het is niet gelukt om de gebruiker te verwijderen.');
-            }
-        }
-        redirect('/beheer/leden');
     }
 
     /**
