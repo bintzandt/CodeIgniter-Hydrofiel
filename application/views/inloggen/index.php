@@ -11,7 +11,7 @@
         <?php } ?>
         <?php echo form_error('wachtwoord'); ?>
         <?php echo form_error('email'); ?>
-        <?php echo form_open('/inloggen', array('class' => 'form-signin')); ?>
+        <?php echo form_open('inloggen', array('class' => 'form-signin')); ?>
             <input type="text" name="email" class="form-control" placeholder="Email" value="<?php echo set_value('email'); ?>" autofocus>
             <input type="password" name="wachtwoord" id="wachtwoord" class="form-control" placeholder="<?= lang('inloggen_password') ?>">
             <button class="btn btn-lg btn-primary btn-block" type="submit"><?= lang('inloggen_login')?></button>

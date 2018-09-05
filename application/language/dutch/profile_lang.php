@@ -16,3 +16,4 @@ $lang["profile_newsletter"] = "Nieuwsbrief";
 $lang["profile_newsletter_msg"] = "Ik wil graag de nieuwsbrief ontvangen";
 $lang["profile_save"] = "Opslaan";
 $lang["profile_cancel"] = "Annuleren";
+$lang["profile_hidden"] = "Verborgen";

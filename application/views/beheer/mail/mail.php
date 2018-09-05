@@ -56,7 +56,7 @@
         });
     }
 </script>
-<div style="text-align:right; vertical-align: top; padding: 20px;"><a href="/mail/history"><b>Geschiedenis</b></a></div>
+<div style="text-align:right; vertical-align: top; padding: 20px;"><a href="/beheer/mail/history"><b>Geschiedenis</b></a></div>
 <?php echo form_open_multipart('beheer/mail', array('id' => 'postForm', 'class' => 'form-horizontal'));?>
     <?php if (isset($success)) { ?>
         <div class="alert alert-success">

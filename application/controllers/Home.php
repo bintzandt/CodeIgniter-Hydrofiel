@@ -17,7 +17,6 @@ class Home extends _SiteController
         else {
             $this->lang->load("home");
         }
-        $this->load->model('post_model');
     }
 
     /**

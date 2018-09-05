@@ -5,8 +5,9 @@
  */
 class Profile_model extends CI_Model
 {
-    //These constants reflect the order in the CSV which can be uploaded. Changes in the CSV should also be reflected here.
-    //In addition: when new data is added to the CSV (international etc.) please add a constant here.
+    // These constants reflect the order in the CSV which can be uploaded. Changes in the CSV should also be reflected here.
+    // In addition: when new data is added to the CSV (international etc.) please add a constant here.
+    // Note: The board has changed something but I cannot fix it since I did not get a new CSV file.
     const ID = 0;
     const VOOR = 1;
     const TUSSEN = 2;

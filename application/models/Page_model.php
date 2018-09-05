@@ -129,7 +129,6 @@ class Page_model extends CI_Model
 
     /**
      * Get the plaats in the menu for a certain id
-     * TODO: Move this to the menu model
      * @param $id
      * @return bool
      */
@@ -153,5 +152,45 @@ class Page_model extends CI_Model
             return $query->result()[0]->id;
         }
         return FALSE;
+    }
+
+    /**
+     * Function to get a list of images
+     * @return array
+     */
+    public function get_image_list(){
+        $files = array();
+        foreach(glob('./fotos/*.*') as $file) {
+            if ($file === './fotos/index.php') continue;
+            $image = new stdClass();
+            $naam = explode(' ', basename($file));
+            if (sizeof($naam) > 2){
+                unset($naam[0]);
+                unset($naam[1]);
+            }
+            $naam = implode(" ", $naam);
+            $image->naam = $naam;
+            $image->url = site_url('/fotos/' . basename($file));
+            $image->thumb = site_url('/fotos/thumb/' . basename($file));
+            $image->deleteUrl = site_url('/beheer/upload/delete/fotos/' . basename($file));
+            array_push($files, $image);
+        }
+        return $files;
+    }
+
+    /**
+     * Function to get a list of files.
+     */
+    public function get_file_list(){
+        $files = array();
+        foreach(glob('./files/*.*') as $file) {
+            if ($file === './files/index.php') continue;
+            $document = new stdClass();
+            $document->naam = basename($file);
+            $document->url = site_url('/files/' . basename($file));
+            $document->deleteUrl = site_url('/beheer/upload/delete/files/' . basename($file));
+            array_push($files, $document);
+        }
+        return $files;
     }
 }

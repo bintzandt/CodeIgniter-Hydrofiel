@@ -67,7 +67,7 @@
 </script>
 
 <div style="text-align:right; vertical-align: top; padding: 20px;"><a href="/beheer/agenda"><b>Terug</b></a></div>
-<?= $edit_mode ? form_open_multipart('/agenda/save', array("class" => "form-horizontal", "role" => "form")) : form_open_multipart('/agenda/submit', array("class" => "form-horizontal", "role" => "form")) ?>
+<?= $edit_mode ? form_open_multipart('/beheer/agenda/save', array("class" => "form-horizontal", "role" => "form")) : form_open_multipart('/beheer/agenda/submit', array("class" => "form-horizontal", "role" => "form")) ?>
 <?php if ($edit_mode) { ?>
     <input type="hidden" name="event_id" value="<?= $event->event_id ?>">
 <?php } ?>

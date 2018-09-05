@@ -23,7 +23,7 @@
                 label: 'Ja',
                 cssClass: 'btn-danger',
                 onClick: function(e){
-                    window.location.replace('/page/delete/' + pagina_id);
+                    window.location.replace('/beheer/pagina/delete/' + pagina_id);
                 }
             },{
                 label: 'Nee',

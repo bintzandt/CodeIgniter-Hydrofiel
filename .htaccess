@@ -2,10 +2,12 @@ RewriteEngine on
 
 #Force www:
 RewriteEngine on
+RewriteCond %{HTTP_HOST} !\.test$
 RewriteCond %{HTTP_HOST} ^example.com [NC]
 RewriteRule ^(.*)$ https://www.hydrofiel.nl/$1 [L,R=301,NC]
 
 # Enforce https
+RewriteCond %{HTTP_HOST} !\.test$
 RewriteCond %{HTTPS} !=on
 RewriteRule ^ https://www.hydrofiel.nl/%{REQUEST_URI} [L,R=301]
 

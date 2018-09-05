@@ -9,7 +9,6 @@ class Inloggen extends _SiteController
     {
         parent::__construct();
         $this->load->model('login_model');
-        $this->load->model('profile_model');
         if ($this->session->engels) {
             $this->lang->load("inloggen", "english");
         }
@@ -37,12 +36,14 @@ class Inloggen extends _SiteController
 
         $post = $this->input->post(NULL, TRUE);
 
-        if (! isset($post['redirect'])){
-            $data['redirect'] = $this->session->flashdata('redirect');
+
+        if ($this->agent->referrer() !== "" && $this->agent->referrer() !== site_url('/inloggen')){
+            $data['redirect'] = $this->agent->referrer();
         }
         else {
-            $data['redirect'] = $post['redirect'];
+            $data['redirect'] = isset($post['redirect']) ? $post['redirect'] : '/';
         }
+
         $data['success'] = $this->session->flashdata('success');
         $data['fail'] = $this->session->flashdata('fail');
         if ($this->form_validation->run() == FALSE) {
@@ -76,10 +77,6 @@ class Inloggen extends _SiteController
             $this->session->set_userdata($userdata);
             $this->login_model->unset_recovery($login->id);
             redirect($data['redirect']);
-//            if (!empty(explode('/inloggen', $data['referer'], -1))) {
-//                redirect('');
-//            }
-//            redirect($data['referer']);
         }
         else {
              $this->session->set_flashdata('fail', 'Email en/of wachtwoord onjuist.');

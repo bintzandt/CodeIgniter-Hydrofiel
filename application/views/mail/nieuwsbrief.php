@@ -1,7 +1,5 @@
 <!DOCTYPE html>
 <html>
-<head>
-</head>
 <body>
 <div style="width: 100%; margin:0 auto;" align="center">
     <table cellspacing="0" cellpadding="0" width="100%">
@@ -24,10 +22,9 @@
             <td style="color: #FFFFFF; background: #315265; padding: 7px;" height="50" colspan="2"></td>
         </tr>
         <tr align="center">
-            <td><p><a href="<?=site_url('/mail/history/' . $hash)?>"><?= $engels ? "Message not readable?" : "Bericht niet goed leesbaar?"?></a></p></td>
+            <td><p><a href="<?=site_url('/mail/' . $hash)?>"><?= $engels ? "Message not readable?" : "Bericht niet goed leesbaar?"?></a></p></td>
         </tr>
     </table>
 </div>
-
 </body>
 </html>

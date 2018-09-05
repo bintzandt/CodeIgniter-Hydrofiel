@@ -103,4 +103,71 @@ class Pagina extends _BeheerController
         }
         redirect('/beheer');
     }
+
+    /**
+     * Function to add a new page
+     */
+    public function save_toevoegen(){
+        $data = $this->input->post(NULL, TRUE);
+        if ($data['hoofdmenu']) {
+            $data['submenu'] = 'A';
+            $data['plaats'] = $this->page_model->make_room($data['submenu'], $data['na']);
+        }
+        else {
+            $data['submenu'] = $data['na'];
+            $data['plaats'] = $this->page_model->get_max_plaats($data['submenu']);
+        }
+        unset($data['hoofdmenu'], $data['na']);
+        if (($result = $this->page_model->add($data)) === 1) {
+            $this->session->set_flashdata('success', 'De pagina is succesvol toegevoegd!');
+            redirect('/beheer');
+        }
+        else {
+            $this->session->set_flashdata('fail', 'Er is iets fout gegaan. Probeer het later opnieuw');
+            redirect('/beheer');
+        }
+    }
+
+    /**
+     * Function to edit a page
+     */
+    public function save_edit(){
+        $data = $this->input->post(NULL, TRUE);
+        $page = $this->page_model->view($data['id']);
+        if ($data['hoofdmenu']) {
+            $data['submenu'] = 'A';
+        }
+        else {
+            $data['submenu'] = $data['na'];
+        }
+        unset($data['hoofdmenu'], $data['na']);
+        $diff = array_diff_assoc($data, $page);
+        $diff['id'] = $data['id'];
+        if (isset($diff['submenu'])){
+            show_error("Je kunt dit alleen in de database aanpassen.");
+        }
+        if (($result = $this->page_model->save($diff)) === 1) {
+            $this->session->set_flashdata('success', 'De pagina is succesvol opgeslagen!');
+            redirect('/beheer');
+        }
+        else {
+            $this->session->set_flashdata('fail', 'Er is iets fout gegaan of je hebt niets gewijzigd. Probeer het later opnieuw');
+            redirect('/beheer');
+        }
+    }
+
+    /**
+     * Function to delete a page
+     * @param $id int ID of the page to be deleted
+     */
+    public function delete($id){
+        if ($this->page_model->delete($id) > 0) {
+            $this->session->set_flashdata('success', 'De pagina is verwijderd!');
+        }
+        else {
+            $this->session->set_flashdata('fail', 'Er is iets fout gegaan.');
+        }
+        $this->save_routes();
+        redirect('/beheer');
+    }
 }

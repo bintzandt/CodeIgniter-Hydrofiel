@@ -8,10 +8,6 @@ class Page extends _SiteController
     public function __construct()
     {
         parent::__construct();
-        $protected = array('toevoegen', 'edit', 'delete');
-        if (in_array($this->router->method, $protected) && !$this->session->userdata('superuser')){
-            show_error("Je bent niet bevoegd!");
-        }
     }
 
     /**
@@ -55,84 +51,20 @@ class Page extends _SiteController
         $this->loadView('templates/page', $data);
     }
 
+    /**
+     * Overwrite the default error_404 handler.
+     */
     public function page_missing(){
         $this->loadView('errors/html/error_404');
     }
 
     /**
-     * Function to add a new page
-     * TODO: Move this to the beheer/page controller
+     * Function to save routes from the database and add them to the routes file.
+     * This allows for easier navigation to several pages on the website.
      */
-    public function toevoegen(){
-        $data = $this->input->post(NULL, TRUE);
-        if ($data['hoofdmenu']) {
-            $data['submenu'] = 'A';
-            $data['plaats'] = $this->page_model->make_room($data['submenu'], $data['na']);
-        }
-        else {
-            $data['submenu'] = $data['na'];
-            $data['plaats'] = $this->page_model->get_max_plaats($data['submenu']);
-        }
-        unset($data['hoofdmenu'], $data['na']);
-        if (($result = $this->page_model->add($data)) === 1) {
-            $this->session->set_flashdata('success', 'De pagina is succesvol toegevoegd!');
-            redirect('/beheer');
-        }
-        else {
-            $this->session->set_flashdata('fail', 'Er is iets fout gegaan. Probeer het later opnieuw');
-            redirect('/beheer');
-        }
-    }
-
-    /**
-     * Function to edit a page
-     * TODO: Move this function to the beheer/page controller
-     */
-    public function edit(){
-        $data = $this->input->post(NULL, TRUE);
-        $page = $this->page_model->view($data['id']);
-        if ($data['hoofdmenu']) {
-            $data['submenu'] = 'A';
-        }
-        else {
-            $data['submenu'] = $data['na'];
-        }
-        unset($data['hoofdmenu'], $data['na']);
-        $diff = array_diff_assoc($data, $page);
-        $diff['id'] = $data['id'];
-        if (isset($diff['submenu'])){
-            show_error("Je kunt dit alleen in de database aanpassen.");
-        }
-        if (($result = $this->page_model->save($diff)) === 1) {
-            $this->session->set_flashdata('success', 'De pagina is succesvol opgeslagen!');
-            redirect('/beheer');
-        }
-        else {
-            $this->session->set_flashdata('fail', 'Er is iets fout gegaan of je hebt niets gewijzigd. Probeer het later opnieuw');
-            redirect('/beheer');
-        }
-    }
-
-    /**
-     * Function to delete a page
-     * @param $id int ID of the page to be deleted
-     * TODO: Move this function to the beheer/page controller
-     */
-    public function delete($id){
-        if ($this->page_model->delete($id) > 0) {
-            $this->session->set_flashdata('success', 'De pagina is verwijderd!');
-        }
-        else {
-            $this->session->set_flashdata('fail', 'Er is iets fout gegaan.');
-        }
-        $this->save_routes();
-        redirect('/beheer');
-    }
-
     public function save_routes(){
         $pages = $this->page_model->get_all();
         $data = array();
-
         if (!empty($pages )) {
             $data[] = '<?php if ( ! defined(\'BASEPATH\')) exit(\'No direct script access allowed\');';
 

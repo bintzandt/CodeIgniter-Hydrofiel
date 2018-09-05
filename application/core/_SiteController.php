@@ -10,8 +10,9 @@ class _SiteController extends CI_Controller
         parent::__construct();
         if(ENVIRONMENT === 'development') {
             $this->output->enable_profiler(TRUE);
+        } else {
+            $this->load->driver('cache', array('adapter' => 'file'));
         }
-        $this->load->driver('cache', array('adapter' => 'file'));
         if ($this->session->engels) {
             $this->lang->load("general", "english");
         }
@@ -35,21 +36,6 @@ class _SiteController extends CI_Controller
         $this->load->view('templates/header');
         $this->load->view('templates/menu', $menu);
         ($data === NULL) ? $this->load->view($view) : $this->load->view($view, $data);
-        $this->load->view('templates/footer');
-    }
-
-    /**
-     * Loads the specified beheer view
-     * @param $view
-     * @param $data
-     * Due to some functions in 'normal' controllers doing beheer stuff this function needs to be here.
-     * Once all controllers are correctly seperated this function can be removed
-     * TODO: Remove this function once the controllers have been refractored
-     */
-    protected function loadViewBeheer($view, $data){
-        $this->load->view('templates/header');
-        $this->load->view('templates/beheermenu');
-        $this->load->view($view, $data);
         $this->load->view('templates/footer');
     }
 }
