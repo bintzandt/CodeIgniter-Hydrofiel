@@ -28,7 +28,7 @@ class Mail extends _BeheerController
         }
         else {
             // Form is valid
-            $config['upload_path'] = '/home/bintza1q/attachments/nederlands';
+            $config['upload_path'] = APPPATH . 'attachments/nederlands';
             $config['allowed_types'] = 'pdf|doc|docx|xlsx|xls|jpg|jpeg|png|gif';
             $config['max_size'] = 2048;
 
@@ -37,7 +37,7 @@ class Mail extends _BeheerController
             $this->upload->do_multi_upload('userfile_nl');
 
             //Upload english attachments
-            $config['upload_path'] = '/home/bintza1q/attachments/engels';
+            $config['upload_path'] = APPPATH . 'attachments/engels';
             $this->upload->initialize($config);
             $this->upload->do_multi_upload('userfile_en');
 
@@ -95,7 +95,7 @@ class Mail extends _BeheerController
         //Nederlands mailen.
 
         //Attach the attachments to the mail class.
-        foreach(glob('/home/bintza1q/attachments/nederlands/*.*') as $file) {
+        foreach(glob(APPPATH . 'attachments/nederlands/*.*') as $file) {
             $this->email->attach($file);
         }
 
@@ -141,7 +141,7 @@ class Mail extends _BeheerController
 
         //Engels mailen
         //Attach the attachments to the mail class.
-        foreach(glob('/home/bintza1q/attachments/engels/*.*') as $file) {
+        foreach(glob(APPPATH . 'attachments/engels/*.*') as $file) {
             $this->email->attach($file);
         }
 
@@ -176,10 +176,10 @@ class Mail extends _BeheerController
         }
 
         //Afwikkeling
-        foreach(glob('/home/bintza1q/attachments/nederlands/*.*') as $file) {
+        foreach(glob(APPPATH . 'attachments/nederlands/*.*') as $file) {
             unlink($file);
         }
-        foreach(glob('/home/bintza1q/attachments/engels/*.*') as $file) {
+        foreach(glob(APPPATH . 'attachments/engels/*.*') as $file) {
             unlink($file);
         }
 
