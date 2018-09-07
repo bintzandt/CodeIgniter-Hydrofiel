@@ -1,11 +1,4 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: bintzandt
- * Date: 06/12/17
- * Time: 22:14
- */
-
 class Home extends _SiteController
 {
     public function __construct()

@@ -1,3 +1,4 @@
+$breakpoint_menu: 1000px
 .navbar-default
     background: transparent
     border: 0
@@ -6,6 +7,7 @@
                 padding: 0 10px 0 0
                 font-weight: 400
                 .dropdown-toggle
+                    font-weight: 600
                     color: white
                     padding: 1em
                     line-height: 20px
@@ -19,22 +21,34 @@
                         color: $hover_color
             .open
                 .dropdown-menu
-                    background-color: $transparent_blue
+                    background: $transparent_blue
                     border: 0
-                    margin-top: 1px
+                    margin-top: 5px
                     text-align: left
                     left: 0
+                    @media screen and (max-width: $breakpoint_menu)
+                        background: $transparent_orange
                     li > a
                         background-color: transparent
                         color: white
                         &:hover
                             color: $hover_color
+                        @media screen and (max-width: $breakpoint_menu)
+                            padding-left: 14px
+                            padding-top: 10px
+                            padding-bottom: 10px
                 a
                     background-color: $transparent_blue
                     &:hover
                         background-color: $transparent_blue
+    .navbar-collapse > .nav > .open > .dropdown-menu
+        @media screen and (max-width: $breakpoint_menu)
+            position: static
+            display: block
+            float: none
     .navbar-collapse.collapse.in, .navbar-collapse.collapsing
         background-color: $transparent_blue
+        padding-bottom: 10px
         ul.nav.navbar-nav.navbar-right
                 li
                     margin: 10px

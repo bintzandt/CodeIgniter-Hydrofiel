@@ -4,9 +4,9 @@
         <div class="agile-footer">
             <div class="agileinfo-social-grids">
                 <ul>
-                    <li><a href="https://nl-nl.facebook.com/Hydrofiel"><i class="fa fa-facebook"></i></a></li>
-                    <li><a href="https://www.snapchat.com/add/hydrofiel"><i class="fa fa-snapchat-ghost"></i></a></li>
-                    <li><a href="https://www.instagram.com/nszwvhydrofiel/"><i class="fa fa-instagram"></i></a></li>
+                    <li><a href="https://nl-nl.facebook.com/Hydrofiel"><i class="fab fa-facebook-square"></i></a></li>
+                    <li><a href="https://www.snapchat.com/add/hydrofiel"><i class="fab fa-snapchat-ghost"></i></a></li>
+                    <li><a href="https://www.instagram.com/nszwvhydrofiel/"><i class="fab fa-instagram"></i></a></li>
                     <li><a href="mailto:bestuur@hydrofiel.nl"><i class="fa fa-envelope"></i></a></li>
                 </ul>
             </div>

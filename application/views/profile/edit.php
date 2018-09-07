@@ -1,4 +1,4 @@
-<h1><?= lang('profile_title')?><?= $profile->naam?></h1>
+<h3><?= lang('profile_title')?><?= $profile->naam?></h3>
 <?= form_open("/profile/save/" . $profile->id, array("class" => "form")); ?>
     <div class="form-group">
         <div class="col-sm-2">
