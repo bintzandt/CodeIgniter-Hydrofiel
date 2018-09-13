@@ -1,12 +1,5 @@
 <?php
 /**
- * Created by PhpStorm.
- * User: bintzandt
- * Date: 30/11/17
- * Time: 12:47
- */
-
-/**
  * Controller to handle all Agenda related URLs
  * Class Agenda
  */

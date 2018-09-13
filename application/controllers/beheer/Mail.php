@@ -43,7 +43,7 @@ class Mail extends _BeheerController
 
             //Get all the form data
             $data = $this->input->post(NULL, TRUE);
-            //Set as flashdata (bit hacky, but if it works... :D)
+            //Set as flashdata (bit hacky, but hey, it works... :D)
             $this->session->set_flashdata('data', $data);
             //Redirect to the actual mail send page
             redirect('beheer/mail/send');

@@ -1,5 +1,3 @@
-<html>
-<body>
 <h3><?= lang('agenda_further_information')?></h3>
 <?= form_open_multipart("/agenda/nszk_inschrijven", array("class" => "form-horizontal", "role" => "form")); ?>
     <input type="hidden" name="nszk_id" value="<?= $nszk_id?>">
@@ -72,4 +70,3 @@
     </div>
     <button class="btn btn-primary center-block"><?= lang('agenda_save');?></button>
 <?= form_close(); ?>
-</body>

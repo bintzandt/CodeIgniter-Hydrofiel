@@ -1,4 +1,5 @@
 <!DOCTYPE HTML>
+<html>
 <body>
 <div style="width: 100%; margin: auto;" align="center">
     <table cellspacing="0" cellpadding="0" width="100%">

@@ -62,7 +62,7 @@
         <td><?= form_open(''); ?>
                 <a href="/beheer/pagina/up/<?=$hoofd->id?>"><i class="fa fa-arrow-up"></i></a>
                 <a href="/beheer/pagina/down/<?=$hoofd->id?>"><i class="fa fa-arrow-down"></i></a>
-                <a href="/beheer/pagina/edit/<?=$hoofd->id?>"><i class="fa fa-pencil"></i></a>
+                <a href="/beheer/pagina/edit/<?=$hoofd->id?>"><i class="fa fa-pencil-alt"></i></a>
                 <a onclick="showModal('<?=$hoofd->naam?>', <?=$hoofd->id?>)" <i class="fa fa-trash"></i></a>
             <?= form_close() ?>
         </td>
@@ -74,7 +74,7 @@
                 <td><?= form_open(''); ?>
                         <a href="/beheer/pagina/up/<?=$sub->id?>"><i class="fa fa-arrow-up"></i></a>
                         <a href="/beheer/pagina/down/<?=$sub->id?>"><i class="fa fa-arrow-down"></i></a>
-                        <a href="/beheer/pagina/edit/<?=$sub->id?>"><i class="fa fa-pencil"></i></a>
+                        <a href="/beheer/pagina/edit/<?=$sub->id?>"><i class="fa fa-pencil-alt"></i></a>
                         <a onclick="showModal('<?=$sub->naam?>', <?=$sub->id?>)"><i class="fa fa-trash"></i></a>
                     <?= form_close(); ?>
                 </td>
@@ -113,7 +113,7 @@
                     <td>Pagina omhoog verplaatsen</td>
                 </tr>
                 <tr>
-                    <td><i class="fa fa-pencil"></i></td>
+                    <td><i class="fa fa-pencil-alt"></i></td>
                     <td>Pagina bewerken</td>
                 </tr>
                 <tr>
