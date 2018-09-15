@@ -14,16 +14,10 @@
                     <br>
                     Ook krijg je voortaan de nieuwsbrief, andere belangrijke mails en blijf je op de hoogte van alle gebeurtenissen!<br>
                     <br>
-                    De zwemmers trainen op:<br>
+                    De trainingen zijn op dinsdag- en donderdagavond en zijn als volgt verdeeld:<br>
                     <ul>
-                        <li>Dinsdag: 19.00-20.00 uur en 20.00-21.00 uur</li>
-                        <li>Donderdag: 21.30-22.30 uur</li>
-                    </ul>
-                    <br>
-                    De waterpoloërs trainen op:<br>
-                    <ul>
-                        <li>Dinsdag: 21.00-22.30 uur</li>
-                        <li>Donderdag: 20.00-21.30 uur</li>
+                        <li>20.00-21.00 uur: Zwemmen</li>
+                        <li>21.00-22.30 uur: Waterpolo</li>
                     </ul>
                     <br>
                     <b>Aankomende evenementen:</b><br>
@@ -40,9 +34,9 @@
                     <br>
                     Met Harde en Natte groet,<br>
                     <br>
-                    Lisa Kersten<br>
-                    <i>Secretaris 2017-2018<br>
-                        N.S.Z.&W.V. Hydrofiel</i>
+                    Vincent van 't Hof<br>
+                    <i>Secretaris 2018-2019<br>
+                       N.S.Z.&W.V. Hydrofiel</i>
                 </p>
             </td>
         </tr><tr>
