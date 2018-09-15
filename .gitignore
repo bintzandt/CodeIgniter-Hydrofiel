@@ -5,7 +5,9 @@
 *.css*
 
 #Config files
-application/config/*
+application/config/database.php
+application/config/development/*
+application/config/email.php
 
 #idea files
 .idea/*
