@@ -14,24 +14,23 @@
                     <br>
                     Ook krijg je voortaan de nieuwsbrief, andere belangrijke mails en blijf je op de hoogte van alle gebeurtenissen!<br>
                     <br>
-                    De zwemmers trainen op:<br>
+                    De trainingen zijn op dinsdag- en donderdagavond en zijn als volgt verdeeld:<br>
                     <ul>
-                        <li>Dinsdag: 19.00-20.00 uur en 20.00-21.00 uur</li>
-                        <li>Donderdag: 21.30-22.30 uur</li>
+                        <li>20.00-21.00 uur: Zwemmen</li>
+                        <li>21.00-22.30 uur: Waterpolo</li>
                     </ul>
-                    <br>
-                    De waterpoloërs trainen op:<br>
-                    <ul>
-                        <li>Dinsdag: 21.00-22.30 uur</li>
-                        <li>Donderdag: 20.00-21.30 uur</li>
-                    </ul>
-                    <br>
-                    <b>Aankomende evenementen:</b><br>
-                    <ul>
+                    <?php if ($events !== FALSE) { ?>
+                        <br>
+                        <b>Aankomende evenementen:</b><br>
+                        <ul>
                         <?php foreach ($events as $event) { ?>
-                            <li><a href="<?= site_url('/agenda/id/' . $event->event_id )?>"><?= $event->nl_naam?> op <?= date_format(date_create($event->van), 'd-m-Y')?></a></li>
-                        <?php } ?>
-                    </ul>
+                                <li><a href="<?= site_url('/agenda/id/' . $event->event_id) ?>"><?= $event->nl_naam ?>
+                                        op <?= date_format(date_create($event->van), 'd-m-Y') ?></a></li>
+                                <?php
+                            } ?>
+                        </ul>
+                    <?php }
+                    ?>
                     In de bijlage vind je onze welkomstbrief. Mocht je nog vragen hebben, dan hoor ik deze graag. Dit kan persoonlijk of via een mailtje naar <a href="mailto:secretaris@hydrofiel.nl">secretaris@hydrofiel.nl</a>.<br>
                     <br>
                     Vergeet ons vooral niet te liken op Facebook: <a href="https://www.facebook.com/Hydrofiel/">https://www.facebook.com/Hydrofiel/</a><br>
@@ -40,9 +39,9 @@
                     <br>
                     Met Harde en Natte groet,<br>
                     <br>
-                    Lisa Kersten<br>
-                    <i>Secretaris 2017-2018<br>
-                        N.S.Z.&W.V. Hydrofiel</i>
+                    Vincent van 't Hof<br>
+                    <i>Secretaris 2018-2019<br>
+                       N.S.Z.&W.V. Hydrofiel</i>
                 </p>
             </td>
         </tr><tr>

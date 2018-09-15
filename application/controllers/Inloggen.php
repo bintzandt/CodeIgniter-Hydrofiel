@@ -36,8 +36,8 @@ class Inloggen extends _SiteController
 
         $post = $this->input->post(NULL, TRUE);
 
-
-        if ($this->agent->referrer() !== "" && $this->agent->referrer() !== site_url('/inloggen')){
+        //Check if we have a meaningfull referrer and that it does not refer to the inloggen page (or any subpage)
+        if ($this->agent->referrer() !== "" && strpos($this->agent->referrer(), 'inloggen') === FALSE ){
             $data['redirect'] = $this->agent->referrer();
         }
         else {
@@ -94,7 +94,7 @@ class Inloggen extends _SiteController
             array('required' => 'Je moet een %s invullen.',
                   'valid_email' => 'Het ingevulde %s is niet geldig.'));
         if ($this->form_validation->run() == FALSE) {
-            parent::loadView('inloggen/wachtwoord_vergeten');
+            $this->loadView('inloggen/wachtwoord_vergeten');
         }
         else {
             $this->reset();
@@ -157,7 +157,7 @@ class Inloggen extends _SiteController
                     $data['recovery'] = $recovery;
                     $data['success'] = $this->session->flashdata('success');
                     $data['fail'] = $this->session->flashdata('fail');
-                    parent::loadView('inloggen/nieuw_wachtwoord', $data);
+                    $this->loadView('inloggen/nieuw_wachtwoord', $data);
                 }
                 else {
                     $this->set_new_pass();
