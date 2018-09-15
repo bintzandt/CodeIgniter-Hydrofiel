@@ -20,8 +20,9 @@ class Profile_model extends CI_Model
     const VASTTELEFOON = 9;
     const MOBIEL = 10;
     const EMAIL = 11;
-    const GESLACHT = 12;
-    const LIDMAATSCHAP = 13;
+    const ENGELS = 12;
+    const GESLACHT = 13;
+    const LIDMAATSCHAP = 14;
 
     /**
      * Get the profile for a certain ID
@@ -102,8 +103,10 @@ class Profile_model extends CI_Model
                 "plaats" => $data[self::PLAATS],
                 "geboortedatum" => date_format(date_create($data[self::GEBOORTEDATUM]), "Y-m-d"),
                 "mobielnummer" => ($data[self::VASTTELEFOON] === '' ? $data[self::MOBIEL] : $data[self::VASTTELEFOON]),
+                "engels" => ($data[self::ENGELS] === 'Nee') ? 0 : 1,
                 "geslacht" => ($data[self::GESLACHT] === 'm' ? 'man' : 'vrouw'),
             );
+
             //Translate the lidmaatschap field into database ready data
             switch ($data[self::LIDMAATSCHAP]) {
                 case 'Waterpolo - wedstrijd'    :
@@ -140,7 +143,7 @@ class Profile_model extends CI_Model
                 $result = $this->login_model->set_recovery($user['email'], TRUE);
                 //Send a welcome mail to new users :D
                 if ($result!==FALSE){
-                    if ($this->send_welcome_mail($data[self::VOOR], $user['email'], $result['recovery'])){
+                    if ($this->send_welcome_mail($data[self::VOOR], $user['email'], $result['recovery'], $user['engels'])){
                         $nr += $this->db->affected_rows();
                     }
                     else {
@@ -196,19 +199,26 @@ class Profile_model extends CI_Model
      * @param $recovery
      * @return mixed
      */
-    private function send_welcome_mail($voornaam, $email, $recovery){
+    private function send_welcome_mail($voornaam, $email, $recovery, $engels){
         $this->load->model('agenda_model');
         $data = array(
             'recovery' => $recovery,
             'events' => $this->agenda_model->get_event(NULL, 3),
             'voornaam' => $voornaam
         );
+        $this->email->clear(TRUE);
         $this->email->to($email);
         $this->email->from('bestuur@hydrofiel.nl','Bestuur N.S.Z.&W.V. Hydrofiel');
-        $this->email->subject("Welkom bij Hydrofiel! 🏊🤽‍");
-        $this->email->message($this->load->view('mail/welkom', $data, TRUE));
-        $this->email->attach('./application/views/mail/Welcomeletter_2017-2018_EN.pdf');
-        $this->email->attach('./application/views/mail/Welkomstbrief_2017-2018_NL.pdf');
+        if ($engels) {
+            $this->email->subject("Welcome to Hydrofiel! 🏊🤽");
+            $this->email->message($this->load->view('mail/welcome', $data, TRUE));
+            $this->email->attach('./application/views/mail/Welcomeletter_2018-2019_EN.pdf');
+        }
+        else {
+            $this->email->subject("Welkom bij Hydrofiel! 🏊🤽‍");
+            $this->email->message($this->load->view('mail/welkom', $data, TRUE));
+            $this->email->attach('./application/views/mail/Welkomstbrief_2018-2019_NL.pdf');
+        }
         return $this->email->send();
     }
 }
