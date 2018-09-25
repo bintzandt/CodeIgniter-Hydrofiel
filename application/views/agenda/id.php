@@ -70,7 +70,12 @@
                     <td><b><?= lang('agenda_cancelation_deadline')?></b></td>
                     <td><?=date_format(date_create($event->afmelddeadline), 'd-m-Y')?></td>
                 </tr>
-            <?php } ?>
+                <?php if ($event->maximum > 0) { ?>
+                    <tr>
+                        <td><b><?= lang('agenda_nr_maximum')?></b></td>
+                        <td><?= $aantal_aanmeldingen . '/' . $event->maximum ?></td>
+                    </tr>
+            <?php }} ?>
         </table>
     </div>
     <div class="col-sm-12 no_padding margin_10_top">
@@ -78,37 +83,44 @@
         <?= form_open(($event->soort === 'nszk') ? '/agenda/nszk' : '/agenda/aanmelden', array("id" => "aanmelden", "name" => "aanmelden")); ?>
         <input type="hidden" value="<?=$event->event_id?>" name="event_id"/>
         <input type="hidden" value="<?=$event->soort?>" name="event_soort">
-    <?php if (!$aangemeld && date('Y-m-d') <= $event->inschrijfdeadline) { ?>
-            <?php if ($event->soort === "nszk"){
-                $slagen = json_decode($event->slagen);
-                foreach ($slagen as $slag) { ?>
-                    <div class="form-group">
-                        <div class="col-sm-4 no_padding">
-                            <label><?=$slag?></label>
+    <?php if (!$aangemeld && date('Y-m-d') <= $event->inschrijfdeadline) {
+            if ($aantal_aanmeldingen < $event->maximum || $event->maximum === 0) {
+                if ($event->soort === "nszk"){
+                    $slagen = json_decode($event->slagen);
+                    foreach ($slagen as $slag) { ?>
+                        <div class="form-group">
+                            <div class="col-sm-4 no_padding">
+                                <label><?=$slag?></label>
+                            </div>
+                            <div class="col-sm-8 no_padding">
+                                <input type="hidden" value="<?= $slag?>" name="slag[]">
+                                <input type="text" class="form-control" name="tijd[]" placeholder="Tijd"/>
+                            </div>
                         </div>
-                        <div class="col-sm-8 no_padding">
-                            <input type="hidden" value="<?= $slag?>" name="slag[]">
-                            <input type="text" class="form-control" name="tijd[]" placeholder="Tijd"/>
-                        </div>
-                    </div>
-                <?php }
-            } ?>
-        <div class="form-group no_padding">
-            <input type="text" name="opmerking" maxlength="20" class="form-control" style="margin-top: 20px" placeholder="Opmerking">
-            <?php if ($event->betalen) { ?>
-                <input type="checkbox" required> <?= lang('agenda_agree_terms') ?>
+                    <?php }
+                } ?>
+                <div class="form-group no_padding">
+                    <input type="text" name="opmerking" maxlength="20" class="form-control" style="margin-top: 20px" placeholder="Opmerking">
+                    <?php if ($event->betalen) { ?>
+                        <input type="checkbox" required> <?= lang('agenda_agree_terms') ?>
+                    <?php } ?>
+                </div>
+                <div class="form-group">
+                        <button type="submit" class="btn btn-primary form-control"><?= lang('agenda_register') ?></button>
+                </div>
+            <?php }
+            else { ?>
+                <div class="alert alert-info">
+                    <strong><?= lang('agenda_full'); ?></strong>
+                </div>
             <?php } ?>
-        </div>
-        <div class="form-group">
-                <button type="submit" class="btn btn-primary form-control"><?= lang('agenda_register') ?></button>
-        </div>
     <?php } elseif (date('Y-m-d') <= $event->afmelddeadline) { ?>
         <div class="form-group">
             <a href="/agenda/afmelden/<?= $event->event_id?>" class="btn btn-primary center-block"><?= lang('agenda_cancel'); ?></a>
         </div>
     <?php } else { ?>
         <div class="alert alert-info">
-            <strong>Het is niet meer mogelijk om je af te melden voor dit evenement.</strong>
+            <strong><?= lang('agenda_no_cancel'); ?></strong>
         </div>
     <?php } ?>
 <?php } echo form_close() ?>

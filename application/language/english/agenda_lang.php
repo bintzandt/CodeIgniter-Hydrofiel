@@ -34,3 +34,7 @@ $lang["agenda_show_registrations"] = "Show all registrations";
 $lang["agenda_hide_registrations"] = "Hide";
 $lang["agenda_cancelation_deadline"] = "Cancelation deadline";
 $lang["agenda_registration_deadline"] = "Registration deadline";
+$lang["agenda_no_cancel"] = "It is no longer possible to cancel your registration.";
+$lang["agenda_full"] = "This event is full.";
+$lang["agenda_nr_maximum"] = "Registrations";
+$lang["agenda_type"] = "Kind";

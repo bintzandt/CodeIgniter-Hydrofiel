@@ -34,3 +34,7 @@ $lang["agenda_show_registrations"] = "Laat alle inschrijvingen zien";
 $lang["agenda_hide_registrations"] = "Verberg";
 $lang["agenda_cancelation_deadline"] = "Afmelddeadline";
 $lang["agenda_registration_deadline"] = "Aanmelddeadline";
+$lang["agenda_no_cancel"] = "Het is niet meer mogelijk om je voor dit evenement af te melden.";
+$lang["agenda_full"] = "Dit evenement zit helaas vol.";
+$lang["agenda_nr_maximum"] = "Aanmeldingen";
+$lang["agenda_type"] = "Soort";
