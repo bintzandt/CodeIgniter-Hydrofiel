@@ -123,6 +123,16 @@ class Agenda_model extends CI_Model
     }
 
     /**
+     * Function to update the nszk_inschrijving details
+     * @param $data array New data of the inschrijving
+     * @return bool bla
+     */
+    public function update_nszk_inschrijving($data){
+        $this->db->update('nszk_inschrijfsysteem', $data, array('nszk_id' => $data['nszk_id'], 'member_id' => $data['member_id']));
+        return $this->db->affected_rows() == 1;
+    }
+
+    /**
      * Get a list of inschrijvingen
      * @param $event_id int ID of event
      * @param null|int $member_id Which member

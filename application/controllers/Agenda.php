@@ -71,10 +71,40 @@ class Agenda extends _SiteController
             $data['aangemeld'] = ($this->agenda_model->get_aantal_aanmeldingen($event_id, $this->session->id) == 1);
             $data['inschrijvingen'] = $this->agenda_model->get_inschrijvingen($event_id, NULL);
             $data['aantal_aanmeldingen'] = sizeof($data['inschrijvingen']);
+            $data['registration_details'] = $data['aangemeld'] && $event->soort === 'nszk';
             if (empty($data['inschrijvingen'])) unset($data['inschrijvingen']);
 
             $this->loadView('agenda/id', $data);
         }
+    }
+
+    /**
+     * Function that allows editing the details for a given event_id
+     * @param $event_id int The event of which the details will be edited
+     */
+    public function edit_details($event_id){
+        $inschrijving = $this->agenda_model->get_inschrijvingen($event_id, $this->session->id);
+        $is_nszk = $this->agenda_model->is_nszk($event_id);
+        if (empty($inschrijving) || ! $is_nszk) show_404();
+        $data['details'] = $this->agenda_model->get_details($event_id, $this->session->id);
+        $data['edit_mode'] = ! empty($data['details']);
+        $data['nszk_id'] = $event_id;
+        $this->loadView('agenda/nszk_form', $data);
+    }
+
+    /**
+     * POST handler to update the NSZK inschrijving details
+     */
+    public function update_details(){
+        $data = $this->input->post(NULL, TRUE);
+        $data['member_id'] = $this->session->id;
+        if ($this->agenda_model->update_nszk_inschrijving($data)) {
+            $this->session->set_flashdata('success', "Je aanmelding is bijgewerkt!");
+        }
+        else {
+            $this->session->set_flashdata('fail', "Er is een fout opgetreden.");
+        }
+        redirect('/agenda/id/' . $data['nszk_id']);
     }
 
     /**

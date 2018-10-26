@@ -123,7 +123,10 @@
             <strong><?= lang('agenda_no_cancel'); ?></strong>
         </div>
     <?php } ?>
-<?php } echo form_close() ?>
+<?php } echo form_close();
+        if ($registration_details) { ?>
+            <a type="button" class="btn btn-warning form-control" href="/agenda/edit_details/<?= $event->event_id ?>"><?= lang('agenda_change_registration')?></a>
+        <?php } ?>
     </div>
 </div>
 <script>

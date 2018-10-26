@@ -38,3 +38,4 @@ $lang["agenda_no_cancel"] = "It is no longer possible to cancel your registratio
 $lang["agenda_full"] = "This event is full.";
 $lang["agenda_nr_maximum"] = "Registrations";
 $lang["agenda_type"] = "Kind";
+$lang["agenda_change_registration"] = "Change registration";

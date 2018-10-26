@@ -38,3 +38,4 @@ $lang["agenda_no_cancel"] = "Het is niet meer mogelijk om je voor dit evenement 
 $lang["agenda_full"] = "Dit evenement zit helaas vol.";
 $lang["agenda_nr_maximum"] = "Aanmeldingen";
 $lang["agenda_type"] = "Soort";
+$lang["agenda_change_registration"] = "Aanmelding bewerken";
