@@ -158,6 +158,12 @@
         <label class="radio-inline"><input required type="radio" name="betalen" value="0" <?= ($edit_mode && !$event->betalen) ? 'checked' : ''?>>Nee</label>
     </div>
 </div>
+<div class="form-group">
+    <label for="maximum" class="col-sm-2 control-label">Maximum aantal aanmeldingen</label>
+    <div class="col-sm-10">
+        <input type="number" value="<?= ($edit_mode) ? $event->maximum : 0 ?>" id="maximum" name="maximum" class="form-control" min="0">
+    </div>
+</div>
 <div id="nszk" class="<?= ($edit_mode && $event->soort === 'nszk')? '' : 'hidden'?>">
     <div class="form-group">
         <label for="slagen" class="col-sm-2 control-label">Slagen</label>

@@ -119,6 +119,7 @@ class Mail extends _BeheerController
 
         $this->email->message($message);
         $this->email->subject($data["onderwerp"]);
+        $this->email->to("no-reply@hydrofiel.nl");
         $this->email->bcc($bcc);
         $succes1 = TRUE;
         if (!empty($bcc)) {
@@ -300,6 +301,7 @@ class Mail extends _BeheerController
             case 'secretaris'       : $this->email->from('secretaris@hydrofiel.nl', 'Secretaris N.S.Z.&W.V. Hydrofiel'); break;
             case 'voorzitter'       : $this->email->from('voorzitter@hydrofiel.nl', 'Voorzitter N.S.Z.&W.V. Hydrofiel'); break;
             case 'activiteiten'     : $this->email->from('activiteitencommissie@hydrofiel.nl', 'Activiteitencommissie N.S.Z.&W.V. Hydrofiel'); break;
+            case 'webmaster'        : $this->email->from('webmaster@hydrofiel.nl', 'Webmaster'); break;
             default                 : $this->email->from('bestuur@hydrofiel.nl', 'Bestuur N.S.Z.&W.V. Hydrofiel'); break;
         }
     }
