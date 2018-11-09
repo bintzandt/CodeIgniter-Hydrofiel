@@ -4,7 +4,7 @@
   "description": "Compile Sass and uglify JS",
   "license": "MIT",
   "devDependencies": {
-    "grunt": "~0.4.5",
+    "grunt": "^0.4.5",
     "grunt-contrib-cssmin": "^3.0.0",
     "grunt-contrib-sass": "latest",
     "grunt-contrib-uglify": "latest",

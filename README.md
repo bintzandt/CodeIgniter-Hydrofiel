@@ -26,7 +26,7 @@ This repository contains an export of a recent database export. Go to localhost 
 ## Compiling the assets
 The assets are compiled using grunt. Make sure to install node before continuing. 
 In order to compile the assets, we first install grunt and it's dependencies. This can be done by using
-```npm install```
+```npm install``` and ```npm -g install grunt-cli```.
 After that you can use ```grunt``` to start a filewatcher that automatically compiles the sass files and minifies the javascript. Make sure to change sass/hydrofiel.sass and a javascript file in order to compile the assets for the first time. After that you only need to startup grunt when you want to make changes to one of the assets.
 
 ## Static assets
