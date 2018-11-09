@@ -69,12 +69,11 @@ $server_addr = (isset($_SERVER['HTTP_HOST']))
     : $_SERVER['CI_ENV'];
 
 // Check if local (development)
-$server_addr = ($_SERVER['REMOTE_ADDR'] === '127.0.0.1' or $_SERVER['REMOTE_ADDR'] === '127.0.1.1' or $_SERVER['REMOTE_ADDR'] === '::1')
+$server_addr = ($_SERVER['SERVER_NAME'] === 'hydrofiel.test')
     ? 'development'
     : $server_addr;
-
 	define('ENVIRONMENT', ($_SERVER['REMOTE_ADDR']==='213.124.179.80' || $server_addr === 'development') ? 'development' : 'production');
-//	define('ENVIRONMENT', 'development');
+	//define('ENVIRONMENT', 'development');
 
 /*
  *---------------------------------------------------------------

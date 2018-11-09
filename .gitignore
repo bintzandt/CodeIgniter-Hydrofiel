@@ -3,10 +3,13 @@
 
 #CSS files
 *.css*
+.sass-cache/
+node_modules/
+assets/
 
 #Config files
 application/config/database.php
-application/config/development/*
+#application/config/development/*
 application/config/email.php
 
 #idea files
