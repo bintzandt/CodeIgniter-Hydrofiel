@@ -15,8 +15,8 @@
 		    e.preventDefault(); $(this).closest('div').remove();
 	    });
     });
-
 </script>
+<script lang="text/javascript" src="/assets/components/agenda.js"></script>
 
 <div style="text-align:right; vertical-align: top; padding: 20px;"><a href="/beheer/agenda"><b>Terug</b></a></div>
 <?= $edit_mode ? form_open_multipart('/beheer/agenda/save', array("class" => "form-horizontal", "role" => "form")) : form_open_multipart('/beheer/agenda/submit', array("class" => "form-horizontal", "role" => "form")) ?>
