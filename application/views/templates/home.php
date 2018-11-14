@@ -1,3 +1,4 @@
+<script lang="text/javascript" src="/assets/components/home.js"></script>
 <div class="row">
     <div class="col-sm-2 vcenter hidden-xs">
         <a href="https://www.sponsorkliks.com/winkels.php?club=8634" target="_blank"><img class="img-rounded" style="margin: 0 auto;" src="/images/sponsorkliks.gif" alt="SponsorKliks, gratis sponsoren!" title="SponsorKliks, sponsor jouw sponsordoel gratis!" Border="0"></a>
