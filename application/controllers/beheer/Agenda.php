@@ -75,10 +75,7 @@ class Agenda extends _BeheerController
      */
     public function save(){
         $data = $this->input->post(NULL, TRUE);
-        $data['van'] = date_format(date_create($data['van']), 'Ymd');
-        $data['tot'] = date_format(date_create($data['tot']), 'Ymd');
-        $data['inschrijfdeadline'] = date_format(date_create($data['inschrijfdeadline']), 'Ymd');
-        $data['afmelddeadline'] = date_format(date_create($data['afmelddeadline']), 'Ymd');
+        $data = $this->format_input_to_mysql_datetime($data);
 
         if ($data['soort'] === 'nszk') {
             $data['slagen'] = json_encode($data['slagen']);
@@ -99,10 +96,8 @@ class Agenda extends _BeheerController
      */
     public function submit(){
         $data = $this->input->post(NULL, TRUE);
+		$data = $this->format_input_to_mysql_datetime($data);
 
-        $data['van'] = date_format(date_create($data['van']), 'Ymd');
-        $data['tot'] = date_format(date_create($data['tot']), 'Ymd');
-        $data['inschrijfdeadline'] = date_format(date_create($data['inschrijfdeadline']), 'Ymd');
         if ($data['soort'] === 'nszk') {
             $data['slagen'] = json_encode($data['slagen']);
         } else {
@@ -127,5 +122,19 @@ class Agenda extends _BeheerController
             $this->session->set_flashdata('fail', "Er is iets fout gegaan!");
         }
         redirect('/beheer/agenda');
+    }
+
+    private function format_item_to_mysql_datetime($data){
+    	return date_format(date_create($data), 'Y-m-d H:i:s');
+    }
+
+    private function format_input_to_mysql_datetime($data){
+    	if ($data['inschrijfsysteem']) {
+		    $data['inschrijfdeadline'] = $this->format_item_to_mysql_datetime($data['inschrijfdeadline']);
+		    $data['afmelddeadline'] = $this->format_item_to_mysql_datetime($data['afmelddeadline']);
+	    }
+    	$data['van'] = $this->format_item_to_mysql_datetime($data['van']);
+    	$data['tot'] = $this->format_item_to_mysql_datetime($data['tot']);
+    	return $data;
     }
 }

@@ -2,39 +2,6 @@
 <body>
 <script>
     $(document).ready(function() {
-        $('#rangepicker').find('.input-daterange').datepicker({
-            format: "dd-mm-yyyy",
-            maxViewMode: 2,
-            language: "nl",
-            autoclose: true,
-            todayHighlight: true
-        });
-
-        $('#inschrijfdeadline').find('.input-group.date').datepicker({
-            format: "dd-mm-yyyy",
-            maxViewMode: 2,
-            language: "nl",
-            autoclose: true,
-            todayHighlight: true,
-        });
-        $('#afmelddeadline').find('.input-group.date').datepicker({
-            format: "dd-mm-yyyy",
-            maxViewMode: 2,
-            language: "nl",
-            autoclose: true,
-            todayHighlight: true,
-        });
-
-        $('#soort').change(function() {
-            // show current
-            if ($(this).val()==='nszk'){
-                $('#nszk').toggleClass('hidden', false);
-            } else {
-                $('#nszk').toggleClass('hidden', true);
-            }
-
-        });
-
         let slag = $('#slag');
         let edit_mode = <?= $edit_mode ? 'true' : 'false' ?>;
 
@@ -44,26 +11,11 @@
             }
         }
 
-        $('#add_button').click(function(e){ //on add input button click
-            e.preventDefault();
-            slag.append('<div class="input-group date"><input type="text" class="form-control" name="slagen[]"><span class="input-group-addon"><i class="glyphicon glyphicon-trash"></i></span></div>'); //add input box
-        });
-
-        slag.on("click", ".input-group-addon", function(e){
-            e.preventDefault(); $(this).closest('div').remove();
-        });
-
+	    slag.on("click", ".input-group-addon", function(e){
+		    e.preventDefault(); $(this).closest('div').remove();
+	    });
     });
-    function toggleInschrijf(val){
-        if (val==="1") {
-            $('#inschrijfdeadline').toggleClass('hidden', false);
-            $('#afmelddeadline').toggleClass('hidden', false);
-        }
-        else {
-            $('#afmelddeadline').toggleClass('hidden', true);
-            $('#inschrijfdeadline').toggleClass('hidden', true);
-        }
-    }
+
 </script>
 
 <div style="text-align:right; vertical-align: top; padding: 20px;"><a href="/beheer/agenda"><b>Terug</b></a></div>
@@ -107,11 +59,11 @@
 </div>
 <div class="form-group">
     <label class="col-sm-2 control-label" for="van">Van/Tot</label>
-    <div class="col-sm-10" id="rangepicker">
+    <div class="col-sm-10">
         <div class="input-daterange input-group" id="datepicker">
-            <input type="text" class="input-sm form-control" name="van" id="van" value="<?= ($edit_mode) ? date_format(date_create($event->van), 'd-m-Y'): ''?>"/>
+            <input type="text" class="input-sm form-control" name="van" id="van" value="<?= ($edit_mode) ? date_format(date_create($event->van), 'd-m-Y H:i'): ''?>"/>
             <span class="input-group-addon">tot</span>
-            <input type="text" class="input-sm form-control" name="tot" value="<?= ($edit_mode) ? date_format(date_create($event->tot), 'd-m-Y'): ''?>"/>
+            <input type="text" class="input-sm form-control" name="tot" id="tot" value="<?= ($edit_mode) ? date_format(date_create($event->tot), 'd-m-Y H:i'): ''?>"/>
         </div>
     </div>
 </div>
@@ -136,17 +88,17 @@
 </div>
 <div class="form-group <?= ($edit_mode && $event->inschrijfsysteem) ? '' :'hidden'?>" id="inschrijfdeadline">
     <label for="inschrijfdeadline" class="col-sm-2 control-label">Inschrijfdeadline</label>
-    <div class="col-sm-10" id="inschrijfdeadline">
+    <div class="col-sm-10">
         <div class="input-group date">
-            <input type="text" class="form-control" name="inschrijfdeadline" value="<?= ($edit_mode && $event->inschrijfsysteem) ? date_format(date_create($event->inschrijfdeadline), 'd-m-Y') : ''?>"><span class="input-group-addon"><i class="glyphicon glyphicon-th"></i></span>
+            <input type="text" class="form-control" name="inschrijfdeadline" id="inschrijf" value="<?= ($edit_mode && $event->inschrijfsysteem) ? date_format(date_create($event->inschrijfdeadline), 'd-m-Y H:i') : ''?>"><span class="input-group-addon"><i class="glyphicon glyphicon-th"></i></span>
         </div>
     </div>
 </div>
 <div class="form-group <?= ($edit_mode && $event->inschrijfsysteem) ? '' :'hidden'?>" id="afmelddeadline">
     <label for="afmelddeadline" class="col-sm-2 control-label">Afmelddeadline</label>
-    <div class="col-sm-10" id="afmelddeadline">
+    <div class="col-sm-10">
         <div class="input-group date">
-            <input type="text" class="form-control" name="afmelddeadline" value="<?= ($edit_mode && $event->inschrijfsysteem && $event->afmelddeadline) ? date_format(date_create($event->afmelddeadline), 'd-m-Y') : ''?>"><span class="input-group-addon"><i class="glyphicon glyphicon-th"></i></span>
+            <input type="text" class="form-control" name="afmelddeadline" id="afmeld" value="<?= ($edit_mode && $event->inschrijfsysteem && $event->afmelddeadline) ? date_format(date_create($event->afmelddeadline), 'd-m-Y H:i') : ''?>"><span class="input-group-addon"><i class="glyphicon glyphicon-th"></i></span>
         </div>
     </div>
 </div>
@@ -162,6 +114,7 @@
     <label for="maximum" class="col-sm-2 control-label">Maximum aantal aanmeldingen</label>
     <div class="col-sm-10">
         <input type="number" value="<?= ($edit_mode) ? $event->maximum : 0 ?>" id="maximum" name="maximum" class="form-control" min="0">
+	    <span class="help-block">De standaardwaarde 0 betekent dat er geen limiet is op het aantal aanmeldingen!</span>
     </div>
 </div>
 <div id="nszk" class="<?= ($edit_mode && $event->soort === 'nszk')? '' : 'hidden'?>">

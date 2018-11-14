@@ -17,10 +17,10 @@
         <h3 class="oranje_tekst no_padding"><?=lang('home_events')?></h3>
             <?php if(!empty($events)) { foreach ($events as $event) { ?>
                 <div class="no_padding">
-                    <span class="fa fa-calendar-o"></span><a href="/agenda/id/<?=$event->event_id?>"> <?= $engels ? $event->en_naam : $event->nl_naam ?></a><br><div style="padding-left: 1em"><?= date_format(date_create($event->van), 'd-m-Y')?></div>
+                    <span class="far fa-calendar"></span><a href="/agenda/id/<?=$event->event_id?>"> <?= $engels ? $event->en_naam : $event->nl_naam ?></a><br><div style="padding-left: 1em"><?= date_format(date_create($event->van), 'd-m-Y H:i')?></div>
                 </div>
             <?php } } else { ?>
-                <span class="fa fa-frown-o"></span> <?= lang('home_no_events') ?>
+                <span class="fa fa-frown-open"></span> <?= lang('home_no_events') ?>
             <?php } ?>
     </div>
     <div class="col-sm-6 homepage_block no_padding padding_left">

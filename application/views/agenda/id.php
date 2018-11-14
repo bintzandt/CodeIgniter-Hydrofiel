@@ -51,11 +51,11 @@
         <table style="width:100%;">
             <tr>
                 <td><b><?= lang('agenda_from') ?></b></td>
-                <td><?= date_format(date_create($event->van), 'd-m-Y')?></td>
+                <td><?= date_format(date_create($event->van), 'd-m-Y H:i')?></td>
             </tr>
             <tr>
                 <td><b><?= lang('agenda_until') ?></b></td>
-                <td><?= date_format(date_create($event->tot), 'd-m-Y') ?></td>
+                <td><?= date_format(date_create($event->tot), 'd-m-Y H:i') ?></td>
             </tr>
             <tr>
                 <td><b><?= lang('agenda_location') ;?></b></td>
@@ -64,11 +64,11 @@
             <?php if ($event->inschrijfsysteem) { ?>
                 <tr>
                     <td><b><?= lang('agenda_registration_deadline') ?></b></td>
-                    <td><?= date_format(date_create($event->inschrijfdeadline), 'd-m-Y') ?></td>
+                    <td><?= date_format(date_create($event->inschrijfdeadline), 'd-m-Y H:i') ?></td>
                 </tr>
                 <tr>
                     <td><b><?= lang('agenda_cancelation_deadline')?></b></td>
-                    <td><?=date_format(date_create($event->afmelddeadline), 'd-m-Y')?></td>
+                    <td><?=date_format(date_create($event->afmelddeadline), 'd-m-Y H:i')?></td>
                 </tr>
                 <?php if ($event->maximum > 0) { ?>
                     <tr>
@@ -83,7 +83,7 @@
         <?= form_open(($event->soort === 'nszk') ? '/agenda/nszk' : '/agenda/aanmelden', array("id" => "aanmelden", "name" => "aanmelden")); ?>
         <input type="hidden" value="<?=$event->event_id?>" name="event_id"/>
         <input type="hidden" value="<?=$event->soort?>" name="event_soort">
-    <?php if (!$aangemeld && date('Y-m-d') <= $event->inschrijfdeadline) {
+    <?php if (!$aangemeld && date('Y-m-d H:i:s') <= $event->inschrijfdeadline) {
             if ($aantal_aanmeldingen < $event->maximum || $event->maximum === 0) {
                 if ($event->soort === "nszk"){
                     $slagen = json_decode($event->slagen);
@@ -114,7 +114,7 @@
                     <strong><?= lang('agenda_full'); ?></strong>
                 </div>
             <?php } ?>
-    <?php } elseif (date('Y-m-d') <= $event->afmelddeadline) { ?>
+    <?php } elseif (date('Y-m-d H:i:s') <= $event->afmelddeadline) { ?>
         <div class="form-group">
             <a href="/agenda/afmelden/<?= $event->event_id?>" class="btn btn-primary center-block"><?= lang('agenda_cancel'); ?></a>
         </div>

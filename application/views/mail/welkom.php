@@ -25,7 +25,7 @@
                         <ul>
                         <?php foreach ($events as $event) { ?>
                                 <li><a href="<?= site_url('/agenda/id/' . $event->event_id) ?>"><?= $event->nl_naam ?>
-                                        op <?= date_format(date_create($event->van), 'd-m-Y') ?></a></li>
+                                        op <?= date_format(date_create($event->van), 'd-m-Y H:i') ?></a></li>
                                 <?php
                             } ?>
                         </ul>

@@ -15,18 +15,18 @@
             <p>Copyright © <?php echo date('Y'); ?> N.S.Z.&W.V. Hydrofiel | <a style="color: white                                                                                                                             " href="https://www.bintzandt.nl/">Design&nbsp;by&nbsp;Bram&nbsp;in&nbsp;'t&nbsp;Zandt</a></p>
         </div>
     </div>
-    <!--  SummerNote  -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.10/summernote.min.js"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.10/summernote.css" />
-<!--    <script src="/js/summernote-cleaner.min.js"></script>-->
+	<!-- A wrapper to easily create bootstrap modals from JS -->
     <script src="/assets/bootstrap-model-wrapper.js"></script>
-    <script src="/assets/hydrofiel.js" async></script>
 
-    <!--    datepicker-->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.7.1/js/bootstrap-datepicker.min.js" async></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.7.1/css/bootstrap-datepicker.min.css" />
+	<!-- Dependencies for bootstrap-datetimepicker -->
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.22.2/moment.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.22.2/locale/nl.js"></script>
 
-    <!--    multiselect-->
+	<!-- bootstrap-datetimepicker -->
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.47/js/bootstrap-datetimepicker.min.js" async></script>
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.47/css/bootstrap-datetimepicker.min.css" />
+
+    <!--  Default HTML does not contain a multiselect, include one -->
     <script type="text/javascript" src="/assets/bootstrap-multiselect.js"></script>
     <link href="https://opensource.keycdn.com/fontawesome/4.7.0/font-awesome.min.css" rel="stylesheet">
 </div>

@@ -14,7 +14,7 @@
                 <?php if (!empty($agenda)) { foreach ($agenda as $punt) { ?>
                     <div>
                        <span><a href="<?= site_url('/agenda/id/' . $punt->event_id) ?>" style="color: #FFF;"><img style="padding-right: 5px" width="16px" height="16px" src="<?=site_url('/images/mail/calendar.png')?>"><?= $engels ? $punt->en_naam : $punt->nl_naam ?></a></span><br/>
-                            <?= date_format(date_create($punt->van), 'd-m-Y') ?>
+                            <?= date_format(date_create($punt->van), 'd-m-Y H:i') ?>
 					</div><br/>
 
                 <?php }} ?></td>

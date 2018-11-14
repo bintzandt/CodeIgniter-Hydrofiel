@@ -14,7 +14,7 @@ class Agenda_model extends CI_Model
     public function get_event($event_id = NULL, $limit = NULL){
         if ($event_id === NULL){
             //Get all events
-            $this->db->where('van >=', date('Y-m-d'));
+            $this->db->where('van >=', date('Y-m-d H:i:s'));
             $this->db->order_by('van', 'ASC');
             if ($limit !== NULL){
                 $this->db->limit($limit);

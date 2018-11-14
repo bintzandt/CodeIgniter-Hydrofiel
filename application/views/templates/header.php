@@ -38,6 +38,12 @@
 
     <!--        css-->
     <link rel="stylesheet" href="/assets/hydrofiel.css"/>
+	<script src="/assets/hydrofiel.js"></script>
+
+	<!--  SummerNote  -->
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.10/summernote.min.js"></script>
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.10/summernote.css" />
+
     <!--    fonts-->
     <link href='//fonts.googleapis.com/css?family=Open+Sans+Condensed:300,300italic,700' rel='stylesheet' type='text/css'>
     <link href='//fonts.googleapis.com/css?family=Open+Sans:400,300,300italic,400italic,600,600italic,700,700italic,800,800italic' rel='stylesheet' type='text/css'>

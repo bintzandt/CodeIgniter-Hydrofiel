@@ -14,7 +14,7 @@
             <?php foreach ($events as $event) { ?>
             <tr class="clickable-row" data-href="/agenda/id/<?= $event->event_id ?>">
                 <td style="padding-left: 10px;"><?= $event->naam ?></td>
-                <td><?= date_format(date_create($event->van), 'd-m-Y') ?></td>
+                <td><?= date_format(date_create($event->van), 'd-m-Y H:i') ?></td>
                 <td><?= $event->aanmeldingen . (($event->maximum > 0) ? '/' . $event->maximum : '' )?></td>
                 <td><?= ($event->soort ==='nszk')? strtoupper($event->soort) :ucwords($event->soort) ?></td>
             </tr>
