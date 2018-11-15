@@ -1,4 +1,3 @@
-<script lang="text/javascript" src="/assets/components/home.js"></script>
 <div class="row">
     <div class="col-sm-2 vcenter hidden-xs">
         <a href="https://www.sponsorkliks.com/winkels.php?club=8634" target="_blank"><img class="img-rounded" style="margin: 0 auto;" src="/images/sponsorkliks.gif" alt="SponsorKliks, gratis sponsoren!" title="SponsorKliks, sponsor jouw sponsordoel gratis!" Border="0"></a>
@@ -61,4 +60,19 @@
     <?php } ?>
     <hr>
 <?php }} ?>
-<div id="facebookfeed"></div>
+<?php if(isset($facebook_posts)) { foreach ($facebook_posts as $facebook_post) { ?>
+	<div class='container container-item'>
+		<div class='col-md-3'>
+			<img class="img-responsive no_margin" src="<?= $facebook_post->image?>">
+		</div>
+		<div class='col-md-9' align='left'>
+			<p class="news_content">
+				<?= $facebook_post->text ?>
+			</p>
+			<p align="center">
+				<a href="<?= $facebook_post->url?>" target="_blank">Bekijk op Facebook</a>
+			</p>
+		</div>
+	</div>
+	<hr>
+<?php }} ?>
