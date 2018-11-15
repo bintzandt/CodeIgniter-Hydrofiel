@@ -23,8 +23,8 @@
 	<script src="/assets/moment.locale.nl.js"></script>
 
 	<!-- bootstrap-datetimepicker -->
-	<script src="/assets/bootstrap-datetimepicker.js" async></script>
 	<link rel="stylesheet" href="/assets/bootstrap-datetimepicker.css" />
+	<script src="/assets/bootstrap-datetimepicker.js" async></script>
 
     <!--  Default HTML does not contain a multiselect, include one -->
     <script type="text/javascript" src="/assets/bootstrap-multiselect.js"></script>
