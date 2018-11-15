@@ -61,9 +61,8 @@ class Inloggen extends _SiteController
         $wachtwoord = $data['wachtwoord'];
 
         $login = $this->login_model->get_hash($email);
-        $hash = $login->wachtwoord;
 
-        if (password_verify($wachtwoord, $hash)){
+        if ( $login !== FALSE && ($hash = $login->wachtwoord) !== FALSE && password_verify($wachtwoord, $hash)) {
             if (password_needs_rehash($hash, PASSWORD_DEFAULT)){
                 $hash = password_hash($wachtwoord, PASSWORD_DEFAULT);
                 $this->login_model->set_hash($email, $hash);

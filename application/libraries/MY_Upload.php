@@ -47,7 +47,8 @@ class MY_Upload extends CI_Upload {
 		//Multiple file upload
 		if( is_array( $_FILES[$field] ) )
 		{
-	
+			$return_value = true;
+			
 			//$count = count($_FILES[$field]['name']); //Number of files to process
 			
 			foreach( $_FILES[$field]['name'] as $k => $file )

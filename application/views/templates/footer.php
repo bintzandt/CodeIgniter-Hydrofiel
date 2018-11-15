@@ -19,16 +19,15 @@
     <script src="/assets/bootstrap-model-wrapper.js"></script>
 
 	<!-- Dependencies for bootstrap-datetimepicker -->
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.22.2/moment.min.js"></script>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.22.2/locale/nl.js"></script>
+	<script src="/assets/moment.js"></script>
+	<script src="/assets/moment.locale.nl.js"></script>
 
 	<!-- bootstrap-datetimepicker -->
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.47/js/bootstrap-datetimepicker.min.js" async></script>
-	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.47/css/bootstrap-datetimepicker.min.css" />
+	<script src="/assets/bootstrap-datetimepicker.js" async></script>
+	<link rel="stylesheet" href="/assets/bootstrap-datetimepicker.css" />
 
     <!--  Default HTML does not contain a multiselect, include one -->
     <script type="text/javascript" src="/assets/bootstrap-multiselect.js"></script>
-    <link href="https://opensource.keycdn.com/fontawesome/4.7.0/font-awesome.min.css" rel="stylesheet">
 </div>
 </body>
 </html>

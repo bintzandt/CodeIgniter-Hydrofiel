@@ -5,10 +5,10 @@
 
     <title>N.S.Z.&W.V. Hydrofiel</title>
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="/assets/jquery.js"></script>
 
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="/assets/bootstrap.js"></script>
+    <link rel="stylesheet" href="/assets/bootstrap.css">
 
     <!--    meta tags-->
     <meta name="keywords" content="Hydrofiel, Studenten, Nijmeegse, Vereniging, zwem, zwemmen, waterpolo, Nijmegen, gofferttoernooi, nijmegen, gezellig" />
@@ -41,13 +41,10 @@
 	<script src="/assets/hydrofiel.js"></script>
 
 	<!--  SummerNote  -->
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.10/summernote.min.js"></script>
-	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.10/summernote.css" />
-
-    <!--    fonts-->
-    <link href='//fonts.googleapis.com/css?family=Open+Sans+Condensed:300,300italic,700' rel='stylesheet' type='text/css'>
-    <link href='//fonts.googleapis.com/css?family=Open+Sans:400,300,300italic,400italic,600,600italic,700,700italic,800,800italic' rel='stylesheet' type='text/css'>
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
+	<link href="/assets/summernote.css" rel="stylesheet">
+	<script src="/assets/summernote.js"></script>
+<!--	<link href="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.9/summernote.css" rel="stylesheet">-->
+<!--	<script src="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.9/summernote.js"></script>-->
 </head>
 <body>
 <div class="container-fluid" id="content">
