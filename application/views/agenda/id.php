@@ -75,7 +75,12 @@
                         <td><b><?= lang('agenda_nr_maximum')?></b></td>
                         <td><?= $aantal_aanmeldingen . '/' . $event->maximum ?></td>
                     </tr>
-            <?php }} ?>
+            <?php } else { ?>
+		            <tr>
+			            <td><b><?= lang('agenda_nr_maximum')?></b></td>
+			            <td><?= $aantal_aanmeldingen ?></td>
+		            </tr>
+	        <?php }} ?>
         </table>
     </div>
     <div class="col-sm-12 no_padding margin_10_top">
@@ -83,8 +88,8 @@
         <?= form_open(($event->soort === 'nszk') ? '/agenda/nszk' : '/agenda/aanmelden', array("id" => "aanmelden", "name" => "aanmelden")); ?>
         <input type="hidden" value="<?=$event->event_id?>" name="event_id"/>
         <input type="hidden" value="<?=$event->soort?>" name="event_soort">
-    <?php if (!$aangemeld && date('Y-m-d H:i:s') <= $event->inschrijfdeadline) {
-            if ($aantal_aanmeldingen < $event->maximum || $event->maximum === 0) {
+    <?php if (! $aangemeld && date('Y-m-d H:i:s') <= $event->inschrijfdeadline) {
+    	    if ( $event->maximum == 0 || $aantal_aanmeldingen < $event->maximum) {
                 if ($event->soort === "nszk"){
                     $slagen = json_decode($event->slagen);
                     foreach ($slagen as $slag) { ?>
@@ -110,16 +115,20 @@
                 </div>
             <?php }
             else { ?>
-                <div class="alert alert-info">
+                <div class="alert alert-warning">
                     <strong><?= lang('agenda_full'); ?></strong>
                 </div>
             <?php } ?>
-    <?php } elseif (date('Y-m-d H:i:s') <= $event->afmelddeadline) { ?>
+	<?php } elseif ( ! $aangemeld ) { ?>
+		<div class="alert alert-warning">
+			<strong><?= lang('agenda_no_registration'); ?></strong>
+		</div>
+	<?php } elseif (date('Y-m-d H:i:s') <= $event->afmelddeadline) { ?>
         <div class="form-group">
             <a href="/agenda/afmelden/<?= $event->event_id?>" class="btn btn-primary center-block"><?= lang('agenda_cancel'); ?></a>
         </div>
     <?php } else { ?>
-        <div class="alert alert-info">
+        <div class="alert alert-warning">
             <strong><?= lang('agenda_no_cancel'); ?></strong>
         </div>
     <?php } ?>
