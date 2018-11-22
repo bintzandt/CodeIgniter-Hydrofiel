@@ -5,7 +5,9 @@
 *.css*
 .sass-cache/
 node_modules/
-assets/
+assets/*.js
+assets/*.css
+assets/components/*
 
 #Config files
 application/config/database.php
