@@ -27,29 +27,30 @@ class Mail extends _BeheerController
             $this->loadView('beheer/mail/mail', $data);
         }
         else {
-        	$error = FALSE;
+        	$nl_error = "";
+        	$en_error = "";
 
             // Form is valid
             $config['upload_path'] = APPPATH . 'attachments/nederlands';
             $config['allowed_types'] = 'pdf|doc|docx|xlsx|xls|jpg|jpeg|png|gif';
-            $config['max_size'] = 2048;
+            $config['max_size'] = 10000;
 
             //Upload dutch attachments
             $this->load->library('upload', $config);
-            if ( ! $this->upload->do_multi_upload('userfile_nl') ){
-            	$error = array('fail' => $this->upload->display_errors());
+            if ( ! $this->upload->do_multi_upload( 'userfile_nl' ) ){
+            	$nl_error = $this->upload->display_errors();
             }
 
             //Upload english attachments
             $config['upload_path'] = APPPATH . 'attachments/engels';
             $this->upload->initialize($config);
-            if ( ! $this->upload->do_multi_upload('userfile_en') ){
-            	$error = array('fail' => $this->upload->display_errors());
+            if ( ! $this->upload->do_multi_upload( 'userfile_en' ) ){
+            	$en_error = $this->upload->display_errors();
             }
 
 
             // Check if the upload was succesful
-            if ($error === FALSE){
+            if ($nl_error === "" && $en_error === ""){
 	            //Get all the form data
 	            $data = $this->input->post(NULL, TRUE);
 	            //Set as flashdata (bit hacky, but hey, it works... :D)
@@ -57,6 +58,7 @@ class Mail extends _BeheerController
 	            //Redirect to the actual mail send page
 	            redirect('beheer/mail/send');
             } else {
+            	$error = array('fail' => $nl_error . $en_error);
             	$this->loadView('beheer/mail/mail', $error);
             }
 

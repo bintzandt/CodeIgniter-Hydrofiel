@@ -47,7 +47,7 @@ class MY_Upload extends CI_Upload {
 		//Multiple file upload
 		if( is_array( $_FILES[$field] ) )
 		{
-			$return_value = true;
+			$return_value = array();
 			
 			//$count = count($_FILES[$field]['name']); //Number of files to process
 			
@@ -235,7 +235,6 @@ class MY_Upload extends CI_Upload {
 				
 				if( $return_info === TRUE )
 				{
-					
 					$return_value[$k] = $this->data();
 				
 				}
@@ -252,15 +251,7 @@ class MY_Upload extends CI_Upload {
 			return $return_value;
 		
 		}
-		else //Single file upload, rely on native CI upload class
-		{
-		
-			$upload = self::do_upload();
-			
-			return $upload;
-		
-		}
-
+		return TRUE;
 	
 	}
 

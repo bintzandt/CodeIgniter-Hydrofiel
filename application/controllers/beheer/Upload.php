@@ -61,7 +61,7 @@ class Upload extends _BeheerController
         $config['remove_spaces']        = FALSE;
 
         $this->load->library('upload', $config);
-        if (($data = $this->upload->do_multi_upload()) !== NULL && $data !== FALSE){
+        if ( ( $data = $this->upload->do_multi_upload() ) && $data !== FALSE ) {
             foreach ($data as $file) {
                 if ($file['is_image']) {
                     $this->create_thumbnail($file['full_path'], './fotos/thumb/' . $file['file_name'], 60);
