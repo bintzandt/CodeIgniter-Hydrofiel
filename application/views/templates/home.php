@@ -1,6 +1,6 @@
 <div class="row">
     <div class="col-sm-2 vcenter hidden-xs">
-        <a href="https://www.sponsorkliks.com/winkels.php?club=8634" target="_blank"><img class="img-rounded" style="margin: 0 auto;" src="/images/sponsorkliks.gif" alt="SponsorKliks, gratis sponsoren!" title="SponsorKliks, sponsor jouw sponsordoel gratis!" Border="0"></a>
+        <a href="https://www.sponsorkliks.com/winkels.php?club=8634" target="_blank" rel="noopener"><img class="img-rounded" style="margin: 0 auto;" src="/images/sponsorkliks.gif" alt="SponsorKliks, gratis sponsoren!" title="SponsorKliks, sponsor jouw sponsordoel gratis!" Border="0"></a>
     </div><!--
     --><div class="col-sm-10 vcenter">
         <p>
@@ -63,14 +63,14 @@
 <?php if(isset($facebook_posts)) { foreach ($facebook_posts as $facebook_post) { ?>
 	<div class='container container-item'>
 		<div class='col-md-3'>
-			<img class="img-responsive no_margin" src="<?= $facebook_post->image?>">
+			<img class="lazy img-responsive no_margin" src="/favicon.ico" data-src="<?= $facebook_post->image?>" data-srcset="<?= $facebook_post->image?>" alt="<?= lang("home_view_on_facebook"); ?>">
 		</div>
 		<div class='col-md-9' align='left'>
 			<p class="news_content">
 				<?= $facebook_post->text ?>
 			</p>
 			<p align="center">
-				<a href="<?= $facebook_post->url?>" target="_blank">Bekijk op Facebook</a>
+				<a href="<?= $facebook_post->url?>" target="_blank" rel="noopener" ><?= lang("home_view_on_facebook"); ?></a>
 			</p>
 		</div>
 	</div>

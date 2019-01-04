@@ -12,4 +12,9 @@ $lang["home_birthdays"] = "Birthdays";
 $lang["home_login"] = "Sign in to see the birthdays";
 $lang["home_news"] = "News";
 $lang["home_sponsor"] = "Contribute to Hydrofiel via SponsorKliks!
-            Go to <a href=\"//www.sponsorkliks.com/products/shops.php?club=8634\" target=\"_blank\">our page</a> and contribute to Hydrofiel <b>FOR FREE!</b>";
+            Go to <a href=\"//www.sponsorkliks.com/products/shops.php?club=8634\" target=\"_blank\" rel=\"noopener\">our page</a> and contribute to Hydrofiel <b>FOR FREE!</b>";
+$lang["home_view_on_facebook"] = "View on Facebook";
+$lang["home_aria_facebook"] = "Our Facebook page";
+$lang["home_aria_instagram"] = "Our Instagram page";
+$lang["home_aria_mail"] = "Send us an email";
+$lang["home_aria_snapchat"] = "Follow us on Snapchat";

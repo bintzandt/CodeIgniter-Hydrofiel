@@ -1,8 +1,3 @@
-<script>
-    $(document).on('click',function(){
-        $('.navbar-collapse').collapse('hide');
-    });
-</script>
 <?php
     function generate_icon($name){
         switch (strtolower($name)){

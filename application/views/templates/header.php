@@ -1,19 +1,17 @@
 <!DOCTYPE HTML>
-<html>
+<html lang="<?= $this->session->english ? "en" : "nl" ?>">
 <head>
     <base href="<?=base_url()?>">
 
     <title>N.S.Z.&W.V. Hydrofiel</title>
 
-    <script src="/assets/jquery.js"></script>
-
-    <script src="/assets/bootstrap.js"></script>
-    <link rel="stylesheet" href="/assets/bootstrap.css">
-
     <!--    meta tags-->
     <meta name="keywords" content="Hydrofiel, Studenten, Nijmeegse, Vereniging, zwem, zwemmen, waterpolo, Nijmegen, gofferttoernooi, nijmegen, gezellig" />
     <meta name="title" content="Nijmeegse Studenten Zwem- en Waterpolo Vereniging" />
-    <meta name="description" content="Nijmeegse Studenten Zwem- en Waterpolo Vereniging" />
+    <meta name="description" content="N.S.Z.&W.V.Hydrofiel is dé Nijmeegse Studenten Vereniging voor Zwemmen en Waterpolo." />
+	<meta property="og:title" content="Nijmeegse Studenten Zwem- en Waterpolo Vereniging" />
+	<meta property="og:description" content="N.S.Z.&W.V.Hydrofiel is dé Nijmeegse Studenten Vereniging voor Zwemmen en Waterpolo." />
+	<meta property="og:image" content="/android-icon-192x192.png" />
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 
@@ -35,16 +33,33 @@
     <meta name="msapplication-TileColor" content="#ffffff">
     <meta name="msapplication-TileImage" content="/ms-icon-144x144.png">
     <meta name="theme-color" content="#ffffff">
-
-    <!--        css-->
-    <link rel="stylesheet" href="/assets/hydrofiel.css"/>
-	<script src="/assets/hydrofiel.js"></script>
-
-	<!--  SummerNote  -->
-	<link href="/assets/summernote.css" rel="stylesheet">
-	<script src="/assets/summernote.js"></script>
 <!--	<link href="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.9/summernote.css" rel="stylesheet">-->
 <!--	<script src="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.9/summernote.js"></script>-->
+	<script>
+		document.addEventListener("DOMContentLoaded", function() {
+			var lazyImages = [].slice.call(document.querySelectorAll("img.lazy"));
+
+			if ("IntersectionObserver" in window) {
+				var lazyImageObserver = new IntersectionObserver(function(entries, observer) {
+					entries.forEach(function(entry) {
+						if (entry.isIntersecting) {
+							var lazyImage = entry.target;
+							lazyImage.src = lazyImage.dataset.src;
+							lazyImage.srcset = lazyImage.dataset.srcset;
+							lazyImage.classList.remove("lazy");
+							lazyImageObserver.unobserve(lazyImage);
+						}
+					});
+				});
+
+				lazyImages.forEach(function(lazyImage) {
+					lazyImageObserver.observe(lazyImage);
+				});
+			} else {
+				// Possibly fall back to a more compatible method here
+			}
+		});
+	</script>
 </head>
 <body>
 <div class="container-fluid" id="content">

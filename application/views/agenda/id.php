@@ -105,7 +105,7 @@
                     <?php }
                 } ?>
                 <div class="form-group no_padding">
-                    <input type="text" name="opmerking" maxlength="20" class="form-control" style="margin-top: 20px" placeholder="Opmerking">
+                    <input type="text" name="opmerking" maxlength="20" class="form-control" style="margin-top: 20px" placeholder="<?= lang("agenda_remark"); ?>">
                     <?php if ($event->betalen) { ?>
                         <input type="checkbox" required> <?= lang('agenda_agree_terms') ?>
                     <?php } ?>

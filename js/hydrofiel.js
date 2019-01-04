@@ -75,3 +75,7 @@ jQuery(document).ready(function($) {
         $(this).addClass("img-responsive");
     });
 });
+
+$(document).on('click',function(){
+	$('.navbar-collapse').collapse('hide');
+});
