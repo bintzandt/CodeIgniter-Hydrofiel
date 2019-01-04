@@ -121,13 +121,6 @@ class Mail extends _BeheerController
         if (!empty($data["los"])){
             $bcc = array_merge($this->set_ids($data["los"], FALSE), $bcc);
         }
-        if ($data['layout'] === 'nieuwsbrief') {
-            $text = $this->mail_model->get_vrienden();
-            if ($text != NULL) {
-                $email = $this->get_emails($text->vrienden_van);
-                $bcc = array_merge($email, $bcc);
-            }
-        }
 
         $this->set_from($data["van"]);
         $hash = md5($data['content'] . $data['layout'] .time());
@@ -282,6 +275,14 @@ class Mail extends _BeheerController
             foreach ($emails as $email){
                 array_push($mail, $email->email);
             }
+        }
+
+        if ($group === "nieuwsbrief") {
+	        $text = $this->mail_model->get_vrienden();
+	        if ($text != NULL) {
+		        $email = $this->get_emails($text->vrienden_van);
+		        $mail = array_merge($email, $mail);
+	        }
         }
         return $mail;
     }
