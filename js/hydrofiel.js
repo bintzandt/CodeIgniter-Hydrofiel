@@ -61,6 +61,17 @@ jQuery(document).ready(function($) {
         window.location = $(this).data("href");
     });
 
+	$('#los').multiselect({
+		enableCaseInsensitiveFiltering: true,
+		maxHeight: 300,
+		inheritClass: false,
+		buttonWidth: '100%',
+		numberDisplayed: 5,
+		optionClass: function(element) {
+			return 'multi';
+		}
+	});
+
 
     $("h1").each(function(){
         $(this).addClass("oranje_tekst");
@@ -79,3 +90,44 @@ jQuery(document).ready(function($) {
 $(document).on('click',function(){
 	$('.navbar-collapse').collapse('hide');
 });
+
+function showModal(){
+	var aan = "";
+	var email = "";
+	var names = "";
+	var str = "";
+	if ($('#aan option:selected').val()!=='select'){
+		aan = "De mail wordt naar de groep " + $('#aan option:selected').text() + ' gestuurd.<br><br>';
+	}
+	if ($('#email').val() !== ""){
+		email = "De mail wordt ook naar de volgende adressen gestuurd:<br>" + $('#email').val() + ".<br><br>";
+	}
+	$('#los option:selected').each(function() {
+		// concat to a string with comma
+		names += $(this).text() + ", ";
+	});
+	// trim comma and white space at the end of string
+	if (names!=="") {
+		names = names.slice(0, -2);
+		names += ".";
+		str = "De mail wordt ook naar de volgende personen gestuurd:<br>" + names;
+	}
+
+	showBSModal({
+		title: "Controleer gegevens",
+		body: aan + email + str,
+		actions: [{
+			label: 'Verstuur',
+			cssClass: 'btn-primary',
+			onClick: function(e){
+				$("#postForm").submit();
+			}
+		},{
+			label: 'Annuleer',
+			cssClass: 'btn-warning',
+			onClick: function(e){
+				$(e.target).parents('.modal').modal('hide');
+			}
+		}]
+	});
+}

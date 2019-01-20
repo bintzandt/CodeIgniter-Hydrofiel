@@ -22,25 +22,25 @@
 
 	<!--        css-->
 	<link rel="stylesheet" href="/assets/hydrofiel.css"/>
-	<script src="/assets/hydrofiel.js" defer async></script>
+	<script src="/assets/hydrofiel.js"></script>
 
 	<!--  SummerNote  -->
 	<link href="/assets/summernote.css" rel="stylesheet">
-	<script src="/assets/summernote.js" defer async></script>
+	<script src="/assets/summernote.js"></script>
 
 	<!-- A wrapper to easily create bootstrap modals from JS -->
-    <script src="/assets/bootstrap-model-wrapper.js" defer async></script>
+    <script src="/assets/bootstrap-model-wrapper.js"></script>
 
 	<!-- Dependencies for bootstrap-datetimepicker -->
-	<script src="/assets/moment.js" defer async></script>
-	<script src="/assets/moment.locale.nl.js" defer async></script>
+	<script src="/assets/moment.js"></script>
+	<script src="/assets/moment.locale.nl.js"></script>
 
 	<!-- bootstrap-datetimepicker -->
 	<link rel="stylesheet" href="/assets/bootstrap-datetimepicker.css"/>
-	<script src="/assets/bootstrap-datetimepicker.js" defer async></script>
+	<script src="/assets/bootstrap-datetimepicker.js"></script>
 
     <!--  Default HTML does not contain a multiselect, include one -->
-    <script type="text/javascript" src="/assets/bootstrap-multiselect.js" defer async></script>
+    <script type="text/javascript" src="/assets/bootstrap-multiselect.js"></script>
 </div>
 </body>
 </html>

@@ -1,61 +1,6 @@
 <!DOCTYPE HTML>
 <html>
 <body>
-<script>
-    $(document).ready(function() {
-        $('#los').multiselect({
-            enableCaseInsensitiveFiltering: true,
-            maxHeight: 300,
-            inheritClass: false,
-            buttonWidth: '100%',
-            numberDisplayed: 5,
-            optionClass: function(element) {
-                return 'multi';
-            }
-        });
-    });
-
-    function showModal(){
-        var aan = "";
-        var email = "";
-        var names = "";
-        var str = "";
-        if ($('#aan option:selected').val()!=='select'){
-            aan = "De mail wordt naar de groep " + $('#aan option:selected').text() + ' gestuurd.<br><br>';
-        }
-        if ($('#email').val() !== ""){
-            email = "De mail wordt ook naar de volgende adressen gestuurd:<br>" + $('#email').val() + ".<br><br>";
-        }
-        $('#los option:selected').each(function() {
-            // concat to a string with comma
-            names += $(this).text() + ", ";
-        });
-        // trim comma and white space at the end of string
-        if (names!=="") {
-            names = names.slice(0, -2);
-            names += ".";
-            str = "De mail wordt ook naar de volgende personen gestuurd:<br>" + names;
-        }
-
-        showBSModal({
-            title: "Controleer gegevens",
-            body: aan + email + str,
-            actions: [{
-                label: 'Verstuur',
-                cssClass: 'btn-primary',
-                onClick: function(e){
-                    $("#postForm").submit();
-                }
-            },{
-                label: 'Annuleer',
-                cssClass: 'btn-warning',
-                onClick: function(e){
-                    $(e.target).parents('.modal').modal('hide');
-                }
-            }]
-        });
-    }
-</script>
 <div style="text-align:right; vertical-align: top; padding: 20px;"><a href="/beheer/mail/history"><b>Geschiedenis</b></a></div>
 <?php echo form_open_multipart('beheer/mail', array('id' => 'postForm', 'class' => 'form-horizontal'));?>
     <?php if (isset($success)) { ?>
