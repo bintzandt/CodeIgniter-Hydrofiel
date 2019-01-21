@@ -14,6 +14,8 @@ jQuery(document).ready(function($) {
 		useCurrent: false,
 	} );
 
+	var slag = $( '#slag');
+
 	van.on( "dp.change", function( e ) {
 		tot.data( "DateTimePicker" ).minDate( e.date );
 		inschrijf.data( "DateTimePicker" ).maxDate( e.date );

@@ -35,6 +35,14 @@
     <meta name="theme-color" content="#ffffff">
 <!--	<link href="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.9/summernote.css" rel="stylesheet">-->
 <!--	<script src="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.9/summernote.js"></script>-->
+	<script src="/assets/jquery.js"></script>
+
+	<script src="/assets/bootstrap.js"></script>
+	<link rel="stylesheet" href="/assets/bootstrap.css">
+
+	<!--        css-->
+	<link rel="stylesheet" href="/assets/hydrofiel.css"/>
+
 	<script>
 		document.addEventListener("DOMContentLoaded", function() {
 			var lazyImages = [].slice.call(document.querySelectorAll("img.lazy"));

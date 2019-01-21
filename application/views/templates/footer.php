@@ -15,13 +15,6 @@
             <p>Copyright © <?php echo date('Y'); ?> N.S.Z.&W.V. Hydrofiel | <a style="color: white                                                                                                                             " href="https://www.bintzandt.nl/">Design&nbsp;by&nbsp;Bram&nbsp;in&nbsp;'t&nbsp;Zandt</a></p>
         </div>
     </div>
-	<script src="/assets/jquery.js"></script>
-
-	<script src="/assets/bootstrap.js"></script>
-	<link rel="stylesheet" href="/assets/bootstrap.css">
-
-	<!--        css-->
-	<link rel="stylesheet" href="/assets/hydrofiel.css"/>
 	<script src="/assets/hydrofiel.js"></script>
 
 	<!--  SummerNote  -->
