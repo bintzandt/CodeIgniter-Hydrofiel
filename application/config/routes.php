@@ -1,5 +1,5 @@
 <?php
-defined('BASEPATH') OR exit('No direct script access allowed');
+defined( 'BASEPATH' ) OR exit( 'No direct script access allowed' );
 
 /*
 | -------------------------------------------------------------------------
@@ -49,15 +49,14 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 | Examples:	my-controller/index	-> my_controller/index
 |		my-controller/my-method	-> my_controller/my_method
 */
-$route['default_controller'] = 'home';
-$route['beheer'] = 'beheer/Pagina';
-$route['404_override'] = '';
+$route['default_controller']   = 'home';
+$route['beheer']               = 'beheer/Pagina';
+$route['404_override']         = '';
 $route['translate_uri_dashes'] = FALSE;
-$route['page/id/1'] = '/';
-$route['404_override'] = 'page/page_missing';
-$route['uitloggen'] = 'inloggen';
+$route['page/id/1']            = '/';
+$route['404_override']         = 'page/page_missing';
+$route['uitloggen']            = 'inloggen';
 
-if (file_exists(APPPATH.'cache/routes.php'))
-{
-    require_once APPPATH.'cache/routes.php';
+if( file_exists( APPPATH . 'cache/routes.php' ) ) {
+	require_once APPPATH . 'cache/routes.php';
 }

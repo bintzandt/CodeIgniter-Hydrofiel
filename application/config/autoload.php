@@ -1,5 +1,5 @@
 <?php
-defined('BASEPATH') OR exit('No direct script access allowed');
+defined( 'BASEPATH' ) OR exit( 'No direct script access allowed' );
 
 /*
 | -------------------------------------------------------------------
@@ -39,7 +39,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 |  $autoload['packages'] = array(APPPATH.'third_party', '/usr/local/shared');
 |
 */
-$autoload['packages'] = array();
+$autoload['packages'] = [];
 
 /*
 | -------------------------------------------------------------------
@@ -58,7 +58,7 @@ $autoload['packages'] = array();
 |
 |	$autoload['libraries'] = array('user_agent' => 'ua');
 */
-$autoload['libraries'] = array('database','session', 'email', 'user_agent');
+$autoload['libraries'] = [ 'database', 'session', 'email', 'user_agent' ];
 
 /*
 | -------------------------------------------------------------------
@@ -79,7 +79,7 @@ $autoload['libraries'] = array('database','session', 'email', 'user_agent');
 |	$autoload['drivers'] = array('cache' => 'cch');
 |
 */
-$autoload['drivers'] = array('cache');
+$autoload['drivers'] = [ 'cache' ];
 
 /*
 | -------------------------------------------------------------------
@@ -89,7 +89,7 @@ $autoload['drivers'] = array('cache');
 |
 |	$autoload['helper'] = array('url', 'file');
 */
-$autoload['helper'] = array('url', 'file', 'form', 'language');
+$autoload['helper'] = [ 'url', 'file', 'form', 'language' ];
 /*
 | -------------------------------------------------------------------
 |  Auto-load Config files
@@ -102,7 +102,7 @@ $autoload['helper'] = array('url', 'file', 'form', 'language');
 | config files.  Otherwise, leave it blank.
 |
 */
-$autoload['config'] = array();
+$autoload['config'] = [];
 
 /*
 | -------------------------------------------------------------------
@@ -116,7 +116,7 @@ $autoload['config'] = array();
 | "codeigniter_lang.php" would be referenced as array('codeigniter');
 |
 */
-$autoload['language'] = array();
+$autoload['language'] = [];
 
 /*
 | -------------------------------------------------------------------
@@ -131,4 +131,4 @@ $autoload['language'] = array();
 |
 |	$autoload['model'] = array('first_model' => 'first');
 */
-$autoload['model'] = array('menu_model', 'page_model', 'agenda_model', 'profile_model', 'post_model');
+$autoload['model'] = [ 'menu_model', 'page_model', 'agenda_model', 'profile_model', 'post_model' ];
