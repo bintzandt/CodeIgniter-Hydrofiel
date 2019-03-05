@@ -45,8 +45,6 @@ class Inloggen extends _SiteController {
 			$data['redirect'] = isset( $post['redirect'] ) ? $post['redirect'] : '/';
 		}
 
-		$data['success'] = $this->session->flashdata( 'success' );
-		$data['fail']    = $this->session->flashdata( 'fail' );
 		if( $this->form_validation->run() == FALSE ) {
 			$this->loadView( 'inloggen/index', $data );
 		}
@@ -80,7 +78,7 @@ class Inloggen extends _SiteController {
 			redirect( $data['redirect'] );
 		}
 		else {
-			$this->session->set_flashdata( 'fail', 'Email en/of wachtwoord onjuist.' );
+			$this->session->set_flashdata( 'error', 'Email en/of wachtwoord onjuist.' );
 			redirect( '/inloggen' );
 		}
 	}
@@ -120,11 +118,11 @@ class Inloggen extends _SiteController {
 					$this->session->set_flashdata( 'success', 'Er is een mail met een resetcode naar je gestuurd!' );
 				}
 				else {
-					$this->session->set_flashdata( 'fail', 'Het is niet gelukt om de mail te sturen. Neem contact op met <a href="mailto:webmaster@hydrofiel.nl">de webmaster</a>.' );
+					$this->session->set_flashdata( 'error', 'Het is niet gelukt om de mail te sturen. Neem contact op met <a href="mailto:webmaster@hydrofiel.nl">de webmaster</a>.' );
 				}
 			}
 			else {
-				$this->session->set_flashdata( 'fail', 'Dit mailadres is niet bij ons bekend.' );
+				$this->session->set_flashdata( 'error', 'Dit mailadres is niet bij ons bekend.' );
 			}
 			redirect( '/inloggen' );
 		}
@@ -144,8 +142,6 @@ class Inloggen extends _SiteController {
 				if( $this->form_validation->run() == FALSE ) {
 					//Show the new password form
 					$data['recovery'] = $recovery;
-					$data['success']  = $this->session->flashdata( 'success' );
-					$data['fail']     = $this->session->flashdata( 'fail' );
 					$this->loadView( 'inloggen/nieuw_wachtwoord', $data );
 				}
 				else {
@@ -189,7 +185,7 @@ class Inloggen extends _SiteController {
 		// Check if we still have a valid recovery...
 		$result = $this->login_model->get_id_and_mail( $data['recovery'] );
 		if( $result === FALSE ) {
-			$this->session->set_flashdata( 'fail', 'Deze recovery is onbekend.' );
+			$this->session->set_flashdata( 'error', 'Deze recovery is onbekend.' );
 		}
 		else {
 			$update = [
@@ -201,7 +197,7 @@ class Inloggen extends _SiteController {
 				$this->session->set_flashdata( 'success', 'Wachtwoord succesvol opgeslagen' );
 			}
 			else {
-				$this->session->set_flashdata( 'fail', 'Er is iets mis gegaan bij het opslaan van je wachtwoord. Probeer het later opnieuw.' );
+				$this->session->set_flashdata( 'error', 'Er is iets mis gegaan bij het opslaan van je wachtwoord. Probeer het later opnieuw.' );
 			}
 			redirect( '/inloggen' );
 		}

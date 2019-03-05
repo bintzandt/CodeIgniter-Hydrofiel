@@ -3,16 +3,6 @@
 <?php if( empty( $events ) ) { ?>
 	<b>Er zijn geen evenementen.</b>
 <?php } else { ?>
-	<?php if( isset( $success ) ) { ?>
-		<div class="alert alert-success">
-			<strong><?= $success ?></strong>
-		</div>
-	<?php }
-	if( isset( $fail ) ) { ?>
-		<div class="alert alert-danger">
-			<strong><?= $fail ?></strong>
-		</div>
-	<?php } ?>
 	<table class="table table-responsive table-striped">
 		<thead>
 		<tr>

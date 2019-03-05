@@ -36,8 +36,6 @@ class Profile extends _SiteController {
 			$id = $this->session->id;
 		}
 		$data['profile'] = $this->profile_model->get_profile( $id );
-		$data['success'] = $this->session->flashdata( 'success' );
-		$data['fail']    = $this->session->flashdata( 'fail' );
 
 		if( ! ( $this->session->superuser || $this->session->id === $id ) ) {
 			$data['profile']->email        = $data['profile']->zichtbaar_email ? $data['profile']->email : lang( "profile_hidden" );
@@ -155,7 +153,7 @@ class Profile extends _SiteController {
 			$this->session->set_flashdata( 'success', 'Gebruiker is opgeslagen.' );
 		}
 		else {
-			$this->session->set_flashdata( 'fail', 'Gebruiker is niet veranderd' );
+			$this->session->set_flashdata( 'error', 'Gebruiker is niet veranderd' );
 		}
 		redirect( '/profile/index/' . $id );
 	}

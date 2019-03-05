@@ -13,8 +13,6 @@ class Upload extends _BeheerController {
 	 * Get a list of images and files from our page_model and show them in a table.
 	 */
 	public function index() {
-		$data['success'] = $this->session->flashdata( 'success' );
-		$data['fail']    = $this->session->flashdata( 'fail' );
 		$data['images']  = $this->page_model->get_image_list();
 		$data['files']   = $this->page_model->get_file_list();
 		$this->loadView( 'beheer/upload/upload', $data );
@@ -44,7 +42,7 @@ class Upload extends _BeheerController {
 			}
 			elseif( $result === 0 )
 				$this->session->set_flashdata( 'success', "De database was up-to-date." );
-			else $this->session->set_flashdata( 'fail', "Er is helaas iets fout gegaan." );
+			else $this->session->set_flashdata( 'error', "Er is helaas iets fout gegaan." );
 			redirect( '/beheer/leden' );
 		}
 	}
@@ -73,10 +71,10 @@ class Upload extends _BeheerController {
 		}
 		else {
 			if( $data === NULL ) {
-				$this->session->set_flashdata( 'fail', "Geen bestand(en) geselecteerd" );
+				$this->session->set_flashdata( 'error', "Geen bestand(en) geselecteerd" );
 			}
 			else {
-				$this->session->set_flashdata( 'fail', $this->upload->display_errors() );
+				$this->session->set_flashdata( 'error', $this->upload->display_errors() );
 			}
 		}
 		redirect( 'beheer/upload' );
@@ -127,7 +125,7 @@ class Upload extends _BeheerController {
 			$this->session->set_flashdata( 'success', "Het bestand is verwijderd!" );
 		}
 		else {
-			$this->session->set_flashdata( 'fail', "Er is iets mis gegaan." );
+			$this->session->set_flashdata( 'error', "Er is iets mis gegaan." );
 		}
 		redirect( '/beheer/upload' );
 	}

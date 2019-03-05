@@ -48,8 +48,6 @@ class Agenda extends _SiteController {
 			}
 
 			$data['event']                = $event;
-			$data['success']              = $this->session->flashdata( 'success' );
-			$data['fail']                 = $this->session->flashdata( 'fail' );
 			$data['aangemeld']            = ( $this->agenda_model->get_aantal_aanmeldingen( $event_id, $this->session->id ) == 1 );
 			$data['inschrijvingen']       = $this->agenda_model->get_inschrijvingen( $event_id, NULL );
 			$data['aantal_aanmeldingen']  = sizeof( $data['inschrijvingen'] );
@@ -108,7 +106,7 @@ class Agenda extends _SiteController {
 			$this->session->set_flashdata( 'success', "Je aanmelding is bijgewerkt!" );
 		}
 		else {
-			$this->session->set_flashdata( 'fail', "Er is een fout opgetreden." );
+			$this->session->set_flashdata( 'error', "Er is een fout opgetreden." );
 		}
 		redirect( '/agenda/id/' . $data['nszk_id'] );
 	}
@@ -146,7 +144,7 @@ class Agenda extends _SiteController {
 			$this->loadView( 'agenda/nszk_form', [ 'nszk_id' => $data['event_id'] ] );
 		}
 		else {
-			$this->session->set_flashdata( 'fail', "Er is iets mis gegaan met je aanmelding." );
+			$this->session->set_flashdata( 'error', "Er is iets mis gegaan met je aanmelding." );
 			redirect( '/agenda/id/' . $data['event_id'] );
 		}
 	}
@@ -161,7 +159,7 @@ class Agenda extends _SiteController {
 			$this->session->set_flashdata( 'success', "Je bent aangemeld voor dit NSZK!" );
 		}
 		else {
-			$this->session->set_flashdata( 'fail', "Er is iets mis gegaan met je aanmelding." );
+			$this->session->set_flashdata( 'error', "Er is iets mis gegaan met je aanmelding." );
 		}
 		redirect( '/agenda/id/' . $data['nszk_id'] );
 	}
@@ -185,7 +183,7 @@ class Agenda extends _SiteController {
 			$this->session->set_flashdata( 'success', "Aanmelden gelukt!" );
 		}
 		else {
-			$this->session->set_flashdata( 'fail', "Het is niet gelukt om je aan te melden." );
+			$this->session->set_flashdata( 'error', "Het is niet gelukt om je aan te melden." );
 		}
 		redirect( '/agenda/id/' . $data['event_id'] );
 	}
@@ -200,13 +198,13 @@ class Agenda extends _SiteController {
 		if( $id === NULL ) {
 			$id = $this->session->id;
 			if( date( 'Y-m-d' ) > $event->afmelddeadline ) {
-				$this->session->set_flashdata( 'fail', "Je kunt je niet meer afmelden voor dit evenement." );
+				$this->session->set_flashdata( 'error', "Je kunt je niet meer afmelden voor dit evenement." );
 			}
 			elseif( $this->agenda_model->afmelden( $id, $event_id ) ) {
 				$this->session->set_flashdata( 'success', "Afmelden gelukt!" );
 			}
 			else {
-				$this->session->set_flashdata( 'fail', "Het is niet gelukt om je af te melden." );
+				$this->session->set_flashdata( 'error', "Het is niet gelukt om je af te melden." );
 			}
 			redirect( '/agenda/id/' . $event_id );
 		}
@@ -215,7 +213,7 @@ class Agenda extends _SiteController {
 				$this->session->set_flashdata( 'success', "Afmelden gelukt!" );
 			}
 			else {
-				$this->session->set_flashdata( 'fail', "Het is niet gelukt de persoon af te melden." );
+				$this->session->set_flashdata( 'error', "Het is niet gelukt de persoon af te melden." );
 			}
 			redirect( '/beheer/inschrijvingen/' . $event_id );
 		}

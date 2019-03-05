@@ -18,8 +18,6 @@ class Posts extends _BeheerController {
 	 * The default view.
 	 */
 	public function index() {
-		$data['success'] = $this->session->flashdata( 'success' );
-		$data['fail']    = $this->session->flashdata( 'fail' );
 		$data['posts']   = $this->post_model->get_posts();
 		$this->loadView( 'beheer/posts/index', $data );
 	}
@@ -33,7 +31,7 @@ class Posts extends _BeheerController {
 		if( $this->post_model->add_post( $post ) > 0 ) {
 			$this->session->set_flashdata( 'success', 'Post is toegevoegd.' );
 		}
-		else $this->session->set_flashdata( 'fail', 'De post kon niet worden toegevoegd.' );
+		else $this->session->set_flashdata( 'error', 'De post kon niet worden toegevoegd.' );
 		redirect( 'beheer/posts' );
 	}
 
@@ -44,7 +42,7 @@ class Posts extends _BeheerController {
 		if( $this->post_model->delete_post( $id ) > 0 ) {
 			$this->session->set_flashdata( 'success', 'Post is verwijderd.' );
 		}
-		else $this->session->set_flashdata( 'fail', 'De post kon niet worden verwijderd.' );
+		else $this->session->set_flashdata( 'error', 'De post kon niet worden verwijderd.' );
 		redirect( 'beheer/posts' );
 	}
 

@@ -13,8 +13,6 @@ class Agenda extends _BeheerController {
 	 * Load the index page
 	 */
 	public function index() {
-		$data['success'] = $this->session->flashdata( 'success' );
-		$data['fail']    = $this->session->flashdata( 'fail' );
 		$data['events']  = $this->agenda_model->get_event();
 		$this->loadView( 'beheer/agenda/agenda', $data );
 	}
@@ -87,7 +85,7 @@ class Agenda extends _BeheerController {
 			$this->session->set_flashdata( 'success', "Het evenement is succesvol bewerkt!" );
 		}
 		else {
-			$this->session->set_flashdata( 'fail', "Het evenement is niet veranderd!" );
+			$this->session->set_flashdata( 'error', "Het evenement is niet veranderd!" );
 		}
 		redirect( '/beheer/agenda' );
 	}
@@ -125,7 +123,7 @@ class Agenda extends _BeheerController {
 			$this->session->set_flashdata( 'success', "Het evenement is succesvol toegevoegd!" );
 		}
 		else {
-			$this->session->set_flashdata( 'fail', "Er is iets fout gegaan!" );
+			$this->session->set_flashdata( 'error', "Er is iets fout gegaan!" );
 		}
 		redirect( '/beheer/agenda' );
 	}
@@ -140,7 +138,7 @@ class Agenda extends _BeheerController {
 			$this->session->set_flashdata( 'success', "Het evenement is verwijderd!" );
 		}
 		else {
-			$this->session->set_flashdata( 'fail', "Er is iets fout gegaan!" );
+			$this->session->set_flashdata( 'error', "Er is iets fout gegaan!" );
 		}
 		redirect( '/beheer/agenda' );
 	}

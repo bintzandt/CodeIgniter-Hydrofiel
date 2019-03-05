@@ -39,16 +39,6 @@ function get_status( $bereikbaar, $zichtbaar ) {
 </script>
 <body>
 <div align="right" style="padding: 20px"><a href="/beheer/pagina/toevoegen"><b>Pagina Toevoegen</b></a></div>
-<?php if( isset( $success ) ) { ?>
-	<div class="alert alert-success">
-		<strong><?= $success ?></strong>
-	</div>
-<?php }
-if( isset( $fail ) ) { ?>
-	<div class="alert alert-danger">
-		<strong><?= $fail ?></strong>
-	</div>
-<?php } ?>
 <table class="table table-condensed table-striped table-hover table-responsive">
 	<thead>
 	<tr>

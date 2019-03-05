@@ -1,14 +1,4 @@
 <div class="container-fluid">
-	<?php if( isset( $success ) ) { ?>
-		<div class="alert alert-success">
-			<strong><?= $success ?></strong>
-		</div>
-	<?php }
-	if( isset( $fail ) ) { ?>
-		<div class="alert alert-danger">
-			<strong><?= $fail ?></strong>
-		</div>
-	<?php } ?>
 	<h3 align="center"><b><?= $event->naam ?></b></h3>
 	<p><?= $event->omschrijving ?></p>
 	<div class="col-sm-6" style="padding-left: 0">
