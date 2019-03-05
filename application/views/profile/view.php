@@ -1,13 +1,3 @@
-<?php if( isset( $success ) ) { ?>
-	<div class="alert alert-success">
-		<strong><?= $success ?></strong>
-	</div>
-<?php }
-if( isset( $fail ) ) { ?>
-	<div class="alert alert-danger">
-		<strong><?= $fail ?></strong>
-	</div>
-<?php } ?>
 <h3><?= lang( "profile_title" ) ?><?= $profile->naam ?><?= ( $profile->id === $this->session->id || $superuser ) ? ' <a href="/profile/edit/' . $profile->id . '"><span class="fa fa-pencil-alt"></span></a>' : '' ?><?= $superuser ? ' <a href="/beheer/leden/delete/' . $profile->id . '"><span class="fa fa-trash"></span></a>' : '' ?></h3>
 <div class="table-responsive">
 	<table class="table table-condensed table-responsive table-user-information">

@@ -20,8 +20,6 @@ class Mail extends _BeheerController {
 		// Check if the submitted form is valid according to the rules above
 		if( $this->form_validation->run() == FALSE ) {
 			// Form is not valid
-			$data['success'] = $this->session->flashdata( 'success' );
-			$data['fail']    = $this->session->flashdata( 'fail' );
 			$data['leden']   = $this->profile_model->get_profile();
 			$this->loadView( 'beheer/mail/mail', $data );
 		}
@@ -100,7 +98,7 @@ class Mail extends _BeheerController {
 			$data = $this->session->flashdata( 'data' );
 		}
 		else {
-			$this->session->set_flashdata( "fail", "Deze functie kan zo niet gebruikt worden!" );
+			$this->session->set_flashdata( "error", "Deze functie kan zo niet gebruikt worden!" );
 			redirect( 'beheer/mail' );
 		}
 
@@ -199,7 +197,7 @@ class Mail extends _BeheerController {
 			$this->session->set_flashdata( "success", "Mail is verstuurd." );
 		}
 		else {
-			$this->session->set_flashdata( "fail", "Er ging iets fout." );
+			$this->session->set_flashdata( "error", "Er ging iets fout." );
 		}
 
 		redirect( 'beheer/mail' );
@@ -357,7 +355,7 @@ class Mail extends _BeheerController {
 			$this->session->set_flashdata( 'success', 'Mail verwijderd.' );
 		}
 		else {
-			$this->session->set_flashdata( 'fail', 'Er is iets fout gegaan.' );
+			$this->session->set_flashdata( 'error', 'Er is iets fout gegaan.' );
 		}
 		redirect( '/beheer/mail/history' );
 	}
@@ -366,8 +364,6 @@ class Mail extends _BeheerController {
 	 * Function to show the history of all the mails.
 	 */
 	public function history() {
-		$data['success'] = $this->session->flashdata( 'success' );
-		$data['fail']    = $this->session->flashdata( 'fail' );
 		$data['email']   = $this->mail_model->get_mail( NULL, 1000 );
 		$this->loadView( 'mail/overview', $data );
 	}

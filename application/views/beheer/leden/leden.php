@@ -1,14 +1,4 @@
 <div align="right" style="padding: 20px"><a href="/beheer/leden/importeren"><b>Leden importeren</b></a></div>
-<?php if( isset( $success ) ) { ?>
-	<div class="alert alert-success">
-		<strong><?= $success ?></strong>
-	</div>
-<?php }
-if( isset( $fail ) ) { ?>
-	<div class="alert alert-danger">
-		<strong><?= $fail ?></strong>
-	</div>
-<?php } ?>
 <div class="container-fluid">
 	<div class="col-md-6">
 		<div class="table-responsive">

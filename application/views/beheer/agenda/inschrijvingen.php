@@ -1,14 +1,4 @@
 <div style="text-align:right; vertical-align: top; padding: 20px;"><a href="/beheer/agenda"><b>Terug</b></a></div>
-<?php if( isset( $success ) ) { ?>
-	<div class="alert alert-success">
-		<strong><?= $success ?></strong>
-	</div>
-<?php }
-if( isset( $fail ) ) { ?>
-	<div class="alert alert-danger">
-		<strong><?= $fail ?></strong>
-	</div>
-<?php } ?>
 <?php if( isset( $error ) ) { ?>
 	<b>Er zijn geen inschrijvingen voor dit evenement of voor dit evenement kan niet worden ingeschreven.</b>
 <?php } else { ?>

@@ -14,8 +14,6 @@ class Leden extends _BeheerController {
 	 * Load Leden overzichts page
 	 */
 	public function index() {
-		$data['success'] = $this->session->flashdata( 'success' );
-		$data['fail']    = $this->session->flashdata( 'fail' );
 		$data['leden']   = $this->profile_model->get_profile();
 		$this->loadView( 'beheer/leden/leden', $data );
 	}
@@ -39,7 +37,7 @@ class Leden extends _BeheerController {
 				$this->session->set_flashdata( 'success', 'Gebruiker verwijderd.' );
 			}
 			else {
-				$this->session->set_flashdata( 'fail', 'Het is niet gelukt om de gebruiker te verwijderen.' );
+				$this->session->set_flashdata( 'error', 'Het is niet gelukt om de gebruiker te verwijderen.' );
 			}
 		}
 		redirect( '/beheer/leden' );

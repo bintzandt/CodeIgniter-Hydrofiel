@@ -4,16 +4,6 @@
 <div style="text-align:right; vertical-align: top; padding: 20px;"><a
 			href="/beheer/mail/history"><b>Geschiedenis</b></a></div>
 <?php echo form_open_multipart( 'beheer/mail', [ 'id' => 'postForm', 'class' => 'form-horizontal' ] ); ?>
-<?php if( isset( $success ) ) { ?>
-	<div class="alert alert-success">
-		<strong><?= $success ?></strong>
-	</div>
-<?php }
-if( isset( $fail ) ) { ?>
-	<div class="alert alert-danger">
-		<strong><?= $fail ?></strong>
-	</div>
-<?php } ?>
 <div class="form-group">
 	<label for="aan" class="col-sm-2 control-label">Aan</label>
 	<div class="col-sm-10">

@@ -94,3 +94,12 @@ function generate_icon( $name ) {
 	</div>
 </div>
 <div class="container" style="padding-top: 10px; padding-bottom: 10px">
+	<?php if ( $this->session->flashdata( 'success' ) ) { ?>
+		<div class="alert alert-success">
+			<strong><?= $this->session->flashdata( 'success' );  ?></strong>
+		</div>
+	<?php } elseif ( $this->session->flashdata( 'error' ) ) { ?>
+	<div class="alert alert-danger">
+		<strong><?= $this->session->flashdata( 'error' ); ?></strong>
+	</div>
+	<?php } ?>

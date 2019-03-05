@@ -1,13 +1,3 @@
-<?php if( isset( $success ) ) { ?>
-	<div class="alert alert-success">
-		<strong><?= $success ?></strong>
-	</div>
-<?php }
-if( isset( $fail ) ) { ?>
-	<div class="alert alert-danger">
-		<strong><?= $fail ?></strong>
-	</div>
-<?php } ?>
 <div style="padding-bottom: 15px">
 	<h3>Bestanden uploaden</h3><br>
 	<?= form_open_multipart( "/beheer/upload/files" ) ?>

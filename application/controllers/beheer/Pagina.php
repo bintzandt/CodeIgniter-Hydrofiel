@@ -16,8 +16,6 @@ class Pagina extends _BeheerController {
 		$this->db->cache_delete( 'menu', 'hoofdmenu' );
 		$this->db->cache_delete( 'page', 'id' );
 		$data['hoofdpagina'] = $this->page_model->get();
-		$data['success']     = $this->session->flashdata( 'success' );
-		$data['fail']        = $this->session->flashdata( 'fail' );
 		$this->loadView( 'beheer/pages/pages', $data );
 	}
 
@@ -63,7 +61,7 @@ class Pagina extends _BeheerController {
 			redirect( '/beheer' );
 		$plaats = $result->plaats;
 		if( intval( $plaats ) === 0 ) {
-			$this->session->set_flashdata( 'fail', 'Deze pagina staat al bovenaan.' );
+			$this->session->set_flashdata( 'error', 'Deze pagina staat al bovenaan.' );
 		}
 		else {
 			$nieuwe_plaats = $plaats - 1;
@@ -96,7 +94,7 @@ class Pagina extends _BeheerController {
 			redirect( '/beheer' );
 		$plaats = $result->plaats;
 		if( $plaats === $this->page_model->get_max_plaats( $result->submenu ) ) {
-			$this->session->set_flashdata( 'fail', 'Deze pagina staat al onderaan.' );
+			$this->session->set_flashdata( 'error', 'Deze pagina staat al onderaan.' );
 		}
 		else {
 			$nieuwe_plaats = $plaats + 1;
@@ -130,7 +128,7 @@ class Pagina extends _BeheerController {
 			redirect( '/beheer' );
 		}
 		else {
-			$this->session->set_flashdata( 'fail', 'Er is iets fout gegaan. Probeer het later opnieuw' );
+			$this->session->set_flashdata( 'error', 'Er is iets fout gegaan. Probeer het later opnieuw' );
 			redirect( '/beheer' );
 		}
 	}
@@ -158,7 +156,7 @@ class Pagina extends _BeheerController {
 			redirect( '/beheer' );
 		}
 		else {
-			$this->session->set_flashdata( 'fail', 'Er is iets fout gegaan of je hebt niets gewijzigd. Probeer het later opnieuw' );
+			$this->session->set_flashdata( 'error', 'Er is iets fout gegaan of je hebt niets gewijzigd. Probeer het later opnieuw' );
 			redirect( '/beheer' );
 		}
 	}
@@ -173,7 +171,7 @@ class Pagina extends _BeheerController {
 			$this->session->set_flashdata( 'success', 'De pagina is verwijderd!' );
 		}
 		else {
-			$this->session->set_flashdata( 'fail', 'Er is iets fout gegaan.' );
+			$this->session->set_flashdata( 'error', 'Er is iets fout gegaan.' );
 		}
 		$this->save_routes();
 		redirect( '/beheer' );
