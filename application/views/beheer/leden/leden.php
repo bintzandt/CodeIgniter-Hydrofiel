@@ -7,7 +7,6 @@
 				<thead>
 				<th>Naam</th>
 				<th>Email</th>
-				<th>Woonplaats</th>
 				</thead>
 				<tbody>
 				<?php foreach( $leden as $lid ) {
@@ -15,7 +14,6 @@
 						<tr class="clickable-row" data-href="/profile/id/<?= $lid->id ?>">
 							<td><?= $lid->naam ?></td>
 							<td><a href="mailto:<?= $lid->email ?>"><?= $lid->email ?></a></td>
-							<td><?= $lid->plaats ?></td>
 						</tr>
 					<?php }
 				} ?>
@@ -30,7 +28,6 @@
 				<thead>
 				<th>Naam</th>
 				<th>Email</th>
-				<th>Woonplaats</th>
 				</thead>
 				<tbody>
 				<?php foreach( $leden as $lid ) {
@@ -38,7 +35,6 @@
 						<tr class="clickable-row" data-href="/profile/id/<?= $lid->id ?>">
 							<td><?= $lid->naam ?></td>
 							<td><a href="mailto:<?= $lid->email ?>"><?= $lid->email ?></a></td>
-							<td><?= $lid->plaats ?></td>
 						</tr>
 					<?php }
 				} ?>

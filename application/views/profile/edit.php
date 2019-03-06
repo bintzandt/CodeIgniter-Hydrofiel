@@ -21,14 +21,6 @@
 </div>
 <div class="form-group">
 	<div class="col-sm-2">
-		<label class="control-label" for="mobiel"><?= lang( "profile_mobile" ) ?></label>
-	</div>
-	<div class="col-sm-10">
-		<input id="mobiel" type="text" name="mobielnummer" value="<?= $profile->mobielnummer ?>" class="form-control">
-	</div>
-</div>
-<div class="form-group">
-	<div class="col-sm-2">
 		<label class="control-label" for="email"><?= lang( "profile_email" ) ?></label>
 	</div>
 	<div class="col-sm-10">
@@ -37,26 +29,11 @@
 </div>
 <div class="form-group">
 	<div class="col-sm-2">
-		<label class="control-label" for="adres"><?= lang( "profile_address" ) ?></label>
-	</div>
-	<div class="col-sm-10">
-		<input id="adres" type="text" name="adres" value="<?= $profile->adres ?>" class="form-control" />
-		<input id="postcode" type="text" name="postcode" value="<?= $profile->postcode ?>" class="form-control" />
-		<input id="plaats" type="text" name="plaats" value="<?= $profile->plaats ?>" class="form-control" />
-	</div>
-</div>
-<div class="form-group">
-	<div class="col-sm-2">
 		<label class="control-label"><?= lang( "profile_visible" ) ?></label>
 	</div>
 	<div class="col-sm-10">
-		<input type="checkbox" name="zichtbaar_telefoonnummer"
-		       value="1" <?= ( $profile->zichtbaar_telefoonnummer ) ? 'checked' : '' ?>> <?= lang( "profile_show_phone" ) ?>
-		<br>
 		<input type="checkbox" name="zichtbaar_email"
-		       value="1" <?= ( $profile->zichtbaar_email ) ? 'checked' : '' ?>> <?= lang( "profile_show_email" ) ?><br>
-		<input type="checkbox" name="zichtbaar_adres"
-		       value="1" <?= ( $profile->zichtbaar_adres ) ? 'checked' : '' ?>> <?= lang( "profile_show_address" ) ?>
+		       value="1" <?= ( $profile->zichtbaar_email ) ? 'checked' : '' ?>> <?= lang( "profile_show_email" ) ?>
 	</div>
 </div>
 <div class="form-group">

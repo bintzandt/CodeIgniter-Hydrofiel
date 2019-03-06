@@ -27,34 +27,12 @@
 		<tr>
 			<td>
 				<strong>
-					<span class="glyphicon glyphicon-phone text-primary"></span>
-					<?= lang( "profile_mobile" ); ?>
-				</strong>
-			</td>
-			<td class="text-primary">
-				<?= $profile->mobielnummer ?>
-			</td>
-		</tr>
-		<tr>
-			<td>
-				<strong>
 					<span class="glyphicon glyphicon-envelope text-primary"></span>
 					<?= lang( "profile_email" ); ?>
 				</strong>
 			</td>
 			<td class="text-primary">
 				<?= $profile->email ?>
-			</td>
-		</tr>
-		<tr>
-			<td>
-				<strong>
-					<span class="glyphicon glyphicon-home text-primary"></span>
-					<?= lang( "profile_address" ); ?>
-				</strong>
-			</td>
-			<td class="text-primary">
-				<?= $profile->adres ?>
 			</td>
 		</tr>
 		<tr>

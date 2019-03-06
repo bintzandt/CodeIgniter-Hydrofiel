@@ -12,16 +12,9 @@ class Profile_model extends CI_Model {
 	const VOOR = 1;
 	const TUSSEN = 2;
 	const ACHTER = 3;
-	const ADRES = 4;
-	const POSTCODE = 5;
-	const NR = 6;
-	const PLAATS = 7;
 	const GEBOORTEDATUM = 8;
-	const VASTTELEFOON = 9;
-	const MOBIEL = 10;
 	const EMAIL = 11;
 	const ENGELS = 12;
-	const GESLACHT = 13;
 	const LIDMAATSCHAP = 14;
 
 	/**
@@ -88,13 +81,9 @@ class Profile_model extends CI_Model {
 				"id"            => $data[ self::ID ],
 				"naam"          => $data[ self::VOOR ] . " " . ( $data[ self::TUSSEN ] === "" ? "" : $data[ self::TUSSEN ] . " " ) . $data[ self::ACHTER ],
 				"email"         => $data[ self::EMAIL ],
-				"adres"         => $data[ self::ADRES ] . " " . $data[ self::NR ],
-				"postcode"      => str_replace( " ", "", $data[ self::POSTCODE ] ),
-				"plaats"        => $data[ self::PLAATS ],
 				"geboortedatum" => date_format( date_create( $data[ self::GEBOORTEDATUM ] ), "Y-m-d" ),
 				"mobielnummer"  => ( $data[ self::VASTTELEFOON ] === '' ? $data[ self::MOBIEL ] : $data[ self::VASTTELEFOON ] ),
 				"engels"        => ( $data[ self::ENGELS ] === 'Nee' ) ? 0 : 1,
-				"geslacht"      => ( $data[ self::GESLACHT ] === 'm' ? 'man' : 'vrouw' ),
 			];
 
 			//Translate the lidmaatschap field into database ready data
