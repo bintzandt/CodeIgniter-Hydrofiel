@@ -82,7 +82,6 @@ class Profile_model extends CI_Model {
 				"naam"          => $data[ self::VOOR ] . " " . ( $data[ self::TUSSEN ] === "" ? "" : $data[ self::TUSSEN ] . " " ) . $data[ self::ACHTER ],
 				"email"         => $data[ self::EMAIL ],
 				"geboortedatum" => date_format( date_create( $data[ self::GEBOORTEDATUM ] ), "Y-m-d" ),
-				"mobielnummer"  => ( $data[ self::VASTTELEFOON ] === '' ? $data[ self::MOBIEL ] : $data[ self::VASTTELEFOON ] ),
 				"engels"        => ( $data[ self::ENGELS ] === 'Nee' ) ? 0 : 1,
 			];
 
