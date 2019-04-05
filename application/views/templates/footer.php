@@ -27,7 +27,6 @@
 						href="https://www.bintzandt.nl/">Design&nbsp;by&nbsp;Bram&nbsp;in&nbsp;'t&nbsp;Zandt</a></p>
 		</div>
 	</div>
-	<script src="/assets/hydrofiel.js"></script>
 
 	<!--  SummerNote  -->
 	<link href="/assets/summernote.css" rel="stylesheet">

@@ -30,6 +30,12 @@ class Profile_model extends CI_Model {
 		return $query->row_array();
 	}
 
+	public function get_user_by_email( $email ) {
+		$query = $this->db->get_where( 'gebruikers', [ 'email' => $email ] );
+
+		return $query->row_array();
+	}
+
 	/**
 	 * Update a certain profile
 	 *
@@ -64,8 +70,9 @@ class Profile_model extends CI_Model {
 		//While not end of file
 		while( ! feof( $file ) ) {
 			$data = fgetcsv( $file, 0, ';' );
-			if( $data === FALSE )
+			if( $data === FALSE ) {
 				break;
+			}
 			//Remove all additional '
 			foreach( $data as $key => $value ) {
 				$val          = str_replace( "'", "", $value );

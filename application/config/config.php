@@ -144,7 +144,7 @@ spl_autoload_register( function( $class ) {
 | Note: This will NOT disable or override the CodeIgniter-specific
 |	autoloading (application/config/autoload.php)
 */
-$config['composer_autoload'] = FALSE;
+$config['composer_autoload'] = "vendor/autoload.php";
 
 /*
 |--------------------------------------------------------------------------
@@ -461,7 +461,7 @@ $config['csrf_token_name']   = 'csrf_hydrofiel';
 $config['csrf_cookie_name']  = 'csrf_hydrofiel_cookie';
 $config['csrf_expire']       = 7200;
 $config['csrf_regenerate']   = TRUE;
-$config['csrf_exclude_uris'] = [];
+$config['csrf_exclude_uris'] = [ 'webauthn/prepare_challenge_for_registration', 'webauthn/register', 'webauthn/prepare_for_login', 'webauthn/authenticate' ];
 
 /*
 |--------------------------------------------------------------------------

@@ -43,6 +43,11 @@
 	<script src="/assets/bootstrap.js"></script>
 	<link rel="stylesheet" href="/assets/bootstrap.css">
 
+	<script src="/assets/webauthnauthenticate.js"></script>
+	<script src="/assets/webauthnregister.js"></script>
+
+	<script src="/assets/hydrofiel.js"></script>
+
 	<!--        css-->
 	<link rel="stylesheet" href="/assets/hydrofiel.css" />
 

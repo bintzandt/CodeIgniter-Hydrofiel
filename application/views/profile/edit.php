@@ -1,3 +1,48 @@
+<script>
+	function hasWebAuthnSupport() {
+		return (window.PublicKeyCredential !== undefined || typeof window.PublicKeyCredential === "function");
+	}
+
+	$( document ).ready( function() {
+		let webauth_btn = $( '#webauthn-add-button' );
+
+		if ( hasWebAuthnSupport() ){
+			webauth_btn.removeClass( "hidden" );
+		}
+
+		webauth_btn.click( async function() {
+			$.ajax( {
+				method: "GET",
+				url: "webauthn/get_registration_challenge",
+				dataType: "json",
+				success: function( response ) {
+					webauthnRegister( response, function( success, info ) {
+						if ( success ) {
+							$.ajax( {
+								method: "POST",
+								url: "/webauthn/register",
+								data: { register: info },
+								dataType: "json",
+								success: function( r ) {
+									console.debug( r );
+									alert( "registration success!" );
+								},
+								error: function( xhr, status, error ) {
+									alert( "registration failed: " + error + ": " + xhr.responseText );
+								}
+							} )
+						} else {
+							alert( info );
+						}
+					} )
+				},
+				error: function( xhr, status, error ){
+					alert( "couldn't initiate registration: " + error + ": " + xhr.responseText );
+				}
+			} )
+		} );
+	} );
+</script>
 <h3><?= lang( 'profile_title' ) ?><?= $profile->naam ?></h3>
 <?= form_open( "/profile/save/" . $profile->id, [ "class" => "form" ] ); ?>
 <div class="form-group">
@@ -59,6 +104,8 @@
 		<input type="submit" class="btn btn-primary" value="<?= lang( 'profile_save' ) ?>">
 		<input type="reset" class="btn btn-warning" onclick="window.location.replace(document.referrer)"
 		       value="<?= lang( 'profile_cancel' ) ?>">
+		<input type="button" class="btn btn-success hidden" id="webauthn-add-button"
+		       value="Add a FIDO2 key" />
 	</div>
 </div>
 <?= form_close(); ?>
