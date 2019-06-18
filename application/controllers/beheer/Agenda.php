@@ -14,6 +14,7 @@ class Agenda extends _BeheerController {
 	 */
 	public function index() {
 		$data['events']  = $this->agenda_model->get_event();
+		$data['old_events'] = $this->agenda_model->get_old_events();
 		$this->loadView( 'beheer/agenda/agenda', $data );
 	}
 

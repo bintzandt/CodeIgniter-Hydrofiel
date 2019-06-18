@@ -210,6 +210,13 @@ class Agenda_model extends CI_Model {
 		}
 	}
 
+	public function get_old_events(){
+		$this->db->where( 'van <', date( 'Y-m-d H:i:s' ) );
+		$this->db->order_by( 'van', 'DESC' );
+		$query = $this->db->get( 'agenda' );
+		return $query->result();
+	}
+
 	/**
 	 * Get the NSZK details for a certain event / member combi
 	 *
