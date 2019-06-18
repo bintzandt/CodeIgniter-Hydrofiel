@@ -14,7 +14,7 @@ class Webauthn extends _SiteController {
 	function __construct() {
 		parent::__construct();
 		$this->load->model( 'login_model' );
-		$this->appid = "hydrofiel.test";
+		$this->appid = "www.hydrofiel.nl";
 	}
 
 	/**
@@ -363,9 +363,12 @@ class Webauthn extends _SiteController {
 		/* experience shows that at least one device (OnePlus 6T/Pie (Android phone)) doesn't set this,
 		   so this test would fail. This is not correct according to the spec, so  pragmatically it may
 		   have to be removed */
-		if( $ao->flags != 0x1 ) {
-			$this->oops( 'cannot decode key response (2c)' );
-		} /* only TUP must be set */
+		// This breaks the FIDO authentication on android devices, disable for now.
+//		if( $ao->flags != 0x1 ) {
+//			$this->oops( 'cannot decode key response (2c)' );
+//		}
+
+		/* only TUP must be set */
 
 		/* assemble signed data */
 		$clientdata = self::array_to_string( $info->response->clientDataJSONarray );
