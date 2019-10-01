@@ -17,7 +17,7 @@
 							href="<?= site_url( '/inloggen/reset/' . $recovery ) ?>">deze</a>
 					link kun je je wachtwoord opnieuw instellen.<br>
 					<br>
-					<b>Let op: Deze link vervalt automatisch op <?= date_format( date_create( $valid ), 'd-m-Y H;i' ) ?>
+					<b>Let op: Deze link vervalt automatisch op <?= date_format( date_create( $valid ), 'd-m-Y' ) ?>
 						om <?= date_format( date_create( $valid ), 'H:i' ) ?>.</b><br>
 					<br>
 					Mocht je geen nieuw wachtwoord hebben aangevraagd dan hoef je niets te doen. Alleen als je
@@ -32,7 +32,7 @@
 					With <a href="<?= site_url( '/inloggen/reset/' . $recovery ) ?>">this</a> url you can reset your
 					password.<br>
 					<br>
-					<b>Be careful: this link will expire on <?= date_format( date_create( $valid ), 'd-m-Y H:i' ) ?>
+					<b>Be careful: this link will expire on <?= date_format( date_create( $valid ), 'd-m-Y' ) ?>
 						at <?= date_format( date_create( $valid ), 'H:i' ) ?>.</b><br>
 					<br>
 					If you did not ask to reset your password you can just sit back. If you keep getting these emails

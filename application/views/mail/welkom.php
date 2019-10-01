@@ -47,8 +47,8 @@
 				<br>
 				Met Harde en Natte groet,<br>
 				<br>
-				Vincent van 't Hof<br>
-				<i>Secretaris 2018-2019<br>
+				Meike Tacken<br>
+				<i>Secretaris 2019-2020<br>
 					N.S.Z.&W.V. Hydrofiel</i>
 				</p>
 			</td>

@@ -73,6 +73,7 @@ class Profile_model extends CI_Model {
 			if( $data === FALSE ) {
 				break;
 			}
+
 			//Remove all additional '
 			foreach( $data as $key => $value ) {
 				$val          = str_replace( "'", "", $value );
@@ -80,17 +81,20 @@ class Profile_model extends CI_Model {
 			}
 
 			//Push the id to the array ids
-			array_push( $ids, intval( $data[ self::ID ] ) );
+			$id = intval( preg_replace("/[^0-9]/", "", $data[ self::ID ] ) );
+			array_push( $ids, $id );
 
 			//Create a user ID with all relevant data
 			//Note: new datafields will have to be added here
 			$user = [
-				"id"            => $data[ self::ID ],
+				"id"            => $id,
 				"naam"          => $data[ self::VOOR ] . " " . ( $data[ self::TUSSEN ] === "" ? "" : $data[ self::TUSSEN ] . " " ) . $data[ self::ACHTER ],
 				"email"         => $data[ self::EMAIL ],
 				"geboortedatum" => date_format( date_create( $data[ self::GEBOORTEDATUM ] ), "Y-m-d" ),
 				"engels"        => ( $data[ self::ENGELS ] === 'Nee' ) ? 0 : 1,
 			];
+
+			var_dump( $user );
 
 			//Translate the lidmaatschap field into database ready data
 			switch( $data[ self::LIDMAATSCHAP ] ) {
@@ -193,12 +197,12 @@ class Profile_model extends CI_Model {
 		if( $engels ) {
 			$this->email->subject( "Welcome to Hydrofiel! 🏊🤽" );
 			$this->email->message( $this->load->view( 'mail/welcome', $data, TRUE ) );
-			$this->email->attach( './application/views/mail/Welcomeletter_2018-2019_EN.pdf' );
+			$this->email->attach( './application/views/mail/Welcomeletter_2019-2020_EN.pdf' );
 		}
 		else {
 			$this->email->subject( "Welkom bij Hydrofiel! 🏊🤽‍" );
 			$this->email->message( $this->load->view( 'mail/welkom', $data, TRUE ) );
-			$this->email->attach( './application/views/mail/Welkomstbrief_2018-2019_NL.pdf' );
+			$this->email->attach( './application/views/mail/Welkomstbrief_2019-2020_NL.pdf' );
 		}
 
 		return $this->email->send();

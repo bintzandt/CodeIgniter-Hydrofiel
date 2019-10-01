@@ -19,7 +19,7 @@ class Mail extends _BeheerController {
 		$this->form_validation->set_rules( 'onderwerp', 'onderwerp', 'required' );
 		// Check if the submitted form is valid according to the rules above
 		if( $this->form_validation->run() == FALSE ) {
-			// Form is not valid
+			// Form i       s not valid
 			$data['leden']   = $this->profile_model->get_profile();
 			$this->loadView( 'beheer/mail/mail', $data );
 		}

@@ -49,8 +49,8 @@
 				<br>
 				With Hard and Wet greetings,<br>
 				<br>
-				Vincent van 't Hof<br>
-				<i>Secretary 2018-2019<br>
+				Meike Tacken<br>
+				<i>Secretary 2019-2020<br>
 					N.S.Z.&W.V. Hydrofiel</i>
 				</p>
 			</td>
