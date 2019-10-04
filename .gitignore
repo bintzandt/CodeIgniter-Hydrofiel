@@ -28,5 +28,6 @@ css/
 *.png
 
 application/cache/
-
+backend/
+frontend/
 uploads/*
