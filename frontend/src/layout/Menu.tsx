@@ -142,7 +142,7 @@ const MenuItem = ( item: DropdownMenuItemProps ) => {
 const Menu = () => {
 	return (
 		<BurgerMenu styles={styles} disableAutoFocus>
-			{menuItems.map( MenuItem )}
+			{menuItems.map( item => <MenuItem {...item} /> )}
 		</BurgerMenu>
 	);
 };
