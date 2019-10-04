@@ -6,13 +6,12 @@ const Swimming = () => {
 	useEffect(() => {
 		const fetchPage = async () => {
 			const result = await axios(
-				"https://www.hydrofiel.nl",
-				{ headers: { crossDomain: true } },
+				"https://my-json-server.typicode.com/bintzandt/hydrofielAPI/pages",
 			);
-			updatePage( result.data );
+			updatePage( result.data[0].nl.replace( "\\", "" ) );
 		};
 		fetchPage();
-	});
+	}, [] );
 	return (
 		<div dangerouslySetInnerHTML={{__html: data}}></div>
 	);
