@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 import BurgerMenu from "react-burger-menu/lib/menus/slide";
+import { Link } from "react-router-dom";
 
 interface MenuItemProps {
 	key: number;
@@ -19,14 +20,12 @@ const items = {
 	waterpolo: "fa fa-volleyball-ball",
 	vereniging: "fa fa-users",
 	contact: "fa fa-phone",
+	calendar: "fa fa-calendar",
 };
 
 const menuItems: DropdownMenuItemProps[] = [
-	{ key: 1, icon: items.home, name: "Zwemmen", to: "/zwemmen" },
-	{ key: 2, icon: items.waterpolo, name: "Waterpolo", to: "/waterpolo" },
-	{
-		key: 3, icon: items.vereniging, name: "Vereniging", to: "/vereniging", children: [ { key: 4, icon: items.contact, name: "Bla", to: "/bla" } ],
-	},
+	{ key: 2, icon: items.home, name: "Home", to: "/" },
+	{ key: 1, icon: items.calendar, name: "Calendar", to: "/calendar" },
 ];
 
 const styles = {
@@ -91,7 +90,7 @@ const ButtonStyledAsLink = styled.button`
 
 const NameSpan = styled.span`
 	 margin-left: 10px;
-	 font-weight: 700; 
+	 font-weight: 700;
 `;
 
 const DropdownMenuItem = ( item: DropdownMenuItemProps ) => {
@@ -124,8 +123,8 @@ const MenuItem = ( item: DropdownMenuItemProps ) => {
 	return (
 		hasChildren ?
 			<DropdownMenuItem {...item} /> :
-			<a
-				href={item.to}
+			<Link
+				to={item.to}
 				id={item.name}
 				style={{
 					display: "inline-block",
@@ -135,7 +134,7 @@ const MenuItem = ( item: DropdownMenuItemProps ) => {
 			>
 				<i className={item.icon}> </i>
 				<NameSpan>{item.name}</NameSpan>
-			</a>
+			</Link>
 	);
 };
 
