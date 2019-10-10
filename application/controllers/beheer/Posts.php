@@ -3,6 +3,7 @@
 /**
  * Class Posts
  * Controller to handle all actions related to the posts that the board CAN create.
+ *
  * @property Post_model post_model
  */
 class Posts extends _BeheerController {
@@ -18,7 +19,7 @@ class Posts extends _BeheerController {
 	 * The default view.
 	 */
 	public function index() {
-		$data['posts']   = $this->post_model->get_posts();
+		$data['posts'] = $this->post_model->get_posts();
 		$this->loadView( 'beheer/posts/index', $data );
 	}
 

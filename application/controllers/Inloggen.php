@@ -111,8 +111,9 @@ class Inloggen extends _SiteController {
 		//If no recovery has been provided we will generate one and send an email.
 		if( $recovery === NULL ) {
 			$data = $this->input->post( NULL, TRUE );
-			if( empty( $data ) )
+			if( empty( $data ) ) {
 				redirect( '/inloggen' );
+			}
 			if( ( $result = $this->login_model->set_recovery( $data['email'] ) ) !== FALSE ) {
 				if( $this->send_password_recovery_mail( $result['email'], $result['recovery'], $result['recovery_valid'] ) ) {
 					$this->session->set_flashdata( 'success', 'Er is een mail met een resetcode naar je gestuurd!' );

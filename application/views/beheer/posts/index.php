@@ -72,18 +72,18 @@
 			title: "Weet je het zeker?",
 			body: "De post '" + naam + "' zal verwijderd worden! ",
 			actions: [ {
-				label: 'Ja',
-				cssClass: 'btn-danger',
+				label: "Ja",
+				cssClass: "btn-danger",
 				onClick: function( e ) {
-					window.location.replace( '/beheer/posts/delete_post/' + post_id );
-				}
+					window.location.replace( "/beheer/posts/delete_post/" + post_id );
+				},
 			}, {
-				label: 'Nee',
-				cssClass: 'btn-success',
+				label: "Nee",
+				cssClass: "btn-success",
 				onClick: function( e ) {
-					$( e.target ).parents( '.modal' ).modal( 'hide' );
-				}
-			} ]
+					$( e.target ).parents( ".modal" ).modal( "hide" );
+				},
+			} ],
 		} );
 	}
 </script>

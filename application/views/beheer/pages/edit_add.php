@@ -1,9 +1,9 @@
 <script>
 	function update( tekst ) {
-		if ( tekst === '0' ) {
-			document.getElementById( 'labelna' ).innerHTML = 'Onder welk menu';
+		if ( tekst === "0" ) {
+			document.getElementById( "labelna" ).innerHTML = "Onder welk menu";
 		} else {
-			document.getElementById( 'labelna' ).innerHTML = 'In het menu na';
+			document.getElementById( "labelna" ).innerHTML = "In het menu na";
 		}
 	}
 </script>

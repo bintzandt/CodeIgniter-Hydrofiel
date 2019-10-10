@@ -52,8 +52,9 @@ class Agenda extends _SiteController {
 			$data['inschrijvingen']       = $this->agenda_model->get_inschrijvingen( $event_id, NULL );
 			$data['aantal_aanmeldingen']  = sizeof( $data['inschrijvingen'] );
 			$data['registration_details'] = $data['aangemeld'] && $event->soort === 'nszk';
-			if( empty( $data['inschrijvingen'] ) )
+			if( empty( $data['inschrijvingen'] ) ) {
 				unset( $data['inschrijvingen'] );
+			}
 
 			$this->loadView( 'agenda/id', $data );
 		}
@@ -88,8 +89,9 @@ class Agenda extends _SiteController {
 	public function edit_details( $event_id ) {
 		$inschrijving = $this->agenda_model->get_inschrijvingen( $event_id, $this->session->id );
 		$is_nszk      = $this->agenda_model->is_nszk( $event_id );
-		if( empty( $inschrijving ) || ! $is_nszk )
+		if( empty( $inschrijving ) || ! $is_nszk ) {
 			show_404();
+		}
 		$data['details']   = $this->agenda_model->get_details( $event_id, $this->session->id );
 		$data['edit_mode'] = ! empty( $data['details'] );
 		$data['nszk_id']   = $event_id;
@@ -120,8 +122,9 @@ class Agenda extends _SiteController {
 
 		$slagen = [];
 
-		if( $data['opmerking'] === "" )
+		if( $data['opmerking'] === "" ) {
 			unset( $data['opmerking'] );
+		}
 
 		if( $data['event_soort'] === 'nszk' ) {
 			for( $i = 0; $i < sizeof( $data['slag'] ); $i ++ ) {
@@ -172,8 +175,9 @@ class Agenda extends _SiteController {
 		$data              = $this->input->post( NULL, TRUE );
 		$data['member_id'] = $this->session->id;
 
-		if( $data['opmerking'] === "" )
+		if( $data['opmerking'] === "" ) {
 			unset( $data['opmerking'] );
+		}
 
 		unset( $data['slag'] );
 		unset( $data['tijd'] );

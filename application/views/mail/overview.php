@@ -37,18 +37,18 @@ if( isset( $fail ) ) { ?>
 			title: "Weet je het zeker?",
 			body: "De mail met als onderwerp '" + onderwerp + "' zal verwijderd worden! ",
 			actions: [ {
-				label: 'Ja',
-				cssClass: 'btn-danger',
+				label: "Ja",
+				cssClass: "btn-danger",
 				onClick: function( e ) {
-					window.location.replace( '/beheer/mail/delete/' + hash );
-				}
+					window.location.replace( "/beheer/mail/delete/" + hash );
+				},
 			}, {
-				label: 'Nee',
-				cssClass: 'btn-success',
+				label: "Nee",
+				cssClass: "btn-success",
 				onClick: function( e ) {
-					$( e.target ).parents( '.modal' ).modal( 'hide' );
-				}
-			} ]
+					$( e.target ).parents( ".modal" ).modal( "hide" );
+				},
+			} ],
 		} );
 	}
 </script>

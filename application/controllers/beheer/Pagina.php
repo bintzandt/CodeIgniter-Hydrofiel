@@ -37,8 +37,9 @@ class Pagina extends _BeheerController {
 	 */
 	public function edit( $id = NULL ) {
 		//If no id has been provided show a 404
-		if( $id === NULL )
+		if( $id === NULL ) {
 			show_404();
+		}
 		$data['edit_mode'] = TRUE;
 		$data['hoofdmenu'] = $this->menu_model->hoofdmenu( FALSE );
 		$data['page']      = $this->page_model->get( $id );
@@ -54,11 +55,13 @@ class Pagina extends _BeheerController {
 	public function up( $id = NULL ) {
 		$this->db->cache_delete( 'menu', 'hoofdmenu' );
 		$this->db->cache_delete( 'page', 'id' );
-		if( $id === NULL )
+		if( $id === NULL ) {
 			redirect( '/beheer' );
+		}
 		$result = $this->page_model->get_plaats( $id );
-		if( $result === FALSE )
+		if( $result === FALSE ) {
 			redirect( '/beheer' );
+		}
 		$plaats = $result->plaats;
 		if( intval( $plaats ) === 0 ) {
 			$this->session->set_flashdata( 'error', 'Deze pagina staat al bovenaan.' );
@@ -87,11 +90,13 @@ class Pagina extends _BeheerController {
 	public function down( $id = NULL ) {
 		$this->db->cache_delete( 'menu', 'hoofdmenu' );
 		$this->db->cache_delete( 'page', 'id' );
-		if( $id === NULL )
+		if( $id === NULL ) {
 			redirect( '/beheer' );
+		}
 		$result = $this->page_model->get_plaats( $id );
-		if( $result === FALSE )
+		if( $result === FALSE ) {
 			redirect( '/beheer' );
+		}
 		$plaats = $result->plaats;
 		if( $plaats === $this->page_model->get_max_plaats( $result->submenu ) ) {
 			$this->session->set_flashdata( 'error', 'Deze pagina staat al onderaan.' );

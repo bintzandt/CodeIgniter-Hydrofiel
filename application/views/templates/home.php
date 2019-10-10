@@ -27,7 +27,8 @@
 					<div style="padding-left: 1em"><?= date_format( date_create( $event->van ), 'd-m-Y H:i' ) ?></div>
 				</div>
 			<?php }
-		} else { ?>
+		}
+		else { ?>
 			<span class="fa fa-frown-open"></span> <?= lang( 'home_no_events' ) ?>
 		<?php } ?>
 	</div>

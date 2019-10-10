@@ -56,8 +56,9 @@ class Home extends _SiteController {
 		// Loop over all the recent posts
 		foreach( $data as $post ) {
 			// Make sure that the post has a message
-			if( ! property_exists( $post, 'message' ) )
+			if( ! property_exists( $post, 'message' ) ) {
 				continue;
+			}
 
 			// Several variables we need to save the post
 			$created = $post->created_time;
@@ -66,8 +67,9 @@ class Home extends _SiteController {
 
 			// Try to get the image and make sure we have one
 			$array = $this->get_image_from_id( $id );
-			if( $array === FALSE )
+			if( $array === FALSE ) {
 				continue;
+			}
 
 			// Add the post to our database
 			$post = [
@@ -80,7 +82,6 @@ class Home extends _SiteController {
 			$this->post_model->insert_facebook_post( $post );
 		}
 	}
-
 
 	/**
 	 * Get an image belonging to a post id
@@ -98,10 +99,12 @@ class Home extends _SiteController {
 		$attachments = json_decode( file_get_contents( $attachment_url ) );
 
 		// We only want posts with an image
-		if( sizeof( $attachments->data ) === 0 )
+		if( sizeof( $attachments->data ) === 0 ) {
 			return FALSE;
-		if( ! property_exists( $attachments->data[0], 'subattachments' ) )
+		}
+		if( ! property_exists( $attachments->data[0], 'subattachments' ) ) {
 			return FALSE;
+		}
 
 		// Set the post-url
 		$post_url = $attachments->data[0]->target->url;
@@ -109,8 +112,9 @@ class Home extends _SiteController {
 
 		// Loop over all the images until we find one with type photo
 		foreach( $images as $image ) {
-			if( $image->type === 'photo' )
+			if( $image->type === 'photo' ) {
 				return [ $post_url, $image->media->image->src ];
+			}
 		}
 	}
 }

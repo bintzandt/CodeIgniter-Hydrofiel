@@ -20,7 +20,7 @@ class Mail extends _BeheerController {
 		// Check if the submitted form is valid according to the rules above
 		if( $this->form_validation->run() == FALSE ) {
 			// Form i       s not valid
-			$data['leden']   = $this->profile_model->get_profile();
+			$data['leden'] = $this->profile_model->get_profile();
 			$this->loadView( 'beheer/mail/mail', $data );
 		}
 		else {
@@ -45,7 +45,6 @@ class Mail extends _BeheerController {
 				$en_error = $this->upload->display_errors();
 			}
 
-
 			// Check if the upload was succesful
 			if( $nl_error === "" && $en_error === "" ) {
 				//Get all the form data
@@ -59,7 +58,6 @@ class Mail extends _BeheerController {
 				$error = [ 'fail' => $nl_error . $en_error ];
 				$this->loadView( 'beheer/mail/mail', $error );
 			}
-
 
 		}
 	}
@@ -77,7 +75,6 @@ class Mail extends _BeheerController {
 		}
 		$this->loadView( 'beheer/mail/vrienden', [ "mailadressen" => $vrienden ] );
 	}
-
 
 	/**
 	 * Function to save the uploaded list of vrienden van Hydrofiel.
@@ -219,8 +216,9 @@ class Mail extends _BeheerController {
 		// Run over the array to check whether each mail adress is valid
 		if( ! empty( $test_mail ) ) {
 			foreach( $test_mail as $adress ) {
-				if( filter_var( $adress, FILTER_VALIDATE_EMAIL ) )
+				if( filter_var( $adress, FILTER_VALIDATE_EMAIL ) ) {
 					array_push( $mail, $adress );
+				}
 			}
 		}
 
@@ -364,7 +362,7 @@ class Mail extends _BeheerController {
 	 * Function to show the history of all the mails.
 	 */
 	public function history() {
-		$data['email']   = $this->mail_model->get_mail( NULL, 1000 );
+		$data['email'] = $this->mail_model->get_mail( NULL, 1000 );
 		$this->loadView( 'mail/overview', $data );
 	}
 
