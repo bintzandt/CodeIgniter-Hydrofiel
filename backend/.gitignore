@@ -1,4 +1,3 @@
-node_modules
 # minified files
 *.min.*
 
@@ -29,6 +28,5 @@ css/
 *.png
 
 application/cache/
-backend/
-frontend/
+
 uploads/*
