@@ -1,1 +1,34 @@
 node_modules
+# minified files
+*.min.*
+
+#CSS files
+*.css*
+.sass-cache/
+node_modules/
+assets/*.js
+assets/*.css
+assets/components/*
+
+#Config files
+application/config/database.php
+#application/config/development/*
+application/config/email.php
+
+#idea files
+.idea/*
+
+#specific files
+files/*
+fotos/*
+images/*
+vendor/*
+
+css/
+
+*.png
+
+application/cache/
+backend/
+frontend/
+uploads/*
