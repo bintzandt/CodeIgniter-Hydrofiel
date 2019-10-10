@@ -59,18 +59,18 @@
 			title: "Weet je het zeker?",
 			body: "Het bestand '" + naam + "' zal verwijderd worden! ",
 			actions: [ {
-				label: 'Ja',
-				cssClass: 'btn-danger',
+				label: "Ja",
+				cssClass: "btn-danger",
 				onClick: function( e ) {
 					window.location.replace( delete_url );
-				}
+				},
 			}, {
-				label: 'Nee',
-				cssClass: 'btn-success',
+				label: "Nee",
+				cssClass: "btn-success",
 				onClick: function( e ) {
-					$( e.target ).parents( '.modal' ).modal( 'hide' );
-				}
-			} ]
+					$( e.target ).parents( ".modal" ).modal( "hide" );
+				},
+			} ],
 		} );
 	}
 
@@ -80,7 +80,7 @@
 		var success = true,
 			range = document.createRange(),
 			selection;
-		var tmpElem = $( '<div>' );
+		var tmpElem = $( "<div>" );
 		tmpElem.css( {
 			position: "absolute",
 			left: "-1000px",

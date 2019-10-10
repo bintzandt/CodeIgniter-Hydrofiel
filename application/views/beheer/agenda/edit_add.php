@@ -2,18 +2,18 @@
 <body>
 <script>
 	$( document ).ready( function() {
-		let slag = $( '#slag' );
+		let slag = $( "#slag" );
 		let edit_mode = <?= $edit_mode ? 'true' : 'false' ?>;
 
 		if ( ! edit_mode ) {
-			for ( i = 0; i < 10; i ++ ) {
-				slag.append( '<div class="input-group date"><input type="text" class="form-control" name="slagen[]"><span class="input-group-addon"><i class="glyphicon glyphicon-trash"></i></span></div>' ); //add input box
+			for( i = 0; i < 10; i++ ) {
+				slag.append( "<div class=\"input-group date\"><input type=\"text\" class=\"form-control\" name=\"slagen[]\"><span class=\"input-group-addon\"><i class=\"glyphicon glyphicon-trash\"></i></span></div>" ); //add input box
 			}
 		}
 
 		slag.on( "click", ".input-group-addon", function( e ) {
 			e.preventDefault();
-			$( this ).closest( 'div' ).remove();
+			$( this ).closest( "div" ).remove();
 		} );
 	} );
 </script>

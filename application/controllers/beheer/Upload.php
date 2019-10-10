@@ -13,8 +13,8 @@ class Upload extends _BeheerController {
 	 * Get a list of images and files from our page_model and show them in a table.
 	 */
 	public function index() {
-		$data['images']  = $this->page_model->get_image_list();
-		$data['files']   = $this->page_model->get_file_list();
+		$data['images'] = $this->page_model->get_image_list();
+		$data['files']  = $this->page_model->get_file_list();
 		$this->loadView( 'beheer/upload/upload', $data );
 	}
 
@@ -40,8 +40,9 @@ class Upload extends _BeheerController {
 			if( ( $result = $this->profile_model->upload_users( $full_path ) ) > 0 ) {
 				$this->session->set_flashdata( 'success', $result . " rijen bijgewerkt." );
 			}
-			elseif( $result === 0 )
+			elseif( $result === 0 ) {
 				$this->session->set_flashdata( 'success', "De database was up-to-date." );
+			}
 			else $this->session->set_flashdata( 'error', "Er is helaas iets fout gegaan." );
 			redirect( '/beheer/leden' );
 		}

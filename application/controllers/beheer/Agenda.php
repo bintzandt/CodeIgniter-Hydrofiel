@@ -13,7 +13,7 @@ class Agenda extends _BeheerController {
 	 * Load the index page
 	 */
 	public function index() {
-		$data['events']  = $this->agenda_model->get_event();
+		$data['events']     = $this->agenda_model->get_event();
 		$data['old_events'] = $this->agenda_model->get_old_events();
 		$this->loadView( 'beheer/agenda/agenda', $data );
 	}
@@ -63,8 +63,9 @@ class Agenda extends _BeheerController {
 	public function edit( $id ) {
 		$data['edit_mode'] = TRUE;
 		$data['event']     = $this->agenda_model->get_event( $id );
-		if( empty( $data['event'] ) )
+		if( empty( $data['event'] ) ) {
 			show_404();
+		}
 		$this->loadView( 'beheer/agenda/edit_add', $data );
 	}
 

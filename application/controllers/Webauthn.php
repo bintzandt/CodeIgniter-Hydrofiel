@@ -19,6 +19,7 @@ class Webauthn extends _SiteController {
 
 	/**
 	 * cancel all keys for a user
+	 *
 	 * @return string to store as the user's webauthn field in your database
 	 */
 	function cancel() {
@@ -27,7 +28,7 @@ class Webauthn extends _SiteController {
 
 	public function get_registration_challenge() {
 		$this->output->enable_profiler( FALSE );
-		header("Content-Type: application/json");
+		header( "Content-Type: application/json" );
 
 		$id = $this->session->id;
 
@@ -105,7 +106,7 @@ class Webauthn extends _SiteController {
 
 		$userwebauthn = $user["webauthn"];
 
-		$info = $this->input->post( 'register', TRUE);
+		$info = $this->input->post( 'register', TRUE );
 
 		if( ! is_string( $info ) ) {
 			$this->oops( 'info must be a string', 1 );
@@ -241,7 +242,7 @@ class Webauthn extends _SiteController {
 	 *
 	 * @return string to pass to javascript webauthnAuthenticate
 	 */
-	function prepare_for_login(){
+	function prepare_for_login() {
 		$this->output->enable_profiler( FALSE );
 
 		$email = $this->input->post( 'email', TRUE );

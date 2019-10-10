@@ -83,15 +83,16 @@
 	</div>
 	<div class="col-sm-12 no_padding margin_10_top">
 		<?php if( $event->inschrijfsysteem ) { ?>
-			<?= form_open( ( $event->soort === 'nszk' ) ? '/agenda/nszk' : '/agenda/aanmelden', [ "id"   => "aanmelden",
-			                                                                                      "name" => "aanmelden",
+			<?= form_open( ( $event->soort === 'nszk' ) ? '/agenda/nszk' : '/agenda/aanmelden', [
+				"id"   => "aanmelden",
+				"name" => "aanmelden",
 			] ); ?>
 			<input type="hidden" value="<?= $event->event_id ?>" name="event_id" />
 			<input type="hidden" value="<?= $event->soort ?>" name="event_soort">
 			<?php if( ! $aangemeld && date( 'Y-m-d H:i:s' ) <= $event->inschrijfdeadline ) {
 				if( $event->maximum == 0 || $aantal_aanmeldingen < $event->maximum ) {
 					if( $event->soort === "nszk" ) {
-						$slagen = json_decode( $event->slagen );
+						$slagen = array_filter( json_decode( $event->slagen ) );
 						foreach( $slagen as $slag ) { ?>
 							<div class="form-group">
 								<div class="col-sm-4 no_padding">
@@ -145,6 +146,6 @@
 </div>
 <script>
 	function submitForm() {
-		$( '#aanmelden' ).submit();
+		$( "#aanmelden" ).submit();
 	}
 </script>

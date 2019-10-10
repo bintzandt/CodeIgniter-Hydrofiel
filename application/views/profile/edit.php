@@ -1,12 +1,12 @@
 <script>
 	function hasWebAuthnSupport() {
-		return (window.PublicKeyCredential !== undefined || typeof window.PublicKeyCredential === "function");
+		return ( window.PublicKeyCredential !== undefined || typeof window.PublicKeyCredential === "function" );
 	}
 
 	$( document ).ready( function() {
-		let webauth_btn = $( '#webauthn-add-button' );
+		let webauth_btn = $( "#webauthn-add-button" );
 
-		if ( hasWebAuthnSupport() ){
+		if ( hasWebAuthnSupport() ) {
 			webauth_btn.removeClass( "hidden" );
 		}
 
@@ -29,17 +29,17 @@
 								},
 								error: function( xhr, status, error ) {
 									alert( "registration failed: " + error + ": " + xhr.responseText );
-								}
-							} )
+								},
+							} );
 						} else {
 							alert( info );
 						}
-					} )
+					} );
 				},
-				error: function( xhr, status, error ){
+				error: function( xhr, status, error ) {
 					alert( "couldn't initiate registration: " + error + ": " + xhr.responseText );
-				}
-			} )
+				},
+			} );
 		} );
 	} );
 </script>

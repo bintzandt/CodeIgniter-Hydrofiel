@@ -14,7 +14,7 @@ class Leden extends _BeheerController {
 	 * Load Leden overzichts page
 	 */
 	public function index() {
-		$data['leden']   = $this->profile_model->get_profile();
+		$data['leden'] = $this->profile_model->get_profile();
 		$this->loadView( 'beheer/leden/leden', $data );
 	}
 
@@ -42,6 +42,5 @@ class Leden extends _BeheerController {
 		}
 		redirect( '/beheer/leden' );
 	}
-
 
 }
