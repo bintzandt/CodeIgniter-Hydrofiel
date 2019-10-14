@@ -141,6 +141,7 @@
 			<a type="button" class="btn btn-warning form-control"
 			   href="/agenda/edit_details/<?= $event->event_id ?>"><?= lang( 'agenda_change_registration' ) ?></a>
 		<?php } ?>
+		<a href="<?= $ical ?>"><?= lang( 'agenda_add_to_calendar' ) ?></a>
 	</div>
 </div>
 <script>

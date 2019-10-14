@@ -1,4 +1,5 @@
 <?php
+use Spatie\CalendarLinks\Link;
 
 /**
  * Controller to handle all Agenda related URLs
@@ -47,11 +48,20 @@ class Agenda extends _SiteController {
 				$event->omschrijving = $event->nl_omschrijving;
 			}
 
+			$from = date_create( $event->van );
+			$to = date_create( $event->tot );
+			
+			$ical = Link::create($event->naam, $from, $to)
+				->description($event->omschrijving)
+				->address($event->locatie);
+
 			$data['event']                = $event;
 			$data['aangemeld']            = ( $this->agenda_model->get_aantal_aanmeldingen( $event_id, $this->session->id ) == 1 );
 			$data['inschrijvingen']       = $this->agenda_model->get_inschrijvingen( $event_id, NULL );
 			$data['aantal_aanmeldingen']  = sizeof( $data['inschrijvingen'] );
 			$data['registration_details'] = $data['aangemeld'] && $event->soort === 'nszk';
+			$data['ical']				  = $ical->ics();
+
 			if( empty( $data['inschrijvingen'] ) )
 				unset( $data['inschrijvingen'] );
 

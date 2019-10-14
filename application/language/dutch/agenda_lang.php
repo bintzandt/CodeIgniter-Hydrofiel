@@ -41,3 +41,4 @@ $lang["agenda_type"]                    = "Soort";
 $lang["agenda_change_registration"]     = "Aanmelding bewerken";
 $lang["agenda_no_registration"]         = "Je kunt je niet meer aanmelden voor dit evenement.";
 $lang["agenda_remark"]                  = "Optionele opmerking";
+$lang["agenda_add_to_calendar"]         = "Voeg toe aan agenda";
