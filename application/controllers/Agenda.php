@@ -50,9 +50,12 @@ class Agenda extends _SiteController {
 
 			$from = date_create( $event->van );
 			$to = date_create( $event->tot );
-			
+			$description = preg_replace( '/<br ?\/?>/', "\n", $event->omschrijving );
+			$description = preg_replace( '/<\/?p ?>/', " ", $description );
+			$description = strip_tags( $description );
+
 			$ical = Link::create($event->naam, $from, $to)
-				->description($event->omschrijving)
+				->description( $description )
 				->address($event->locatie);
 
 			$data['event']                = $event;
@@ -60,7 +63,7 @@ class Agenda extends _SiteController {
 			$data['inschrijvingen']       = $this->agenda_model->get_inschrijvingen( $event_id, NULL );
 			$data['aantal_aanmeldingen']  = sizeof( $data['inschrijvingen'] );
 			$data['registration_details'] = $data['aangemeld'] && $event->soort === 'nszk';
-			$data['ical']				  = $ical->ics();
+			$data['ical']				  = $ical->google();
 
 			if( empty( $data['inschrijvingen'] ) )
 				unset( $data['inschrijvingen'] );
