@@ -81,7 +81,7 @@ class Profile_model_test extends TestCase {
 		fclose( $new_user_file );
 
 		$update_user_file = fopen( './update_user.csv', 'wb');
-		fwrite( $update_user_file, '7;Test;;Blabla;;;;;01-01-2000;;;webmaster@hydrofiel.nl;Nee;;zwemmer');
+		fwrite( $update_user_file, '7;Test;;Blabla;;;;;2000-01-01;;;webmaster@hydrofiel.nl;Nee;;zwemmer');
 		fclose( $update_user_file );
 
 		$invalid_file = fopen( './invalid.csv', 'wb');
@@ -96,10 +96,12 @@ class Profile_model_test extends TestCase {
 
 		$this->assertEquals( 'Test Gebruiker', $new_user->naam );
 		$this->assertEquals( 6, $new_user->rank );
+		$this->assertEquals( '01-01-1999', $new_user->geboortedatum );
 		$this->assertNotNull( $new_user->recovery );
 
 		$this->assertEquals(1, $this->obj->upload_users( 'update_user.csv' ) );
 		$updated_user = $this->obj->get_profile( 7 );
 		$this->assertEquals( 'Test Blabla', $updated_user->naam );
+		$this->assertEquals( '01-01-2000', $updated_user->geboortedatum );
 	}
 }

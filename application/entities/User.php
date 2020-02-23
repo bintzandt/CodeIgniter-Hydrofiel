@@ -14,11 +14,7 @@ class User {
 	protected bool $zichtbaar_email;
 	private string $wachtwoord;
 	protected string $lidmaatschap;
-	protected $geboortedatum;
-
-	public function __construct() {
-		$this->geboortedatum = DateTime::createFromFormat( 'Y-m-d', $this->geboortedatum );
-	}
+	protected string $geboortedatum;
 
 	/**
 	 * @param $name
@@ -41,7 +37,8 @@ class User {
 	public function __get( $name ) {
 		if ( property_exists( $this, $name ) ) {
 			switch ( $name ){
-				case 'geboortedatum': return $this->geboortedatum->format( 'Y-m-d' );
+				case 'geboortedatum':
+					return date_create( $this->geboortedatum )->format( 'd-m-Y' );
 				case 'lidmaatschap': return $this->get_lidmaatschap();
 				case 'email': return $this->get_email();
 				case 'recovery': return $this->recovery;
@@ -90,7 +87,7 @@ class User {
 			$date = DateTime::createFromFormat( 'd-m-Y', $value );
 		}
 
-		$this->geboortedatum = $date;
+		$this->geboortedatum = $date->format( 'Y-m-d' );
 	}
 
 	/**
