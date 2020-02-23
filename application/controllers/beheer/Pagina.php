@@ -8,7 +8,6 @@ class Pagina extends _BeheerController
 {
 	public Menu_model $menu_model;
 	public Page_model $page_model;
-	public CI_DB_driver $db;
 
 	/**
      * Show index

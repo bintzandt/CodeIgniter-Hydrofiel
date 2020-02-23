@@ -41,6 +41,7 @@ jobs:
           mkdir bundle
           cp index.php bundle
           cp manifest.json bundle
+          cp favicon.ico bundle
           cp .htaccess bundle
           cp -r assets bundle/assets
           cp -r fonts bundle/fonts

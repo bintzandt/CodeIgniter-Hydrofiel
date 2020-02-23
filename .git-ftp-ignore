@@ -1,0 +1,4 @@
+bundle/application/config/development/*
+bundle/application/config/testing/*
+bundle/application/database/*
+bundle/application/tests/*
