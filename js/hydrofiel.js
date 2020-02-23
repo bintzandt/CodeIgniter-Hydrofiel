@@ -72,16 +72,6 @@ jQuery(document).ready(function($) {
 		}
 	});
 
-
-    $("h1").each(function(){
-        $(this).addClass("oranje_tekst");
-    });
-    $("h3").each(function(){
-        $(this).addClass("oranje_tekst");
-    });
-    $("h4").each(function(){
-        $(this).addClass("oranje_tekst");
-    });
     $("img").each(function(){
         $(this).addClass("img-responsive");
     });

@@ -1,11 +1,11 @@
 <div style="text-align:right; vertical-align: top; padding: 20px; cursor: pointer"><a href="/beheer/leden"><b>Terug</b></a>
 </div>
-<?php echo form_open_multipart( 'beheer/upload/import_users' ); ?>
+<?php echo form_open_multipart('beheer/upload/import_users'); ?>
 
-<input type="file" name="leden" size="20" />
+<input type="file" name="leden" size="20"/>
 
-<br /><br />
+<br/><br/>
 
-<input type="submit" class="btn btn-primary" value="Importeren" />
+<input type="submit" class="btn btn-primary" value="Importeren"/>
 
 </form>

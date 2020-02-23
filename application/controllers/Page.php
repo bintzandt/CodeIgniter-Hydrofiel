@@ -1,81 +1,80 @@
 <?php
-
 /**
  * Handles all page related stuff
  * Class Page
  */
-class Page extends _SiteController {
-	public function __construct() {
-		parent::__construct();
-	}
+class Page extends _SiteController
+{
+	public Page_model $page_model;
+	public CI_Session $session;
 
-	/**
-	 * Index function, refers to id
-	 *
-	 * @param string $page Which page needs to be shown
-	 */
-	public function index( $page = '1' ) {
-		$this->id( $page );
-	}
+    public function __construct()
+    {
+        parent::__construct();
+    }
 
-	/**
-	 * Actual function to get page contents
-	 *
-	 * @param string $page
-	 */
-	public function id( $page = '1' ) {
-		$this->db->cache_on();
-		//Get the page from the model
-		$data['pagina'] = $this->page_model->view( $page );
+    /**
+     * Index function, refers to id
+     *
+     * @param int $page Which page needs to be shown
+     */
+    public function index($page = 1)
+    {
+        $this->id($page);
+    }
 
-		//Check if this is an actual page
-		if( empty( $data['pagina'] ) ) {
-			show_404();
-		}
-		//Check if we need to be logged in to visit this page
-		if( $data['pagina']['ingelogd'] && ! $this->session->logged_in ) {
-			redirect( '/inloggen' );
-		}
+    /**
+     * Actual function to get page contents
+     *
+     * @param string $page
+     */
+    public function id($page = 1)
+    {
+	    /**
+	     * Get the page from the model
+	     * @var PageObject $page
+	     */
+        $page = $this->page_model->view($page);
 
-		if( $data['pagina']['naam'] == 'Wedstrijden' ) {
-			$this->loadView( 'templates/wedstrijden' );
-		}
+        $page->check_login();
 
-		//Check if we are in an English setting
-		if( $this->session->engels ) {
-			$data['tekst'] = $data['pagina']['engels'];
-		}
-		else {
-			$data['tekst'] = $data['pagina']['tekst'];
-		}
-		$this->db->cache_off();
-		$this->loadView( 'templates/page', $data );
-	}
+        //Check if this is an actual page
+        if (empty($page)) {
+            show_404();
+        }
 
-	/**
-	 * Overwrite the default error_404 handler.
-	 */
-	public function page_missing() {
-		$this->loadView( 'errors/html/error_404' );
-	}
+        if ($page->naam === 'Wedstrijden') {
+            return $this->loadView('templates/wedstrijden');
+        }
 
-	/**
-	 * Function to save routes from the database and add them to the routes file.
-	 * This allows for easier navigation to several pages on the website.
-	 */
-	public function save_routes() {
-		$pages = $this->page_model->get_all();
-		$data  = [];
-		if( ! empty( $pages ) ) {
-			$data[] = '<?php if ( ! defined(\'BASEPATH\')) exit(\'No direct script access allowed\');';
+        return $this->loadView('templates/page', [ 'tekst' => $page->tekst ] );
+    }
 
-			foreach( $pages as $page ) {
-				$data[] = '$route[\'' . strtolower( $page->naam ) . '\'] = \'page/id/' . $page->id . '\';';
-				$data[] = '$route[\'' . strtolower( $page->engelse_naam ) . '\'] = \'page/id/' . $page->id . '\';';
-			}
-			$output = implode( "\n", $data );
+    /**
+     * Overwrite the default error_404 handler.
+     */
+    public function page_missing()
+    {
+        $this->loadView('errors/html/error_404');
+    }
 
-			write_file( APPPATH . 'cache/routes.php', $output );
-		}
-	}
+    /**
+     * Function to save routes from the database and add them to the routes file.
+     * This allows for easier navigation to several pages on the website.
+     */
+    public function save_routes()
+    {
+        $pages = $this->page_model->get_all();
+        $data = [];
+        if (!empty($pages)) {
+            $data[] = '<?php if ( ! defined(\'BASEPATH\')) exit(\'No direct script access allowed\');';
+
+            foreach ($pages as $page) {
+                $data[] = '$route[\'' . strtolower( str_replace( ' ', '%20', $page->naam ) ). '\'] = \'page/id/' . $page->id . '\';';
+            }
+            $output = implode("\n", $data);
+
+            write_file(APPPATH . 'cache/routes.php', $output);
+        }
+    }
 }

@@ -4,384 +4,398 @@
  * Class Mail
  * Displays all Mail related activities in the beheer panel
  */
-class Mail extends _BeheerController {
-	public function __construct() {
-		parent::__construct();
-		$this->load->model( 'mail_model' );
-	}
+class Mail extends _BeheerController
+{
+	public CI_Form_validation $form_validation;
+	public Profile_model $profile_model;
+	public MY_Upload $upload;
+	public CI_Input $input;
+	public CI_Session $session;
 
-	/**
-	 * Show the default mail page
-	 */
-	public function index() {
-		$this->load->helper( 'form', 'url' );
-		$this->load->library( 'form_validation' );
-		$this->form_validation->set_rules( 'onderwerp', 'onderwerp', 'required' );
-		// Check if the submitted form is valid according to the rules above
-		if( $this->form_validation->run() == FALSE ) {
-			// Form i       s not valid
-			$data['leden']   = $this->profile_model->get_profile();
-			$this->loadView( 'beheer/mail/mail', $data );
-		}
-		else {
-			$nl_error = "";
-			$en_error = "";
+    public function __construct()
+    {
+        parent::__construct();
+        $this->load->model('mail_model');
+    }
 
-			// Form is valid
-			$config['upload_path']   = APPPATH . 'attachments/nederlands';
-			$config['allowed_types'] = 'pdf|doc|docx|xlsx|xls|jpg|jpeg|png|gif';
-			$config['max_size']      = 10000;
+    /**
+     * Show the default mail page
+     */
+    public function index()
+    {
+        $this->load->helper(['form', 'url']);
+        $this->load->library('form_validation');
+        $this->form_validation->set_rules('onderwerp', 'onderwerp', 'required');
+        // Check if the submitted form is valid according to the rules above
+        if ($this->form_validation->run() == false) {
+            // Form i       s not valid
+            $data['leden'] = $this->profile_model->get_profile();
+            $this->loadView('beheer/mail/mail', $data);
+        } else {
+            $nl_error = "";
+            $en_error = "";
 
-			//Upload dutch attachments
-			$this->load->library( 'upload', $config );
-			if( ! $this->upload->do_multi_upload( 'userfile_nl' ) ) {
-				$nl_error = $this->upload->display_errors();
-			}
+            // Form is valid
+            $config['upload_path'] = APPPATH . 'attachments/nederlands';
+            $config['allowed_types'] = 'pdf|doc|docx|xlsx|xls|jpg|jpeg|png|gif';
+            $config['max_size'] = 10000;
 
-			//Upload english attachments
-			$config['upload_path'] = APPPATH . 'attachments/engels';
-			$this->upload->initialize( $config );
-			if( ! $this->upload->do_multi_upload( 'userfile_en' ) ) {
-				$en_error = $this->upload->display_errors();
-			}
+            //Upload dutch attachments
+            $this->load->library('upload', $config);
+            if (!$this->upload->do_multi_upload('userfile_nl')) {
+                $nl_error = $this->upload->display_errors();
+            }
 
+            //Upload english attachments
+            $config['upload_path'] = APPPATH . 'attachments/engels';
+            $this->upload->initialize($config);
+            if (!$this->upload->do_multi_upload('userfile_en')) {
+                $en_error = $this->upload->display_errors();
+            }
 
-			// Check if the upload was succesful
-			if( $nl_error === "" && $en_error === "" ) {
-				//Get all the form data
-				$data = $this->input->post( NULL, TRUE );
-				//Set as flashdata (bit hacky, but hey, it works... :D)
-				$this->session->set_flashdata( 'data', $data );
-				//Redirect to the actual mail send page
-				redirect( 'beheer/mail/send' );
-			}
-			else {
-				$error = [ 'fail' => $nl_error . $en_error ];
-				$this->loadView( 'beheer/mail/mail', $error );
-			}
+            // Check if the upload was succesful
+            if ($nl_error === "" && $en_error === "") {
+                //Get all the form data
+                $data = $this->input->post(null, true);
+                //Set as flashdata (bit hacky, but hey, it works... :D)
+                $this->session->set_flashdata('data', $data);
+                //Redirect to the actual mail send page
+                redirect('beheer/mail/send');
+            } else {
+                $error = ['fail' => $nl_error . $en_error];
+                $this->loadView('beheer/mail/mail', $error);
+            }
+        }
+    }
 
+    /**
+     * Function to show a list of vrienden van Hydrofiel.
+     */
+    public function vrienden()
+    {
+        $vrienden = $this->mail_model->get_vrienden();
+        if ($vrienden != null) {
+            $vrienden = $vrienden->vrienden_van;
+        } else {
+            $vrienden = '';
+        }
+        $this->loadView('beheer/mail/vrienden', ["mailadressen" => $vrienden]);
+    }
 
-		}
-	}
+    /**
+     * Function to save the uploaded list of vrienden van Hydrofiel.
+     */
+    public function save_vrienden()
+    {
+        $data = $this->input->post(null, true);
+        $this->mail_model->set_vrienden($data['vrienden_van']);
+        success('De vrienden zijn opgeslagen');
+        redirect('/beheer/mail');
+    }
 
-	/**
-	 * Function to show a list of vrienden van Hydrofiel.
-	 */
-	public function vrienden() {
-		$vrienden = $this->mail_model->get_vrienden();
-		if( $vrienden != NULL ) {
-			$vrienden = $vrienden->vrienden_van;
-		}
-		else {
-			$vrienden = '';
-		}
-		$this->loadView( 'beheer/mail/vrienden', [ "mailadressen" => $vrienden ] );
-	}
+    /**
+     * Function to send the mail
+     */
+    public function send()
+    {
+        //Make sure that flashdata is set, else this function will not work
+        if (null !== $this->session->flashdata('data')) {
+            $data = $this->session->flashdata('data');
+        } else {
+            error('Deze functie kan zo niet gebruikt worden!');
+            redirect('beheer/mail');
+        }
 
+        //Create an array to which the mail will be send.
+        $bcc = [];
+        if (!empty($data["email"])) {
+            $bcc = array_merge($this->get_emails($data["email"]), $bcc);
+        }
+        //Nederlands mailen.
 
-	/**
-	 * Function to save the uploaded list of vrienden van Hydrofiel.
-	 */
-	public function save_vrienden() {
-		$data = $this->input->post( NULL, TRUE );
-		$this->mail_model->set_vrienden( $data['vrienden_van'] );
-		$this->session->set_flashdata( 'success', "De vrienden zijn opgeslagen" );
-		redirect( '/beheer/mail' );
-	}
+        //Attach the attachments to the mail class.
+        foreach (glob(APPPATH . 'attachments/nederlands/*.*') as $file) {
+            $this->email->attach($file);
+        }
 
-	/**
-	 * Function to send the mail
-	 */
-	public function send() {
-		//Make sure that flashdata is set, else this function will not work
-		if( NULL !== $this->session->flashdata( 'data' ) ) {
-			$data = $this->session->flashdata( 'data' );
-		}
-		else {
-			$this->session->set_flashdata( "error", "Deze functie kan zo niet gebruikt worden!" );
-			redirect( 'beheer/mail' );
-		}
+        //Group
+        $bcc = array_merge($this->set_group($data["aan"], false), $bcc);
+        //ID's
+        if (!empty($data["los"])) {
+            $bcc = array_merge($this->set_ids($data["los"], false), $bcc);
+        }
 
-		//Create an array to which the mail will be send.
-		$bcc = [];
-		if( ! empty( $data["email"] ) ) {
-			$bcc = array_merge( $this->get_emails( $data["email"] ), $bcc );
-		}
-		//Nederlands mailen.
+        $this->set_from($data["van"]);
+        $hash = md5($data['content'] . $data['layout'] . time());
+        $message = $this->get_message($data["layout"], $data["content"], $hash, false);
 
-		//Attach the attachments to the mail class.
-		foreach( glob( APPPATH . 'attachments/nederlands/*.*' ) as $file ) {
-			$this->email->attach( $file );
-		}
+        $this->email->message($message);
+        $this->email->subject($data["onderwerp"]);
+        $this->email->to("no-reply@hydrofiel.nl");
+        $this->email->bcc($bcc);
 
-		//Group
-		$bcc = array_merge( $this->set_group( $data["aan"], FALSE ), $bcc );
-		//ID's
-		if( ! empty( $data["los"] ) ) {
-			$bcc = array_merge( $this->set_ids( $data["los"], FALSE ), $bcc );
-		}
+        $succes1 = true;
+        if (!empty($bcc)) {
+            if ($this->email->send(false)) {
+                $this->mail_model->save_mail(
+                    [
+                        "hash" => $hash,
+                        "datum" => date('Y-m-d H:i:s'),
+                        "van" => $data["van"],
+                        "onderwerp" => $data["onderwerp"],
+                        "bericht" => $message,
+                    ]
+                );
+            } else {
+                $succes1 = false;
+            }
+        }
 
-		$this->set_from( $data["van"] );
-		$hash    = md5( $data['content'] . $data['layout'] . time() );
-		$message = $this->get_message( $data["layout"], $data["content"], $hash, FALSE );
+        var_dump($this->email->print_debugger());
 
-		$this->email->message( $message );
-		$this->email->subject( $data["onderwerp"] );
-		$this->email->to( "no-reply@hydrofiel.nl" );
-		$this->email->bcc( $bcc );
-		$succes1 = TRUE;
-		if( ! empty( $bcc ) ) {
-			if( $this->email->send() ) {
-				$this->mail_model->save_mail( [
-					"hash"      => $hash,
-					"datum"     => date( 'Y-m-d H:i:s' ),
-					"van"       => $data["van"],
-					"onderwerp" => $data["onderwerp"],
-					"bericht"   => $message,
-				] );
-			}
-			else {
-				$succes1 = FALSE;
-			}
-		}
+        //Clear email variables
+        $this->email->clear(true);
 
-		//Clear email variables
-		$this->email->clear( TRUE );
+        //Engels mailen
+        //Attach the attachments to the mail class.
+        foreach (glob(APPPATH . 'attachments/engels/*.*') as $file) {
+            $this->email->attach($file);
+        }
 
-		//Engels mailen
-		//Attach the attachments to the mail class.
-		foreach( glob( APPPATH . 'attachments/engels/*.*' ) as $file ) {
-			$this->email->attach( $file );
-		}
+        $bcc = [];
+        $bcc = array_merge($this->set_group($data["aan"], true), $bcc);
 
-		$bcc = [];
-		$bcc = array_merge( $this->set_group( $data["aan"], TRUE ), $bcc );
+        if (!empty($data["los"])) {
+            $bcc = array_merge($this->set_ids($data["los"], true), $bcc);
+        }
 
-		if( ! empty( $data["los"] ) ) {
-			$bcc = array_merge( $this->set_ids( $data["los"], TRUE ), $bcc );
-		}
+        $this->set_from($data["van"]);
+        $hash = md5($data['en_content'] . $data['layout'] . time());
+        $message = $this->get_message($data["layout"], $data["en_content"], $hash, true);
 
-		$this->set_from( $data["van"] );
-		$hash    = md5( $data['en_content'] . $data['layout'] . time() );
-		$message = $this->get_message( $data["layout"], $data["en_content"], $hash, TRUE );
+        $this->email->message($message);
+        $this->email->subject($data["en_onderwerp"]);
+        $this->email->bcc($bcc);
 
-		$this->email->message( $message );
-		$this->email->subject( $data["en_onderwerp"] );
-		$this->email->bcc( $bcc );
+        $succes2 = true;
+        if (!empty($bcc)) {
+            if ($this->email->send()) {
+                $this->mail_model->save_mail(
+                    [
+                        "hash" => $hash,
+                        "datum" => date('Y-m-d H:i:s'),
+                        "van" => $data["van"],
+                        "onderwerp" => $data["en_onderwerp"],
+                        "bericht" => $message,
+                    ]
+                );
+            } else {
+                $succes2 = false;
+            }
+        }
 
-		$succes2 = TRUE;
-		if( ! empty( $bcc ) ) {
-			if( $this->email->send() ) {
-				$this->mail_model->save_mail( [
-					"hash"      => $hash,
-					"datum"     => date( 'Y-m-d H:i:s' ),
-					"van"       => $data["van"],
-					"onderwerp" => $data["en_onderwerp"],
-					"bericht"   => $message,
-				] );
-			}
-			else {
-				$succes2 = FALSE;
-			}
-		}
+        //Afwikkeling
+        foreach (glob(APPPATH . 'attachments/nederlands/*.*') as $file) {
+            unlink($file);
+        }
+        foreach (glob(APPPATH . 'attachments/engels/*.*') as $file) {
+            unlink($file);
+        }
 
-		//Afwikkeling
-		foreach( glob( APPPATH . 'attachments/nederlands/*.*' ) as $file ) {
-			unlink( $file );
-		}
-		foreach( glob( APPPATH . 'attachments/engels/*.*' ) as $file ) {
-			unlink( $file );
-		}
+        if ($succes1 && $succes2) {
+            success('Mail is verstuurd.');
+        } else {
+            error('Er ging iets fout.');
+        }
+        redirect('beheer/mail');
+    }
 
-		if( $succes1 && $succes2 ) {
-			$this->session->set_flashdata( "success", "Mail is verstuurd." );
-		}
-		else {
-			$this->session->set_flashdata( "error", "Er ging iets fout." );
-		}
+    /**
+     * Turns a string of emails into an array
+     *
+     * @param $emails A string contain email adresses
+     *
+     * @return array An array containing all the valid email adresses provided in the string
+     */
+    private function get_emails($emails)
+    {
+        $mail = [];
+        // Regex to filter out all the spaces
+        $emails = preg_replace('/\s+/', '', $emails);
+        // Create an array of the string using ',' as delimiter
+        $test_mail = explode(',', $emails);
+        // Run over the array to check whether each mail adress is valid
+        if (!empty($test_mail)) {
+            foreach ($test_mail as $adress) {
+                if (filter_var($adress, FILTER_VALIDATE_EMAIL)) {
+                    array_push($mail, $adress);
+                }
+            }
+        }
 
-		redirect( 'beheer/mail' );
-	}
+        return $mail;
+    }
 
-	/**
-	 * Turns a string of emails into an array
-	 *
-	 * @param $emails A string contain email adresses
-	 *
-	 * @return array An array containing all the valid email adresses provided in the string
-	 */
-	private function get_emails( $emails ) {
-		$mail = [];
-		// Regex to filter out all the spaces
-		$emails = preg_replace( '/\s+/', '', $emails );
-		// Create an array of the string using ',' as delimiter
-		$test_mail = explode( ',', $emails );
-		// Run over the array to check whether each mail adress is valid
-		if( ! empty( $test_mail ) ) {
-			foreach( $test_mail as $adress ) {
-				if( filter_var( $adress, FILTER_VALIDATE_EMAIL ) )
-					array_push( $mail, $adress );
-			}
-		}
+    /**
+     * Returns an array of mailadress based on which group has been selected
+     *
+     * @param $group  string Specifies which group needs to be mailed
+     * @param $engels boolean Specifies whether this mail is English or Dutch
+     *
+     * @return array An array containing all the emailadress belonging to the group
+     */
+    private function set_group($group, $engels)
+    {
+        $mail = [];
+        $emails = $this->mail_model->get_group($group, $engels);
+        if (!empty($emails)) {
+            foreach ($emails as $email) {
+                array_push($mail, $email->email);
+            }
+        }
 
-		return $mail;
-	}
+        if ($group === "nieuwsbrief") {
+            $text = $this->mail_model->get_vrienden();
+            if ($text != null) {
+                $email = $this->get_emails($text->vrienden_van);
+                $mail = array_merge($email, $mail);
+            }
+        }
 
-	/**
-	 * Returns an array of mailadress based on which group has been selected
-	 *
-	 * @param $group  string Specifies which group needs to be mailed
-	 * @param $engels boolean Specifies whether this mail is English or Dutch
-	 *
-	 * @return array An array containing all the emailadress belonging to the group
-	 */
-	private function set_group( $group, $engels ) {
-		$mail   = [];
-		$emails = $this->mail_model->get_group( $group, $engels );
-		if( ! empty( $emails ) ) {
-			foreach( $emails as $email ) {
-				array_push( $mail, $email->email );
-			}
-		}
+        return $mail;
+    }
 
-		if( $group === "nieuwsbrief" ) {
-			$text = $this->mail_model->get_vrienden();
-			if( $text != NULL ) {
-				$email = $this->get_emails( $text->vrienden_van );
-				$mail  = array_merge( $email, $mail );
-			}
-		}
+    /**
+     * Returns an array of mailadresses based on which ids have been selected
+     *
+     * @param $ids    array An array of ids
+     * @param $engels boolean Whether this mail is English or Dutch
+     *
+     * @return array An array containing mailadresses for all the ids
+     */
+    private function set_ids($ids, $engels)
+    {
+        $mail = [];
+        $emails = $this->mail_model->get_emails($ids, $engels);
+        if (!empty($emails)) {
+            foreach ($emails as $email) {
+                array_push($mail, $email->email);
+            }
+        }
 
-		return $mail;
-	}
+        return $mail;
+    }
 
-	/**
-	 * Returns an array of mailadresses based on which ids have been selected
-	 *
-	 * @param $ids    array An array of ids
-	 * @param $engels boolean Whether this mail is English or Dutch
-	 *
-	 * @return array An array containing mailadresses for all the ids
-	 */
-	private function set_ids( $ids, $engels ) {
-		$mail   = [];
-		$emails = $this->mail_model->get_emails( $ids, $engels );
-		if( ! empty( $emails ) ) {
-			foreach( $emails as $email ) {
-				array_push( $mail, $email->email );
-			}
-		}
+    /**
+     * Function to set the correct from mailadress
+     *
+     * @param $from string From which mailadress the mail will be sent
+     */
+    private function set_from($from)
+    {
+        switch ($from) {
+            case 'bestuur'          :
+                $this->email->from('bestuur@hydrofiel.nl', 'Bestuur N.S.Z.&W.V. Hydrofiel');
+                break;
+            case 'penningmeester'   :
+                $this->email->from('penningmeester@hydrofiel.nl', 'Penningmeester N.S.Z.&W.V. Hydrofiel');
+                break;
+            case 'zwemmen'          :
+                $this->email->from('zwemcommissaris@hydrofiel.nl', 'Zwemcommissaris N.S.Z.&W.V. Hydrofiel');
+                break;
+            case 'waterpolo'        :
+                $this->email->from('waterpolocommissaris@hydrofiel.nl', 'Waterpolocommissaris N.S.Z.&W.V. Hydrofiel');
+                break;
+            case 'algemeen'         :
+                $this->email->from('commissarisalgemeen@hydrofiel.nl', 'Commissaris Algemeen N.S.Z.&W.V. Hydrofiel');
+                break;
+            case 'secretaris'       :
+                $this->email->from('secretaris@hydrofiel.nl', 'Secretaris N.S.Z.&W.V. Hydrofiel');
+                break;
+            case 'voorzitter'       :
+                $this->email->from('voorzitter@hydrofiel.nl', 'Voorzitter N.S.Z.&W.V. Hydrofiel');
+                break;
+            case 'activiteiten'     :
+                $this->email->from('activiteitencommissie@hydrofiel.nl', 'Activiteitencommissie N.S.Z.&W.V. Hydrofiel');
+                break;
+            case 'webmaster'        :
+                $this->email->from('webmaster@hydrofiel.nl', 'Webmaster');
+                break;
+            default                 :
+                $this->email->from('bestuur@hydrofiel.nl', 'Bestuur N.S.Z.&W.V. Hydrofiel');
+                break;
+        }
+    }
 
-		return $mail;
-	}
+    /**
+     * Function to create the actual email
+     *
+     * @param $layout  string Which layout need to be chosen
+     * @param $content string The text which will be send
+     * @param $hash    string Hash of the mail
+     * @param $engels  boolean English or Dutch mail
+     *
+     * @return string A HTML string representing the final mail
+     */
+    private function get_message($layout, $content, $hash, $engels)
+    {
+        $data["content"] = $content;
+        $data["hash"] = $hash;
+        $data["engels"] = $engels;
+        switch ($layout) {
+            case 'standaard'    :
+                $message = $this->load->view('mail/default', $data, true);
+                break;
+            case 'nieuwsbrief'  :
+                $data["agenda"] = $this->agenda_model->get_event(null, 3);
+                $message = $this->load->view('mail/nieuwsbrief', $data, true);
+                break;
+            default             :
+                $message = $content;
+                break;
+        }
 
-	/**
-	 * Function to set the correct from mailadress
-	 *
-	 * @param $from string From which mailadress the mail will be sent
-	 */
-	private function set_from( $from ) {
-		switch( $from ) {
-			case 'bestuur'          :
-				$this->email->from( 'bestuur@hydrofiel.nl', 'Bestuur N.S.Z.&W.V. Hydrofiel' );
-				break;
-			case 'penningmeester'   :
-				$this->email->from( 'penningmeester@hydrofiel.nl', 'Penningmeester N.S.Z.&W.V. Hydrofiel' );
-				break;
-			case 'zwemmen'          :
-				$this->email->from( 'zwemcommissaris@hydrofiel.nl', 'Zwemcommissaris N.S.Z.&W.V. Hydrofiel' );
-				break;
-			case 'waterpolo'        :
-				$this->email->from( 'waterpolocommissaris@hydrofiel.nl', 'Waterpolocommissaris N.S.Z.&W.V. Hydrofiel' );
-				break;
-			case 'algemeen'         :
-				$this->email->from( 'commissarisalgemeen@hydrofiel.nl', 'Commissaris Algemeen N.S.Z.&W.V. Hydrofiel' );
-				break;
-			case 'secretaris'       :
-				$this->email->from( 'secretaris@hydrofiel.nl', 'Secretaris N.S.Z.&W.V. Hydrofiel' );
-				break;
-			case 'voorzitter'       :
-				$this->email->from( 'voorzitter@hydrofiel.nl', 'Voorzitter N.S.Z.&W.V. Hydrofiel' );
-				break;
-			case 'activiteiten'     :
-				$this->email->from( 'activiteitencommissie@hydrofiel.nl', 'Activiteitencommissie N.S.Z.&W.V. Hydrofiel' );
-				break;
-			case 'webmaster'        :
-				$this->email->from( 'webmaster@hydrofiel.nl', 'Webmaster' );
-				break;
-			default                 :
-				$this->email->from( 'bestuur@hydrofiel.nl', 'Bestuur N.S.Z.&W.V. Hydrofiel' );
-				break;
-		}
-	}
+        return $message;
+    }
 
-	/**
-	 * Function to create the actual email
-	 *
-	 * @param $layout  string Which layout need to be chosen
-	 * @param $content string The text which will be send
-	 * @param $hash    string Hash of the mail
-	 * @param $engels  boolean English or Dutch mail
-	 *
-	 * @return string A HTML string representing the final mail
-	 */
-	private function get_message( $layout, $content, $hash, $engels ) {
-		$data["content"] = $content;
-		$data["hash"]    = $hash;
-		$data["engels"]  = $engels;
-		switch( $layout ) {
-			case 'standaard'    :
-				$message = $this->load->view( 'mail/default', $data, TRUE );
-				break;
-			case 'nieuwsbrief'  :
-				$data["agenda"] = $this->agenda_model->get_event( NULL, 3 );
-				$message        = $this->load->view( 'mail/nieuwsbrief', $data, TRUE );
-				break;
-			default             :
-				$message = $content;
-				break;
-		}
+    /**
+     * Delete a mail with certain hash
+     *
+     * @param $hash string Which mail needs to be deleted
+     */
+    public function delete($hash)
+    {
+        if ($this->mail_model->delete($hash)) {
+            success('Mail verwijderd.');
+        } else {
+	        error('Er is iets fout gegaan.');
+        }
+        redirect('/beheer/mail/history');
+    }
 
-		return $message;
-	}
+    /**
+     * Function to show the history of all the mails.
+     */
+    public function history()
+    {
+        $data['email'] = $this->mail_model->get_mail(null, 1000);
+        $this->loadView('mail/overview', $data);
+    }
 
-	/**
-	 * Delete a mail with certain hash
-	 *
-	 * @param $hash string Which mail needs to be deleted
-	 */
-	public function delete( $hash ) {
-		if( $this->mail_model->delete( $hash ) ) {
-			$this->session->set_flashdata( 'success', 'Mail verwijderd.' );
-		}
-		else {
-			$this->session->set_flashdata( 'error', 'Er is iets fout gegaan.' );
-		}
-		redirect( '/beheer/mail/history' );
-	}
-
-	/**
-	 * Function to show the history of all the mails.
-	 */
-	public function history() {
-		$data['email']   = $this->mail_model->get_mail( NULL, 1000 );
-		$this->loadView( 'mail/overview', $data );
-	}
-
-	/**
-	 * Show an overview of the mail history, or, when a hash is provided, show that mail
-	 *
-	 * @param null $hash string Hash of the mail
-	 */
-	public function view_mail( $hash = NULL ) {
-		//Show details of mail or show error
-		$result = $this->mail_model->get_mail( $hash );
-		if( ! empty( $result ) ) {
-			$data = $result[0];
-			$this->loadView( 'mail/view', $data );
-		}
-		else {
-			show_error( "Hash not found" );
-		}
-	}
+    /**
+     * Show an overview of the mail history, or, when a hash is provided, show that mail
+     *
+     * @param null $hash string Hash of the mail
+     */
+    public function view_mail($hash = null)
+    {
+        //Show details of mail or show error
+        $result = $this->mail_model->get_mail($hash);
+        if (!empty($result)) {
+            $data = $result[0];
+            $this->loadView('mail/view', $data);
+        } else {
+            show_error("Hash not found");
+        }
+    }
 }

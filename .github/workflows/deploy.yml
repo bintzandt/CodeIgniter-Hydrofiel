@@ -1,0 +1,56 @@
+name: Deploy
+on:
+  push:
+    branches:
+      - master
+jobs:
+  build:
+    name: Deploy
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Validate composer.json and composer.lock
+        run: composer validate
+
+      - name: Install dependencies
+        run: composer install --prefer-dist --no-progress --no-suggest
+
+      - name: Install yarn
+        run: curl -o- -L https://yarnpkg.com/install.sh | bash
+
+      - name: Install JS dependencies
+        run: yarn install
+
+      - name: Build assets
+        run: grunt build
+
+      - name: Setup database
+        run: mysql -u root --password=root < ./docker/dump/hydrofiel.sql
+
+      - name: Run test suite
+        run: composer run-script test
+
+      - name: Delete composer folder
+        run: rm -rf vendor
+
+      - name: Install production dependencies
+        run: composer install --no-dev
+
+      - name: Bundle folder
+        run: |
+          mkdir bundle
+          cp index.php bundle
+          cp manifest.json bundle
+          cp .htaccess bundle
+          cp -r assets bundle/assets
+          cp -r fonts bundle/fonts
+          cp -r system bundle/system
+          cp -r application bundle/application
+          cp -r vendor bundle/vendor
+      - name: Deploy bundle folder
+        uses: SamKirkland/FTP-Deploy-Action@3.0.0
+        with:
+          ftp-server: ftp://ftp.hydrofiel.nl/
+          ftp-username: deploy@hydrofiel.nl
+          local-dir: bundle
+          ftp-password: ${{ secrets.FTP_PASSWORD }}

@@ -1,10 +1,14 @@
 <?php
+require_once 'application/entities/User.php';
 
 /**
  * Class Profile_model
  * Handles all database action related to the profile
  */
 class Profile_model extends CI_Model {
+	private $fields;
+	private const TABLE = 'gebruikers';
+
 	// These constants reflect the order in the CSV which can be uploaded. Changes in the CSV should also be reflected here.
 	// In addition: when new data is added to the CSV (international etc.) please add a constant here.
 	// Note: The board has changed something but I cannot fix it since I did not get a new CSV file.
@@ -17,6 +21,11 @@ class Profile_model extends CI_Model {
 	const ENGELS = 12;
 	const LIDMAATSCHAP = 14;
 
+	public function __construct() {
+		parent::__construct();
+		$this->fields = $this->db->list_fields( self::TABLE );
+	}
+
 	/**
 	 * Get a profile in array form instead of std_object
 	 *
@@ -25,15 +34,16 @@ class Profile_model extends CI_Model {
 	 * @return mixed
 	 */
 	public function get_profile_array( $id ) {
-		$query = $this->db->get_where( 'gebruikers', [ 'id' => $id ] );
+		$query = $this->db->get_where( self::TABLE, [ 'id' => $id ] );
 
 		return $query->row_array();
 	}
 
-	public function get_user_by_email( $email ) {
-		$query = $this->db->get_where( 'gebruikers', [ 'email' => $email ] );
+	public function get_user_by_email( string $email ): ?User {
+		$this->db->limit( 1 );
+		$query = $this->db->get_where( self::TABLE, [ 'email' => $email ] );
 
-		return $query->row_array();
+		return $query->first_row( 'User' );
 	}
 
 	/**
@@ -44,9 +54,9 @@ class Profile_model extends CI_Model {
 	 *
 	 * @return mixed
 	 */
-	public function update( $id, $data ) {
+	public function update( int $id, $data ): int {
 		$this->db->where( 'id', $id );
-		$this->db->update( 'gebruikers', $data );
+		$this->db->update( self::TABLE, $data );
 		$this->db->cache_delete( 'profile' );
 
 		return $this->db->affected_rows();
@@ -62,84 +72,43 @@ class Profile_model extends CI_Model {
 	public function upload_users( $file_name ) {
 		$file = fopen( $file_name, 'r' );
 
-		//After the while loop, ids contains all ids of users that are still member
+		//After the while loop, ids contains all ids of users that are still member.
 		$ids = [];
 
 		$nr = 0;
 
 		//While not end of file
-		while( ! feof( $file ) ) {
+		while ( ! feof( $file ) ) {
 			$data = fgetcsv( $file, 0, ';' );
-			if( $data === FALSE ) {
+			if ( $data === false ) {
 				break;
 			}
 
-			//Remove all additional '
-			foreach( $data as $key => $value ) {
-				$val          = str_replace( "'", "", $value );
-				$data[ $key ] = $val;
-			}
+			$data = $this->clean_data( $data );
+
+			//Create an User object with all relevant data
+			$user = new User();
+			$user->id = $data[ self::ID ];
+			$user->set_name( $data[ self::VOOR ], $data[ self::TUSSEN ], $data[ self::ACHTER ] );
+			$user->email = $data[ self::EMAIL ];
+			$user->geboortedatum = $data[ self::GEBOORTEDATUM ];
+			$user->engels = $data[ self::ENGELS ] !== 'Nee';
+			$user->lidmaatschap = $data[ self::LIDMAATSCHAP ];
 
 			//Push the id to the array ids
-			$id = intval( preg_replace("/[^0-9]/", "", $data[ self::ID ] ) );
-			array_push( $ids, $id );
-
-			//Create a user ID with all relevant data
-			//Note: new datafields will have to be added here
-			$user = [
-				"id"            => $id,
-				"naam"          => $data[ self::VOOR ] . " " . ( $data[ self::TUSSEN ] === "" ? "" : $data[ self::TUSSEN ] . " " ) . $data[ self::ACHTER ],
-				"email"         => $data[ self::EMAIL ],
-				"geboortedatum" => date_format( date_create( $data[ self::GEBOORTEDATUM ] ), "Y-m-d" ),
-				"engels"        => ( $data[ self::ENGELS ] === 'Nee' ) ? 0 : 1,
-			];
-
-			var_dump( $user );
-
-			//Translate the lidmaatschap field into database ready data
-			switch( $data[ self::LIDMAATSCHAP ] ) {
-				case 'Waterpolo - wedstrijd'    :
-					$user["lidmaatschap"] = 'waterpolo_competitie';
-					break;
-				case 'Zwemmers'                 :
-					$user["lidmaatschap"] = 'zwemmer';
-					break;
-				case 'Waterpolo - recreatief'   :
-					$user["lidmaatschap"] = 'waterpolo_recreatief';
-					break;
-				case 'Trainers'                 :
-					$user["lidmaatschap"] = 'trainer';
-					break;
-				case 'Overige'                  :
-					$user["lidmaatschap"] = 'overig';
-					break;
-				default                         :
-					$user["lidmaatschap"] = 'zwemmer';
-					break;
-			}
+			array_push( $ids, $user->id );
 
 			//Check if this is an existing user
-			$profile = $this->get_profile( $user["id"] );
-			if( ! empty( $profile ) ) {
-				$this->db->set( $user );
-				$this->db->where( 'id', $user["id"] );
-				$this->db->update( 'gebruikers' );
-				$nr += $this->db->affected_rows();
-
+			$profile = $this->get_profile( $user->id );
+			if ( ! empty( $profile ) ) {
+				$nr += $this->update( $user->id, $user );
 			}
 			else {
-				$this->load->model( 'login_model' );
-				$this->db->insert( 'gebruikers', $user );
-				$result = $this->login_model->set_recovery( $user['email'], TRUE );
-				//Send a welcome mail to new users :D
-				if( $result !== FALSE ) {
-					if( $this->send_welcome_mail( $data[ self::VOOR ], $user['email'], $result['recovery'], $user['engels'] ) ) {
-						$nr += $this->db->affected_rows();
-					}
-					else {
-						if( ( $key = array_search( $user['id'], $ids ) ) !== FALSE ) {
-							unset( $ids[ $key ] );
-						}
+				try {
+					$this->create_new_user( $user, $data[ self::VOOR ] );
+				} catch ( Exception $e ){
+					if ( ( $key = array_search( $user->id, $ids ) ) !== false ) {
+						unset( $ids[ $key ] );
 					}
 				}
 			}
@@ -150,7 +119,7 @@ class Profile_model extends CI_Model {
 
 		//Remove all users not in ids as they are no longer member
 		$this->db->where_not_in( 'id', $ids );
-		$this->db->delete( 'gebruikers' );
+		$this->db->delete( self::TABLE );
 
 		return $nr + $this->db->affected_rows();
 	}
@@ -164,15 +133,22 @@ class Profile_model extends CI_Model {
 	 * @return mixed
 	 */
 	public function get_profile( $id = 0 ) {
-		if( $id === 0 ) {
+		if ( $id === 0 ) {
 			$this->db->order_by( 'naam', 'asc' );
-			$query = $this->db->get( 'gebruikers' );
+			/**
+			 * @var CI_DB_result $query
+			 */
+			$query = $this->db->get( self::TABLE );
 
 			return $query->result();
 		}
-		$query = $this->db->get_where( 'gebruikers', [ 'id' => $id ] );
+		/**
+		 * @var CI_DB_result $query
+		 */
+		$this->db->limit( 1 );
+		$query = $this->db->get_where( self::TABLE, [ 'id' => $id ] );
 
-		return $query->row();
+		return $query->first_row( 'User' );
 	}
 
 	/**
@@ -188,20 +164,20 @@ class Profile_model extends CI_Model {
 		$this->load->model( 'agenda_model' );
 		$data = [
 			'recovery' => $recovery,
-			'events'   => $this->agenda_model->get_event( NULL, 3 ),
+			'events'   => $this->agenda_model->get_event( null, 3 ),
 			'voornaam' => $voornaam,
 		];
-		$this->email->clear( TRUE );
+		$this->email->clear( true );
 		$this->email->to( $email );
 		$this->email->from( 'bestuur@hydrofiel.nl', 'Bestuur N.S.Z.&W.V. Hydrofiel' );
-		if( $engels ) {
+		if ( $engels ) {
 			$this->email->subject( "Welcome to Hydrofiel! 🏊🤽" );
-			$this->email->message( $this->load->view( 'mail/welcome', $data, TRUE ) );
+			$this->email->message( $this->load->view( 'mail/welcome', $data, true ) );
 			$this->email->attach( './application/views/mail/Welcomeletter_2019-2020_EN.pdf' );
 		}
 		else {
 			$this->email->subject( "Welkom bij Hydrofiel! 🏊🤽‍" );
-			$this->email->message( $this->load->view( 'mail/welkom', $data, TRUE ) );
+			$this->email->message( $this->load->view( 'mail/welkom', $data, true ) );
 			$this->email->attach( './application/views/mail/Welkomstbrief_2019-2020_NL.pdf' );
 		}
 
@@ -217,7 +193,7 @@ class Profile_model extends CI_Model {
 	 */
 	public function delete( $id ) {
 		$this->db->where( 'id', $id );
-		$this->db->delete( 'gebruikers' );
+		$this->db->delete( self::TABLE );
 
 		return $this->db->affected_rows() > 0;
 	}
@@ -236,9 +212,45 @@ class Profile_model extends CI_Model {
                 WHERE DATE_FORMAT(geboortedatum, '%m%d') >= DATE_FORMAT(now(), '%m%d')
                 ORDER BY DATE_FORMAT(geboortedatum, '%m%d') ASC
                 LIMIT $limit
-            " );
+            "
+		);
 		$result = $query->result();
 
 		return $result;
+	}
+
+	/**
+	 * @param User   $user
+	 * @param string $first_name
+	 *
+	 * @return mixed
+	 * @throws Exception
+	 */
+	private function create_new_user( User $user, string $first_name ){
+		$this->load->model( 'login_model' );
+		$this->db->insert( self::TABLE, $user );
+		$result = $this->login_model->set_recovery( $user->email, true );
+		//Send a welcome mail to new users :D
+		if ( $result !== false ) {
+			$this->send_welcome_mail( $first_name, $user->email, $result['recovery'], $user->engels );
+			return $this->db->affected_rows();
+		}
+
+		throw new Exception();
+	}
+
+	/**
+	 * Removes all additional ' from the data array.
+	 *
+	 * @param string[] $data An array of strings that will be cleaned.
+	 *
+	 * @return string[] An array with cleaned data.
+	 */
+	private function clean_data( Array $data ): Array {
+		foreach ( $data as $key => $value ) {
+			$val          = str_replace( '\'', '', $value );
+			$data[ $key ] = $val;
+		}
+		return $data;
 	}
 }
