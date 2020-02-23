@@ -1,36 +1,38 @@
 # Codeigniter-Hydrofiel
-This repository contains all the necesarry files for the hydrofiel.nl website. Contact me at webmaster@hydrofiel.nl if you want the config files for the live version (implying that you are a member of Hydrofiel and are willing to work on the website).
+This repository contains all the necessary files for Hydrofiel.nl. Contact me at webmaster@hydrofiel.nl if you want the config files for the live version (implying that you are a member of Hydrofiel and are willing to work on the website).
 
 # Installation
-## Devilbox
-For hosting the local development environment, devilbox is used. You are free to use your own hosting environment but this README will assume that you are also using devilbox.
+First and foremost, clone this repository in the desired directory!
 
-### Get Devilbox
-In order to install Devilbox, follow the instructions at https://devilbox.readthedocs.io/en/latest/index.html. Make sure that you have the prerequisites installed before you start. DO NOT COPY THE env-example FILE BUT INSTEAD USE THE .env FILE PROVIDED IN THIS REPOSITORY.
-After installation Devilbox can be started by running ```docker-compose up```.
+## Docker
+For hosting the local development environment, docker is used.
+
+Install docker for your operating system. See [their documentation](https://docs.docker.com/install) for information.
 
 ## Editing /etc/hosts
 Make sure to add the following line to your /etc/hosts (Google to see how this is done on windows machines!)
-```127.0.0.1 hydrofiel.test```
+`127.0.0.1 hydrofiel.test`
 
-## Downloading the website files
-After you have installed Devilbox, go to the data/www directory and execute the following command:
-```shell
-git clone https://github.com/bintzandt/CodeIgniter-Hydrofiel.git hydrofiel/htdocs
-```
-Now hydrofiel/htdocs should contain all the necesarry files to run the website.
+## Install dependencies and build all files
+1. Make sure that you have `yarn` installed on your machine ([installation guide](https://yarnpkg.com/lang/en/docs/install]))
+1. Run `yarn install` to download all dependencies
+1. Run `grunt build` to build all assets
 
-## Setting up the database
-This repository contains an export of a recent database export. Go to localhost to enter the Devilbox admin page, under the tools section select PHPMyAdmin. Create a new database called hydrofiel. Click on the newly created database and import the file database/hydrofiel.sql in it. By default this also creates one user with username/email admin@hydrofiel.nl and password 'admin'.
+Optional: if you plan on making changes to the `sass` or `js` files, you can run `grunt watch` to keep building the assets in the background.
 
-## Compiling the assets
-The assets are compiled using grunt. Make sure to install node before continuing. 
-In order to compile the assets, we first install grunt and it's dependencies. This can be done by using
-```npm install``` and ```npm -g install grunt-cli```.
-After that you can use ```grunt``` to start a filewatcher that automatically compiles the sass files and minifies the javascript. Make sure to change sass/hydrofiel.sass and a javascript file in order to compile the assets for the first time. After that you only need to startup grunt when you want to make changes to one of the assets.
+## Start up the website
+Run `docker-compose up` to start up everything. You should be able to visit the website on `hydrofiel.test`.
 
 ## Static assets
-Static assets like images and files can be downloaded via FTP from hydrofiel. Contact webmaster@hydrofiel.nl for the details.
+Static assets like images are stored in `git-lfs`. Make sure you have installed this on your machine and then run `git lfs pull` to fetch all images.
 
-## Migrating
-In order to make sure that the database is up-to-date, visit http://hydrofiel.test/beheer/migrate after setting up the website.
+# Project structure
+The project adheres to the following directory structure:
+- `application`: the [CodeIgniter](https://codeigniter.com/user_guide/index.html) folder
+- `assets`: contains the JS and CSS files needed to run the website
+- `docker`: contains docker configuration files, an empty MySQL database dump and a directory for MySQL persistence
+- `fonts`: contains FontAwesome files and other fonts that are used on the website
+- `fotos` and `images`: both contain foto's and images used on the website
+- `js`: the JS source files that are build to the `assets` directory
+- `sass`: the sass sources for the website
+- `system`: the CodeIgniter system directory 

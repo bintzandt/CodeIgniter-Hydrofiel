@@ -31,3 +31,4 @@ application/cache/
 backend/
 frontend/
 uploads/*
+docker/database_data

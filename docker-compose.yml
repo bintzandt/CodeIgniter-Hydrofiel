@@ -1,0 +1,57 @@
+###############################################################################
+#                          Generated on phpdocker.io                          #
+###############################################################################
+version: "3.1"
+services:
+
+    mail:
+      image: mailhog/mailhog:latest
+      container_name: hydrofiel-mailhog
+      ports:
+        - "127.0.0.1:1025:1025"
+        - "127.0.0.1:8025:8025"
+
+    mysql:
+      image: mysql:8.0
+      container_name: hydrofiel-mysql
+      command: --default-authentication-plugin=mysql_native_password
+      volumes:
+        - ./docker/dump:/docker-entrypoint-initdb.d
+        - ./docker/database_data:/var/lib/mysql
+      restart: always
+      environment:
+        - MYSQL_ROOT_PASSWORD=admin
+        - MYSQL_DATABASE=hydrofiel
+        - MYSQL_USER=admin
+        - MYSQL_PASSWORD=admin
+      ports:
+        - "127.0.0.1:8081:3306"
+
+    webserver:
+      build: ./docker/
+      container_name: hydrofiel-webserver
+      volumes:
+      - .:/var/www/html
+      extra_hosts:
+        - "hydrofiel.test:127.0.0.1"
+      hostname: hydrofiel.test
+      domainname: test
+      ports:
+      - "80:80"
+      links:
+        - mysql
+        - mail
+
+    test:
+      image: mysql:8.0
+      command: --default-authentication-plugin=mysql_native_password
+      volumes:
+        - ./docker/dump:/docker-entrypoint-initdb.d
+      restart: always
+      environment:
+        - MYSQL_ROOT_PASSWORD=root
+        - MYSQL_DATABASE=hydrofiel
+        - MYSQL_USER=admin
+        - MYSQL_PASSWORD=admin
+      ports:
+        - "127.0.0.1:3306:3306"
