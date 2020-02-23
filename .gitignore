@@ -32,3 +32,8 @@ backend/
 frontend/
 uploads/*
 docker/database_data
+images
+application/tests/.phpunit.result.cache
+application/tests/build
+application/tests/application
+invalid.csv
