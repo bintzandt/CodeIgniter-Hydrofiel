@@ -1,10 +1,13 @@
-name: PHP Composer
+name: Test
 
-on: [push]
+on:
+  push:
+    except:
+      - master
 
 jobs:
   build:
-
+    name: Run PHP-unit
     runs-on: ubuntu-latest
 
     steps:
@@ -18,12 +21,15 @@ jobs:
 
     - name: Install yarn
       run: curl -o- -L https://yarnpkg.com/install.sh | bash
-    
+
     - name: Install JS dependencies
       run: yarn install
-    
+
     - name: Build assets
       run: grunt build
-      
+
+    - name: Setup database
+      run: mysql -u root --password=root < ./docker/dump/hydrofiel.sql
+
     - name: Run test suite
       run: composer run-script test
