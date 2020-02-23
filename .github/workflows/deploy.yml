@@ -39,15 +39,15 @@ jobs:
       - name: Bundle folder
         run: |
           mkdir bundle
-          cp index.php bundle
-          cp manifest.json bundle
-          cp favicon.ico bundle
-          cp .htaccess bundle
-          cp -r assets bundle/assets
-          cp -r fonts bundle/fonts
-          cp -r system bundle/system
-          cp -r application bundle/application
-          cp -r vendor bundle/vendor
+          cp -p index.php bundle
+          cp -p manifest.json bundle
+          cp -p favicon.ico bundle
+          cp -p .htaccess bundle
+          cp -prR assets bundle/assets
+          cp -prR fonts bundle/fonts
+          cp -prR system bundle/system
+          cp -prR application bundle/application
+          cp -prR vendor bundle/vendor
       - name: Deploy bundle folder
         uses: SamKirkland/FTP-Deploy-Action@3.0.0
         with:
