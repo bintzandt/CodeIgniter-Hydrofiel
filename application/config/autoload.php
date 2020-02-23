@@ -1,5 +1,6 @@
 <?php
-defined( 'BASEPATH' ) OR exit( 'No direct script access allowed' );
+
+defined('BASEPATH') OR exit('No direct script access allowed');
 
 /*
 | -------------------------------------------------------------------
@@ -58,7 +59,7 @@ $autoload['packages'] = [];
 |
 |	$autoload['libraries'] = array('user_agent' => 'ua');
 */
-$autoload['libraries'] = [ 'database', 'session', 'email', 'user_agent' ];
+$autoload['libraries'] = ['database', 'session', 'email', 'user_agent', 'form_validation'];
 
 /*
 | -------------------------------------------------------------------
@@ -79,7 +80,7 @@ $autoload['libraries'] = [ 'database', 'session', 'email', 'user_agent' ];
 |	$autoload['drivers'] = array('cache' => 'cch');
 |
 */
-$autoload['drivers'] = [ 'cache' ];
+$autoload['drivers'] = ['cache'];
 
 /*
 | -------------------------------------------------------------------
@@ -89,7 +90,7 @@ $autoload['drivers'] = [ 'cache' ];
 |
 |	$autoload['helper'] = array('url', 'file');
 */
-$autoload['helper'] = [ 'url', 'file', 'form', 'language' ];
+$autoload['helper'] = ['url', 'file', 'form', 'language', 'status', 'user'];
 /*
 | -------------------------------------------------------------------
 |  Auto-load Config files
@@ -131,4 +132,4 @@ $autoload['language'] = [];
 |
 |	$autoload['model'] = array('first_model' => 'first');
 */
-$autoload['model'] = [ 'menu_model', 'page_model', 'agenda_model', 'profile_model', 'post_model' ];
+$autoload['model'] = ['menu_model', 'page_model', 'agenda_model', 'profile_model', 'post_model'];

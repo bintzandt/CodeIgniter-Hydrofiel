@@ -1,8 +1,13 @@
 <?php
 
-class Migration_Add_facebook_posts extends CI_Migration
+class Migration_Remove_facebook_posts extends CI_Migration
 {
     public function up()
+    {
+        $this->dbforge->drop_table('facebook_posts');
+    }
+
+    public function down()
     {
         $fields = [
             'id' => [
@@ -32,10 +37,5 @@ class Migration_Add_facebook_posts extends CI_Migration
         $this->dbforge->add_field($fields);
         $this->dbforge->add_key('id', true);
         $this->dbforge->create_table('facebook_posts');
-    }
-
-    public function down()
-    {
-        $this->dbforge->drop_table('facebook_posts');
     }
 }
