@@ -1,33 +1,38 @@
 # Codeigniter-Hydrofiel
-This repository contains all the necessary files for Hydrofiel.nl. Contact me at webmaster@hydrofiel.nl if you want the config files for the live version (implying that you are a member of Hydrofiel and are willing to work on the website).
+This repository contains all the necessary files for Hydrofiel.nl.
 
 # Installation
-First and foremost, clone this repository in the desired directory!
+## Requirements
+### Docker
+For hosting the local development environment, docker is used. Please install docker for your operating system, see [their documentation](https://docs.docker.com/install) for information.
 
-## Docker
-For hosting the local development environment, docker is used.
+### Editing /etc/hosts
+Make sure to add the following line to your /etc/hosts (see [this article](https://www.howtogeek.com/howto/27350/beginner-geek-how-to-edit-your-hosts-file/) for Windows).
 
-Install docker for your operating system. See [their documentation](https://docs.docker.com/install) for information.
-
-## Editing /etc/hosts
-Make sure to add the following line to your /etc/hosts (Google to see how this is done on windows machines!)
 `127.0.0.1 hydrofiel.test`
 
-## Install dependencies and build all files
-1. Make sure that you have `yarn` installed on your machine ([installation guide](https://yarnpkg.com/lang/en/docs/install]))
-1. Run `yarn install` to download all dependencies
+### yarn
+Install `yarn` using their [installation guide](https://yarnpkg.com/lang/en/docs/install).
+
+## Running
+Clone the repo in the desired directory and enter the directory.
+
+### Build dependencies
+1. Run `yarn install` to download all javascript dependencies
 1. Run `grunt build` to build all assets
+1. Run `composer install` to install all PHP dependencies
 
 Optional: if you plan on making changes to the `sass` or `js` files, you can run `grunt watch` to keep building the assets in the background.
 
-## Start up the website
+### Start up the website
 Run `docker-compose up` to start up everything. You should be able to visit the website on `hydrofiel.test`.
 
-## Static assets
-Static assets like images are stored in `git-lfs`. Make sure you have installed this on your machine and then run `git lfs pull` to fetch all images.
+## Optional: images
+The website is not looking good without having the images. To prevent issues with the GDPR, the images are not stored anywhere. Please contact me if you want to have a copy of all the image files for development purposes.
 
 # Project structure
 The project adheres to the following directory structure:
+- `.github`: contains the workflows for testing and deploying the code
 - `application`: the [CodeIgniter](https://codeigniter.com/user_guide/index.html) folder
 - `assets`: contains the JS and CSS files needed to run the website
 - `docker`: contains docker configuration files, an empty MySQL database dump and a directory for MySQL persistence
