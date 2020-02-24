@@ -136,7 +136,7 @@ class Mail extends _BeheerController
 
         $succes1 = true;
         if (!empty($bcc)) {
-            if ($this->email->send(false)) {
+            if ($this->email->send()) {
                 $this->mail_model->save_mail(
                     [
                         "hash" => $hash,
@@ -150,8 +150,6 @@ class Mail extends _BeheerController
                 $succes1 = false;
             }
         }
-
-        var_dump($this->email->print_debugger());
 
         //Clear email variables
         $this->email->clear(true);
