@@ -94,7 +94,7 @@ class Login_model extends CI_Model
     {
         $data = [
             'recovery' => $this->getToken(32),
-            'recovery_valid' => ($new_user ? date('Y-m-d H:i:s', strtotime('now + 1 year')) : date(
+            'recovery_valid' => ($new_user ? date('Y-m-d H:i:s', strtotime('now + 1 week')) : date(
                 'Y-m-d H:i:s',
                 strtotime(
                     'now + 1 hour'

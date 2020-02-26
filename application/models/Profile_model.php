@@ -6,7 +6,6 @@ require_once 'application/entities/User.php';
  * Handles all database action related to the profile
  */
 class Profile_model extends CI_Model {
-	private $fields;
 	private const TABLE = 'gebruikers';
 
 	// These constants reflect the order in the CSV which can be uploaded. Changes in the CSV should also be reflected here.
@@ -23,7 +22,6 @@ class Profile_model extends CI_Model {
 
 	public function __construct() {
 		parent::__construct();
-		$this->fields = $this->db->list_fields( self::TABLE );
 	}
 
 	/**
@@ -33,7 +31,7 @@ class Profile_model extends CI_Model {
 	 *
 	 * @return mixed
 	 */
-	public function get_profile_array( $id ) {
+	public function get_profile_array( int $id ): Array {
 		$query = $this->db->get_where( self::TABLE, [ 'id' => $id ] );
 
 		return $query->row_array();
@@ -74,7 +72,6 @@ class Profile_model extends CI_Model {
 
 		//After the while loop, ids contains all ids of users that are still member.
 		$ids = [];
-
 		$nr = 0;
 
 		//While not end of file
@@ -98,18 +95,19 @@ class Profile_model extends CI_Model {
 			//Push the id to the array ids
 			array_push( $ids, $user->id );
 
-			//Check if this is an existing user
-			$profile = $this->get_profile( $user->id );
-			if ( ! empty( $profile ) ) {
-				$nr += $this->update( $user->id, $user );
-			}
-			else {
-				try {
-					$this->create_new_user( $user, $data[ self::VOOR ] );
-				} catch ( Exception $e ){
-					if ( ( $key = array_search( $user->id, $ids ) ) !== false ) {
-						unset( $ids[ $key ] );
-					}
+			// create_new_user() throws an exception when the email cannot be send.
+			try {
+				//Check if this is an existing user
+				$profile = $this->get_profile( $user->id );
+				if ( ! empty( $profile ) ) {
+					$nr += $this->update( $user->id, $user );
+				}
+				else {
+					$nr += $this->create_new_user( $user, $data[ self::VOOR ] );
+				}
+			} catch ( Exception $e ) {
+				if ( ( $key = array_search( $user->id, $ids ) ) !== false ) {
+					unset( $ids[ $key ] );
 				}
 			}
 		}
@@ -133,18 +131,14 @@ class Profile_model extends CI_Model {
 	 * @return mixed
 	 */
 	public function get_profile( $id = 0 ) {
+		// Check if we want a specific ID.
 		if ( $id === 0 ) {
 			$this->db->order_by( 'naam', 'asc' );
-			/**
-			 * @var CI_DB_result $query
-			 */
 			$query = $this->db->get( self::TABLE );
 
 			return $query->result();
 		}
-		/**
-		 * @var CI_DB_result $query
-		 */
+
 		$this->db->limit( 1 );
 		$query = $this->db->get_where( self::TABLE, [ 'id' => $id ] );
 
@@ -171,12 +165,12 @@ class Profile_model extends CI_Model {
 		$this->email->to( $email );
 		$this->email->from( 'bestuur@hydrofiel.nl', 'Bestuur N.S.Z.&W.V. Hydrofiel' );
 		if ( $engels ) {
-			$this->email->subject( "Welcome to Hydrofiel! 🏊🤽" );
+			$this->email->subject( 'Welcome to Hydrofiel! 🏊🤽' );
 			$this->email->message( $this->load->view( 'mail/welcome', $data, true ) );
 			$this->email->attach( './application/views/mail/Welcomeletter_2019-2020_EN.pdf' );
 		}
 		else {
-			$this->email->subject( "Welkom bij Hydrofiel! 🏊🤽‍" );
+			$this->email->subject( 'Welkom bij Hydrofiel! 🏊🤽' );
 			$this->email->message( $this->load->view( 'mail/welkom', $data, true ) );
 			$this->email->attach( './application/views/mail/Welkomstbrief_2019-2020_NL.pdf' );
 		}
@@ -191,7 +185,7 @@ class Profile_model extends CI_Model {
 	 *
 	 * @return bool
 	 */
-	public function delete( $id ) {
+	public function delete( int $id ): bool {
 		$this->db->where( 'id', $id );
 		$this->db->delete( self::TABLE );
 
@@ -205,7 +199,7 @@ class Profile_model extends CI_Model {
 	 *
 	 * @return mixed
 	 */
-	public function get_verjaardagen( $limit = 3 ) {
+	public function get_verjaardagen( int $limit = 3 ) {
 		$query  = $this->db->query(
 			"   SELECT id,naam, DATE_FORMAT(geboortedatum, '%d-%m-%Y') as geboortedatum, DATE_FORMAT(geboortedatum, '%Y') as geboortejaar
                 FROM gebruikers 
@@ -224,19 +218,19 @@ class Profile_model extends CI_Model {
 	 * @param string $first_name
 	 *
 	 * @return mixed
-	 * @throws Exception
 	 */
-	private function create_new_user( User $user, string $first_name ){
+	private function create_new_user( User $user, string $first_name ): int {
 		$this->load->model( 'login_model' );
-		$this->db->insert( self::TABLE, $user );
-		$result = $this->login_model->set_recovery( $user->email, true );
-		//Send a welcome mail to new users :D
-		if ( $result !== false ) {
-			$this->send_welcome_mail( $first_name, $user->email, $result['recovery'], $user->engels );
-			return $this->db->affected_rows();
-		}
 
-		throw new Exception();
+		// Create the new user.
+		$this->db->insert( self::TABLE, $user );
+
+		// Set a recovery for the user.
+		$result = $this->login_model->set_recovery( $user->email, true );
+
+		//Send a welcome mail to the new user.
+		$this->send_welcome_mail( $first_name, $user->email, $result['recovery'], $user->get_engels() );
+		return $this->db->affected_rows();
 	}
 
 	/**
