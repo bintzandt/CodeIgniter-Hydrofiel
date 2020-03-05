@@ -31,7 +31,7 @@ class Profile_model extends CI_Model {
 	 *
 	 * @return mixed
 	 */
-	public function get_profile_array( int $id ): array {
+	public function get_profile_array( int $id ): ?array {
 		$query = $this->db->get_where( self::TABLE, [ 'id' => $id ] );
 
 		return $query->row_array();
