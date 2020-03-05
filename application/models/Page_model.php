@@ -1,5 +1,5 @@
 <?php
-require_once '../entities/PageObject.php';
+require_once 'application/entities/PageObject.php';
 
 /**
  * Class Page_model

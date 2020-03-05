@@ -1,13 +1,13 @@
 <?php
 
-use Spatie\CalendarLinks\Link;
-
 /**
  * Controller to handle all Agenda related URLs
  * Class Agenda
  */
 class Agenda extends _SiteController
 {
+	public Agenda_model $agenda_model;
+
     /**
      * Agenda constructor.
      * Some functions require superuser access.
@@ -34,36 +34,21 @@ class Agenda extends _SiteController
             return $this->index();
         }
 
+	    /**
+	     * @var $event Event
+	     */
         $event = $this->agenda_model->get_event($event_id);
 
         if (empty($event)) {
             show_404();
         }
 
-        if ($this->session->engels) {
-            $event->naam = $event->en_naam;
-            $event->omschrijving = $event->en_omschrijving;
-        } else {
-            $event->naam = $event->nl_naam;
-            $event->omschrijving = $event->nl_omschrijving;
-        }
-
-        $from = date_create($event->van);
-        $to = date_create($event->tot);
-        $description = preg_replace('/<br ?\/?>/', "\n", $event->omschrijving);
-        $description = preg_replace('/<\/?p ?>/', " ", $description);
-        $description = strip_tags($description);
-
-        $ical = Link::create($event->naam, $from, $to)
-            ->description($description)
-            ->address($event->locatie);
-
         $data['event'] = $event;
-        $data['aangemeld'] = ($this->agenda_model->get_aantal_aanmeldingen($event_id, $this->session->id) == 1);
-        $data['inschrijvingen'] = $this->agenda_model->get_inschrijvingen($event_id, null);
-        $data['aantal_aanmeldingen'] = sizeof($data['inschrijvingen']);
+        $data['aangemeld'] = $event->is_registered();
+        $data['inschrijvingen'] = $event->registrations();
+        $data['aantal_aanmeldingen'] = $event->nr_of_registrations();
         $data['registration_details'] = $data['aangemeld'] && $event->soort === 'nszk';
-        $data['ical'] = $ical->google();
+        $data['ical'] = $event->generate_ical_link();
 
         if (empty($data['inschrijvingen'])) {
             unset($data['inschrijvingen']);

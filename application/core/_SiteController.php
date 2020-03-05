@@ -6,6 +6,8 @@
  */
 class _SiteController extends CI_Controller
 {
+	public Menu_model $menu_model;
+
     public function __construct()
     {
         parent::__construct();
@@ -14,11 +16,7 @@ class _SiteController extends CI_Controller
         } else {
             $this->load->driver('cache', ['adapter' => 'file']);
         }
-        if ($this->session->engels) {
-            $this->lang->load("general", "english");
-        } else {
-            $this->lang->load("general");
-        }
+        load_language_file( 'general' );
     }
 
     /**
@@ -30,7 +28,7 @@ class _SiteController extends CI_Controller
     protected function loadView($view, $data = null)
     {
         $this->db->cache_on();
-        $menu['hoofdmenus'] = $this->menu_model->hoofdmenu();
+        $menu['hoofdmenus'] = $this->menu_model->hoofdmenu( true );
         $menu['engels'] = $this->session->userdata('engels');
         $menu['logged_in'] = $this->session->userdata('logged_in');
         $menu['superuser'] = $this->session->userdata('superuser');

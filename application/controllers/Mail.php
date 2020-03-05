@@ -21,11 +21,10 @@ class Mail extends _SiteController
     {
         //Show details of mail or show error
         $result = $this->mail_model->get_mail($hash);
-        if (!empty($result)) {
-            $data = $result[0];
-            $this->loadView('mail/view', $data);
-        } else {
-            show_error("Hash not found");
+        if (empty($result)) {
+	        show_error("Hash not found");
         }
+
+	    $this->loadView('mail/view', $result[0]);
     }
 }

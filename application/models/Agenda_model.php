@@ -1,4 +1,5 @@
 <?php
+require_once( 'application/entities/Event.php' );
 
 /**
  * Class Agenda_model
@@ -216,9 +217,10 @@ class Agenda_model extends CI_Model {
 			$this->db->select( '*' );
 			$this->db->from( self::TABLE );
 			$this->db->where( self::PRIMARY_KEY, $event_id );
+			$this->db->limit( 1 );
 			$query = $this->db->get();
 
-			return $query->row();
+			return $query->first_row( 'Event' );
 		}
 	}
 

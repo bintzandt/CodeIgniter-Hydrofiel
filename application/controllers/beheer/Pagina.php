@@ -45,7 +45,7 @@ class Pagina extends _BeheerController
         }
         $data['edit_mode'] = true;
         $data['hoofdmenu'] = $this->menu_model->hoofdmenu(false);
-        $data['page'] = $this->page_model->get($id);
+        $data['page'] = $this->page_model->view($id);
         $this->loadView('beheer/pages/edit_add', $data);
     }
 

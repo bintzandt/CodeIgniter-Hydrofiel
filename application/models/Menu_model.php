@@ -18,14 +18,15 @@ class Menu_model extends CI_Model {
 		$this->db->where( 'submenu', 'A' );
 		$this->db->where( 'bereikbaar', 'ja' );
 		$this->db->order_by( 'plaats' );
-		$query  = $this->db->get();
+		$query = $this->db->get();
 
 		$hoofdmenu = $query->result_array();
 
 		if ( $include_submenu ) {
-			foreach ( $hoofdmenu as $menu_item ) {
+			foreach ( $hoofdmenu as &$menu_item ) {
 				$menu_item['submenu'] = $this->submenu( $menu_item['id'] );
 			}
+			unset( $menu_item );
 		}
 
 		return $hoofdmenu;
@@ -46,9 +47,6 @@ class Menu_model extends CI_Model {
 		$this->db->order_by( 'plaats' );
 		$query   = $this->db->get();
 		$submenu = $query->result_array();
-		if ( empty( $submenu ) ) {
-			return null;
-		}
 
 		return $submenu;
 	}
