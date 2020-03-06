@@ -4,15 +4,6 @@
  * @var $aangemeld           bool
  * @var $aantal_aanmeldingen int
  */
-
-$form_open_string = form_open(
-	$event->soort === 'nszk' ? '/agenda/nszk' : '/agenda/aanmelden',
-	[
-		"id"   => "aanmelden",
-		"name" => "aanmelden",
-	]
-);
-
 // Check if the current person is already registered.
 if ( $aangemeld ) {
 	// If the user can still cancel, we display a cancel button.
@@ -46,7 +37,7 @@ if ( $aangemeld ) {
 	<?php }
 	// Otherwise display the registration form.
 	else {
-		echo $form_open_string ?>
+		echo form_open( '/agenda/aanmelden', [ 'id'   => 'aanmelden', 'name' => 'aanmelden' ] ); ?>
 		<input type="hidden" value="<?= $event->event_id ?>" name="event_id" />
 		<input type="hidden" value="<?= $event->soort ?>" name="event_soort">
 		<?php if ( $event->soort === "nszk" ) {
@@ -67,7 +58,8 @@ if ( $aangemeld ) {
 			<input type="text" name="opmerking" maxlength="20" class="form-control" style="margin-top: 20px"
 			       placeholder="<?= lang( "agenda_remark" ); ?>">
 			<?php if ( $event->betalen ) { ?>
-				<input type="checkbox" required> <?= lang( 'agenda_agree_terms' ) ?>
+				<input id="agree" type="checkbox" required>
+				<label for="agree" style="font-weight: normal"><?= lang( 'agenda_agree_terms' ) ?></label>
 			<?php } ?>
 		</div>
 		<div class="form-group">

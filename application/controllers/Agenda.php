@@ -110,44 +110,6 @@ class Agenda extends _SiteController {
 	}
 
 	/**
-	 * Function to sign up for an NSZK.
-	 */
-	public function nszk() {
-		$data              = $this->input->post( null, true );
-		$data['member_id'] = $this->session->id;
-
-		$slagen = [];
-
-		if ( $data['opmerking'] === "" ) {
-			unset( $data['opmerking'] );
-		}
-
-		if ( $data['event_soort'] === 'nszk' ) {
-			for ( $i = 0; $i < sizeof( $data['slag'] ); $i ++ ) {
-				if ( $data['tijd'][ $i ] !== "" ) {
-					$slagen[ $data['slag'][ $i ] ] = $data['tijd'][ $i ];
-				}
-			}
-			$slagen         = json_encode( $slagen );
-			$data['slagen'] = $slagen;
-			if ( $data['slagen'] === '[]' ) {
-				unset( $data['slagen'] );
-			}
-		}
-
-		unset( $data['slag'] );
-		unset( $data['tijd'] );
-		unset( $data['event_soort'] );
-
-		if ( ! $this->agenda_model->aanmelden( $data ) ) {
-			error( 'Er is iets mis gegaan met je aanmelding.' );
-			redirect( '/agenda/id/' . $data['event_id'] );
-		}
-
-		return $this->loadView( 'agenda/nszk_form', [ 'nszk_id' => $data['event_id'], 'edit_mode' => false ] );
-	}
-
-	/**
 	 * Function to save the additional information required for an NSZK.
 	 */
 	public function nszk_inschrijven() {
@@ -169,25 +131,37 @@ class Agenda extends _SiteController {
 	 * For security purposes we get the id from the session, could be faked otherwise.
 	 */
 	public function aanmelden() {
-		$data              = $this->input->post( null, true );
-		$data['member_id'] = $this->session->id;
+		$event_id  = $this->input->post( 'event_id', true );
+		$opmerking = $this->input->post( 'opmerking', true );
+		$slagen    = $this->input->post( 'slag', true );
+		$tijden    = $this->input->post( 'tijd', true );
 
-		if ( $data['opmerking'] === "" ) {
-			unset( $data['opmerking'] );
-		}
+		$member_id = $this->session->id;
 
-		unset( $data['slag'] );
-		unset( $data['tijd'] );
-		unset( $data['event_soort'] );
+		/**
+		 * @var $event Event
+		 */
+		$event = $this->agenda_model->get_event( $event_id );
 
-		if ( $this->agenda_model->aanmelden( $data ) ) {
+		try {
+			$event->register( $member_id, $opmerking, $slagen, $tijden );
+
+			// Display a special form when it is a NSZK.
+			if ( $event->is_nszk() ) {
+				return $this->loadView( 'agenda/nszk_form', [ 'edit_mode' => false, 'nszk_id' => $event_id ] );
+			}
+
 			success( 'Aanmelden gelukt!' );
-		}
-		else {
-			error( 'Het is niet gelukt om je aan te melden.' );
+		} catch ( DeadlinePassedError $e ) {
+			error( 'Je kunt je niet meer aanmelden voor dit evenement.' );
+		} catch ( IsFullError $e ) {
+			error( 'Het evenement is al vol.' );
+		} catch ( AlreadyRegisteredError $e ) {
+			error( 'Je bent al voor dit evenement aangemeld.' );
 		}
 
-		redirect( '/agenda/id/' . $data['event_id'] );
+		redirect( '/agenda/id/' . $event_id );
+		exit;
 	}
 
 	/**
@@ -201,18 +175,19 @@ class Agenda extends _SiteController {
 			redirect( '/beheer/agenda/afmelden/' . $event_id . '/' . $id );
 		}
 
+		/**
+		 * @var $event Event
+		 */
 		$event = $this->agenda_model->get_event( $event_id );
 		$id    = $this->session->id;
 
-		if ( date( 'Y-m-d' ) > $event->afmelddeadline ) {
-			error( 'Je kunt je niet meer afmelden voor dit evenement.' );
-		}
-		elseif ( $this->agenda_model->afmelden( $id, $event_id ) ) {
+		try {
+			$event->cancel( $id );
 			success( 'Afmelden gelukt!' );
+		} catch ( DeadlinePassedError $e ) {
+			error( 'De deadline om af te melden is al geweest.' );
 		}
-		else {
-			error( 'Het is niet gelukt om je af te melden.' );
-		}
+
 		redirect( '/agenda/id/' . $event_id );
 	}
 }
