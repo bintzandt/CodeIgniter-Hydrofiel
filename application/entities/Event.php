@@ -3,20 +3,28 @@
 use Spatie\CalendarLinks\Exceptions\InvalidLink;
 use Spatie\CalendarLinks\Link;
 
+const DATE_FORMAT = 'd-m-Y H:i';
+
 class Event {
+	const date_properties = [ 'van', 'tot', 'inschrijfdeadline', 'afmelddeadline' ];
+
 	public string $van;
 	public string $tot;
 	public string $locatie;
 	public string $inschrijfdeadline;
+	public string $afmelddeadline;
+	public int $event_id;
 	public int $maximum;
 
-	protected string $event_id;
-	protected string $nl_naam;
-	protected string $nl_omschrijving;
-	protected string $en_naam;
-	protected string $en_omschrijving;
+	// These values can be used directly, however, it is easier to get the naam and omschrijving via the __get() since
+	// that one takes is_english() in account.
+	public string $nl_naam;
+	public string $nl_omschrijving;
+	public string $en_naam;
+	public string $en_omschrijving;
 
 	private array $registrations;
+
 
 	private Agenda_model $agenda_model;
 	private CI_Session $session;
@@ -58,6 +66,28 @@ class Event {
 		}
 	}
 
+	/**
+	 * @param string $property
+	 *
+	 * @return false|string
+	 * @throws Error
+	 */
+	public function get_formatted_date_string( string $property ){
+		if ( ! in_array( $property, self::date_properties, true ) ){
+			throw new Error( $property . ' is not a valid Date property in Event.' );
+		}
+
+		return date_format( date_create( $this->$property ),DATE_FORMAT );
+	}
+
+	public function get_until(){
+		return date_format( date_create( $this->tot ), DATE_FORMAT );
+	}
+
+	public function has_maximum(){
+		return $this->maximum > 0;
+	}
+
 	public function registrations(){
 		if( ! isset( $this->registrations ) ){
 			$this->registrations = $this->agenda_model->get_inschrijvingen($this->event_id, null);
@@ -72,5 +102,25 @@ class Event {
 	public function is_registered( int $user = null ): bool {
 		$user = $user ?? $this->session->id;
 		return $this->agenda_model->get_aantal_aanmeldingen($this->event_id, $user) === 1;
+	}
+
+	public function can_cancel(): bool {
+		return date( 'Y-m-d H:i:s' ) <= $this->afmelddeadline;
+	}
+
+	public function registrations_open(): bool {
+		return date( 'Y-m-d H:i:s' ) <= $this->inschrijfdeadline;
+	}
+
+	public function is_full(): bool {
+		return $this->maximum > 0 && $this->maximum === $this->nr_of_registrations();
+	}
+
+	public function nr_of_registrations_string(): string {
+		$result = $this->nr_of_registrations();
+		if ( $this->has_maximum() ){
+			$result .= '/' . $this->maximum;
+		}
+		return $result;
 	}
 }

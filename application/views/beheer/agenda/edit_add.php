@@ -1,5 +1,8 @@
-<html>
-<body>
+<?php
+/**
+ * @var $event Event
+ */
+?>
 <script>
     $(document).ready(function () {
         let slag = $("#slag");
@@ -181,5 +184,3 @@
     </div>
 </div>
 <?= form_close(); ?>
-</body>
-</html>
