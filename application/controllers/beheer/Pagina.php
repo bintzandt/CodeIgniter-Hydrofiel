@@ -144,7 +144,7 @@ class Pagina extends _BeheerController
     public function save_edit()
     {
         $data = $this->input->post(null, true);
-        $page = $this->page_model->view($data['id']);
+        $page = $this->page_model->get($data['id'], true);
         if ($data['hoofdmenu']) {
             $data['submenu'] = 'A';
         } else {
