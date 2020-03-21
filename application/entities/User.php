@@ -14,7 +14,7 @@ class User {
 	protected bool $zichtbaar_email;
 	private string $wachtwoord;
 	protected string $lidmaatschap;
-	protected string $geboortedatum;
+	protected ?string $geboortedatum;
 
 	/**
 	 * @param $name
@@ -87,7 +87,7 @@ class User {
 			$date = DateTime::createFromFormat( 'd-m-Y', $value );
 		}
 
-		$this->geboortedatum = $date->format( 'Y-m-d' );
+		$this->geboortedatum = $date->format( 'Y-m-d' ) ? $date : null;
 	}
 
 	/**
