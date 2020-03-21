@@ -13,7 +13,7 @@ class Page_model extends CI_Model {
 	 *
 	 * @return mixed
 	 */
-	public function view( int $page_id ): PageObject {
+	public function view( int $page_id ): ?PageObject {
 		$this->db->limit( 1 );
 		$query = $this->db->get_where( 'pagina', [ 'id' => $page_id ] );
 

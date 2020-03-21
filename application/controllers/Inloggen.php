@@ -15,6 +15,7 @@ class Inloggen extends _SiteController {
 		parent::__construct();
 		$this->load->model( 'login_model' );
 		load_language_file( 'inloggen' );
+		load_language_file( 'error' );
 	}
 
 	/**
@@ -47,7 +48,7 @@ class Inloggen extends _SiteController {
 		$user = $this->profile_model->get_user_by_email( $email );
 
 		if ( ! $user || ! $user->verify_login( $wachtwoord ) ) {
-			error( 'Email en/of wachtwoord onjuist.' );
+			error( lang( 'error_email_password_incorrect' ) );
 			redirect( '/inloggen' );
 		}
 

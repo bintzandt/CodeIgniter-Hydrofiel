@@ -24,7 +24,7 @@ if ( $aangemeld ) {
 	<?php } ?>
 <?php } else {
 	// Display a warning if the registrations are closed.
-	if ( ! $event->registrations_open() ){ ?>
+	if ( ! $event->can_register() ){ ?>
 		<div class="alert alert-warning">
 			<strong><?= lang( 'agenda_no_registration' ); ?></strong>
 		</div>

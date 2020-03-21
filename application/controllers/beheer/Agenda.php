@@ -3,7 +3,6 @@
 /**
  * Class Agenda
  * Used for handling all beheer functions related to the Agenda
- *
  */
 class Agenda extends _BeheerController {
 	public Agenda_model $agenda_model;
@@ -12,42 +11,40 @@ class Agenda extends _BeheerController {
 	 * Load the index page.
 	 */
 	public function index() {
-		$data['events']     = $this->agenda_model->get_event();
+		$data['events']     = $this->agenda_model->get_events();
 		$data['old_events'] = $this->agenda_model->get_old_events();
 		$this->loadView( 'beheer/agenda/agenda', $data );
+	}
+
+	public function registration( $event_id, $member_id ){
+		$inschrijving = $this->agenda_model->get_inschrijvingen( $event_id, $member_id );
+		if ( ! empty( $inschrijving ) ) {
+			$data['inschrijving'] = $inschrijving[0];
+			$data['event_id']     = $event_id;
+			if ( $this->agenda_model->is_nszk( $event_id ) ) {
+				$data['nszk']    = true;
+				$data['slagen']  = json_decode( $data['inschrijving']->slagen );
+				$data['details'] = $this->agenda_model->get_details( $event_id, $member_id );
+			}
+			else {
+				$data['nszk'] = false;
+			}
+			$this->loadView( 'beheer/agenda/inschrijving_detail', $data );
+		}
 	}
 
 	/**
 	 * Load the inschrijvingen pagina, possibly for a specific member.
 	 *
 	 * @var int $event_id  The ID of the event.
-	 * @var int $member_id The ID of the member.
 	 */
-	public function inschrijvingen( int $event_id, int $member_id = null ) {
-		if ( $member_id !== null ) {
-			$inschrijving = $this->agenda_model->get_inschrijvingen( $event_id, $member_id );
-			if ( ! empty( $inschrijving ) ) {
-				$data['inschrijving'] = $inschrijving[0];
-				$data['event_id']     = $event_id;
-				if ( $this->agenda_model->is_nszk( $event_id ) ) {
-					$data['nszk']    = true;
-					$data['slagen']  = json_decode( $data['inschrijving']->slagen );
-					$data['details'] = $this->agenda_model->get_details( $event_id, $member_id );
-				}
-				else {
-					$data['nszk'] = false;
-				}
-				$this->loadView( 'beheer/agenda/inschrijving_detail', $data );
-			}
-		}
-		else {
-			$data['inschrijvingen'] = $this->agenda_model->get_inschrijvingen( $event_id );
-			$data['event_id']       = $event_id;
-			if ( empty( $data['inschrijvingen'] ) ) {
-				$data['error'] = true;
-			}
-			$this->loadView( 'beheer/agenda/inschrijvingen', $data );
-		}
+	public function inschrijvingen( int $event_id ) {
+		$event = $this->agenda_model->get_event( $event_id );
+
+		$data['inschrijvingen'] = $event->get_registrations();
+		$data['event_id']       = $event_id;
+
+		return $this->loadView( 'beheer/agenda/inschrijvingen', $data );
 	}
 
 	/**
@@ -94,21 +91,6 @@ class Agenda extends _BeheerController {
 		redirect( '/beheer/agenda' );
 	}
 
-	private function format_input_to_mysql_datetime( $data ) {
-		if ( $data['inschrijfsysteem'] ) {
-			$data['inschrijfdeadline'] = $this->format_item_to_mysql_datetime( $data['inschrijfdeadline'] );
-			$data['afmelddeadline']    = $this->format_item_to_mysql_datetime( $data['afmelddeadline'] );
-		}
-		$data['van'] = $this->format_item_to_mysql_datetime( $data['van'] );
-		$data['tot'] = $this->format_item_to_mysql_datetime( $data['tot'] );
-
-		return $data;
-	}
-
-	private function format_item_to_mysql_datetime( $data ) {
-		return date_format( date_create( $data ), 'Y-m-d H:i:s' );
-	}
-
 	/**
 	 * Handles the creates to save the event in the database.
 	 * For a new event only!
@@ -135,9 +117,9 @@ class Agenda extends _BeheerController {
 	/**
 	 * Deletes an event from the database.
 	 *
-	 * @param integer $id the event_id which is to be deleted.
+	 * @param int $id the event_id which is to be deleted.
 	 */
-	public function delete( $id ) {
+	public function delete( int $id ) {
 		if ( $this->agenda_model->delete( $id ) > 0 ) {
 			success( 'Het evenement is verwijderd.' );
 		}
@@ -147,14 +129,62 @@ class Agenda extends _BeheerController {
 		redirect( '/beheer/agenda' );
 	}
 
-	public function afmelden( $event_id, $id ) {
-		if ( $this->agenda_model->afmelden( $id, $event_id ) ) {
-			success( 'Afmelden gelukt!' );
-		}
-		else {
-			error( 'Het is niet gelukt de persoon af te melden.' );
+	/**
+	 * Cancels the registration for a user.
+	 *
+	 * @param int $event_id  The ID of the event.
+	 * @param int $member_id The ID of the member.
+	 */
+	public function afmelden( int $event_id, int $member_id ) {
+		$event = $this->agenda_model->get_event( $event_id );
+
+		try {
+			if ( $event->cancel( $member_id ) ) {
+				success( 'Afmelden gelukt!' );
+			}
+			else {
+				error( 'Het is niet gelukt de persoon af te melden.' );
+			}
+		} catch ( Error $e ) {
+			error( $e->getMessage() );
 		}
 
 		redirect( '/beheer/inschrijvingen/' . $event_id );
+	}
+
+	/**
+	 * Converts input from the fields to MySQL format.
+	 *
+	 * @param array $data Form data.
+	 *
+	 * @return array Form data with the correct values for saving.
+	 */
+	private function format_input_to_mysql_datetime( array $data ): array {
+		if ( $data['inschrijfsysteem'] ) {
+			$data['inschrijfdeadline'] = $this->format_item_to_mysql_datetime( $data['inschrijfdeadline'] );
+			$data['afmelddeadline']    = $this->format_item_to_mysql_datetime( $data['afmelddeadline'] );
+		}
+		$data['van'] = $this->format_item_to_mysql_datetime( $data['van'] );
+		$data['tot'] = $this->format_item_to_mysql_datetime( $data['tot'] );
+
+		return $data;
+	}
+
+	/**
+	 * Formats a string so that it can be saved in MySQL.
+	 *
+	 * @param string $item The string that will be formatted to a MySQL datetime.
+	 *
+	 * @return string A formatted string.
+	 * @throws Error
+	 */
+	private function format_item_to_mysql_datetime( string $item ): string {
+		$result = date_format( date_create( $item ), 'Y-m-d H:i:s' );
+
+		if ( ! $result ) {
+			throw new Error( 'Invalid date format' );
+		}
+
+		return $result;
 	}
 }

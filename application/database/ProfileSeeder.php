@@ -31,5 +31,7 @@ class ProfileSeeder extends Seeder {
 		$normal_user->geboortedatum = '1999-01-01';
 
 		$this->db->insert( $this->table, $admin_user );
+		$this->db->insert( $this->table, $board_user );
+		$this->db->insert( $this->table, $normal_user );
 	}
 }

@@ -9,6 +9,7 @@ class PageObject {
 
 	public function __get( $name ) {
 		switch ( $name ){
+			case 'name': return is_english() ? $this->engelse_naam : $this->naam;
 			case 'tekst': return is_english() ? $this->engels : $this->tekst;
 		}
 	}

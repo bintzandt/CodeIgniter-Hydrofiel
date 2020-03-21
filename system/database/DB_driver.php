@@ -1772,9 +1772,10 @@ abstract class CI_DB_driver {
 			}
 		}
 
-		$error =& load_class('Exceptions', 'core');
-		echo $error->show_error($heading, $message, 'error_db');
-		exit(8); // EXIT_DATABASE
+//		$error =& load_class('Exceptions', 'core');
+		throw new DatabaseError( $heading, $message );
+//		echo $error->show_error($heading, $message, 'error_db');
+//		exit(8); // EXIT_DATABASE
 	}
 
 	// --------------------------------------------------------------------

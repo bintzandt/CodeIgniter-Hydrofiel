@@ -30,8 +30,8 @@ class Upload extends _BeheerController
         $this->load->library('upload', $config);
 
         if (!$this->upload->do_upload('leden')) {
-            $error = ['error' => $this->upload->display_errors()];
-            $this->loadView('beheer/leden/importeren', $error);
+            error( $this->upload->display_errors() );
+            $this->loadView('beheer/leden/importeren');
         } else {
             $data = $this->upload->data();
             $full_path = $data["full_path"];

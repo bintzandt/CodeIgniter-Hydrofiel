@@ -68,17 +68,31 @@ class Profile_model_test extends TestCase {
 		$this->assertEquals( $expected['id'], $result->id );
 	}
 
+	public function test_delete() {
+		$this->assertFalse( $this->obj->delete( - 1 ), 'should return false on non-existing users' );
+		$this->assertFalse( $this->obj->delete(  '-34' ), 'should return false on non-existing users' );
+
+		$this->assertTrue( $this->obj->delete( 3 ), 'should delete existing user');
+		$this->assertFalse( $this->obj->delete( 3 ), 'user should be deleted');
+	}
+
 	public function test_update() {
 		// Should update nothing for non-existing users.
-		$this->assertEquals( 0, $this->obj->update( -1, [ 'naam' => 'henk' ] ) );
+		$this->assertEquals( 0, $this->obj->update( - 1, [ 'naam' => 'henk' ] ) );
 		$this->assertEquals( 0, $this->obj->update( 12345678, [ 'naam' => 'henk' ] ) );
 
 		// Should update entries for existing columns.
 		$this->assertEquals( 1, $this->obj->update( 1, [ 'naam' => 'Super Admin User' ] ), 'Should update entries for existing columns' );
-		$this->assertEquals( 1, $this->obj->update( 1, [ 'naam' => 'Super Adje User', 'rank' => 2 ] ), 'Should update entries for existing columns' );
+		$this->assertEquals( 1, $this->obj->update( 1, [
+			'naam' => 'Super Adje User',
+			'rank' => 2,
+		] ), 'Should update entries for existing columns' );
 	}
 
-	public function test_upload_users(){
+	/**
+	 * This function should be run at the end since it will remove all users from the DB.
+	 */
+	public function test_upload_users() {
 		/**
 		 * Create two files for testing:
 		 *      new_user.csv    -> A file that contains a single new user.
@@ -87,18 +101,18 @@ class Profile_model_test extends TestCase {
 		 * These files are provided to the upload_users() function to check the results.
 		 */
 		$new_user_file = fopen( Profile_model_test::NEW_USER, 'wb');
-		fwrite( $new_user_file, '7;Test;;Gebruiker;;;;;01-01-1999;;;webmaster@hydrofiel.nl;Nee;;zwemmer');
+		fwrite( $new_user_file, '7;Test;;Gebruiker;;;;;01-01-1999;;;webmaster@hydrofiel.nl;Nee;;zwemmer' );
 		fclose( $new_user_file );
 
 		$update_user_file = fopen( Profile_model_test::UPDATE_USER, 'wb');
-		fwrite( $update_user_file, '7;Test;;Blabla;;;;;2000-01-01;;;webmaster@hydrofiel.nl;Nee;;zwemmer');
+		fwrite( $update_user_file, '7;Test;;Blabla;;;;;2000-01-01;;;webmaster@hydrofiel.nl;Nee;;zwemmer' );
 		fclose( $update_user_file );
 
 		$invalid_file = fopen( Profile_model_test::INVALID_USER, 'wb');
-		fwrite( $invalid_file, '-1;;dfs;Blabla;;asdad;;01-01-2000;;;webmaster@hydrofiel.nl;Nee;;zwemmer');
+		fwrite( $invalid_file, '-1;;dfs;Blabla;;asdad;;01-01-2000;;;webmaster@hydrofiel.nl;Nee;;zwemmer' );
 		fclose( $invalid_file );
 
-		$this->assertEquals(1, $this->obj->upload_users( 'new_user.csv' ) );
+		$this->assertEquals( 2, $this->obj->upload_users( 'new_user.csv' ) );
 		/**
 		 * @var User $new_user
 		 */
@@ -109,7 +123,7 @@ class Profile_model_test extends TestCase {
 		$this->assertEquals( '01-01-1999', $new_user->geboortedatum );
 		$this->assertNotNull( $new_user->recovery );
 
-		$this->assertEquals(1, $this->obj->upload_users( 'update_user.csv' ) );
+		$this->assertEquals( 1, $this->obj->upload_users( 'update_user.csv' ) );
 		$updated_user = $this->obj->get_profile( 7 );
 		$this->assertEquals( 'Test Blabla', $updated_user->naam );
 		$this->assertEquals( '01-01-2000', $updated_user->geboortedatum );

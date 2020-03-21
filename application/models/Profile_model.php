@@ -8,6 +8,8 @@ require_once 'application/entities/User.php';
 class Profile_model extends CI_Model {
 	private const TABLE = 'gebruikers';
 
+	public CI_DB_query_builder $db;
+
 	// These constants reflect the order in the CSV which can be uploaded. Changes in the CSV should also be reflected here.
 	// In addition: when new data is added to the CSV (international etc.) please add a constant here.
 	// Note: The board has changed something but I cannot fix it since I did not get a new CSV file.
@@ -22,6 +24,8 @@ class Profile_model extends CI_Model {
 
 	public function __construct() {
 		parent::__construct();
+		$CI =& get_instance();
+		$this->db = $CI->db;
 	}
 
 	/**
@@ -146,39 +150,6 @@ class Profile_model extends CI_Model {
 	}
 
 	/**
-	 * Function to send a welcome mail to new users
-	 *
-	 * @param $voornaam
-	 * @param $email
-	 * @param $recovery
-	 *
-	 * @return mixed
-	 */
-	private function send_welcome_mail( $voornaam, $email, $recovery, $engels ) {
-		$this->load->model( 'agenda_model' );
-		$data = [
-			'recovery' => $recovery,
-			'events'   => $this->agenda_model->get_event( null, 3 ),
-			'voornaam' => $voornaam,
-		];
-		$this->email->clear( true );
-		$this->email->to( $email );
-		$this->email->from( 'bestuur@hydrofiel.nl', 'Bestuur N.S.Z.&W.V. Hydrofiel' );
-		if ( $engels ) {
-			$this->email->subject( 'Welcome to Hydrofiel! 🏊🤽' );
-			$this->email->message( $this->load->view( 'mail/welcome', $data, true ) );
-			$this->email->attach( './application/views/mail/Welcomeletter_2019-2020_EN.pdf' );
-		}
-		else {
-			$this->email->subject( 'Welkom bij Hydrofiel! 🏊🤽' );
-			$this->email->message( $this->load->view( 'mail/welkom', $data, true ) );
-			$this->email->attach( './application/views/mail/Welkomstbrief_2019-2020_NL.pdf' );
-		}
-
-		return $this->email->send();
-	}
-
-	/**
 	 * Delete a certain id from the databse
 	 *
 	 * @param $id
@@ -189,7 +160,7 @@ class Profile_model extends CI_Model {
 		$this->db->where( 'id', $id );
 		$this->db->delete( self::TABLE );
 
-		return $this->db->affected_rows() > 0;
+		return $this->db->affected_rows() === 1;
 	}
 
 	/**
@@ -208,9 +179,7 @@ class Profile_model extends CI_Model {
                 LIMIT $limit
             "
 		);
-		$result = $query->result();
-
-		return $result;
+		return $query->result();
 	}
 
 	/**
@@ -246,5 +215,38 @@ class Profile_model extends CI_Model {
 			$data[ $key ] = $val;
 		}
 		return $data;
+	}
+
+	/**
+	 * Function to send a welcome mail to new users
+	 *
+	 * @param $voornaam
+	 * @param $email
+	 * @param $recovery
+	 *
+	 * @return mixed
+	 */
+	private function send_welcome_mail( $voornaam, $email, $recovery, $engels ) {
+		$this->load->model( 'agenda_model' );
+		$data = [
+			'recovery' => $recovery,
+			'events'   => $this->agenda_model->get_event( null, 3 ),
+			'voornaam' => $voornaam,
+		];
+		$this->email->clear( true );
+		$this->email->to( $email );
+		$this->email->from( 'bestuur@hydrofiel.nl', 'Bestuur N.S.Z.&W.V. Hydrofiel' );
+		if ( $engels ) {
+			$this->email->subject( 'Welcome to Hydrofiel! 🏊🤽' );
+			$this->email->message( $this->load->view( 'mail/welcome', $data, true ) );
+			$this->email->attach( './application/views/mail/Welcomeletter_2019-2020_EN.pdf' );
+		}
+		else {
+			$this->email->subject( 'Welkom bij Hydrofiel! 🏊🤽' );
+			$this->email->message( $this->load->view( 'mail/welkom', $data, true ) );
+			$this->email->attach( './application/views/mail/Welkomstbrief_2019-2020_NL.pdf' );
+		}
+
+		return $this->email->send();
 	}
 }

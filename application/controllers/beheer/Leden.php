@@ -28,17 +28,16 @@ class Leden extends _BeheerController
     /**
      * Delete a certain profile
      *
-     * @param int|null $id
+     * @param int $id
      */
-    public function delete($id = null)
+    public function delete(int $id)
     {
-        if ($id !== null) {
-            if ($this->profile_model->delete($id)) {
-                success('Gebruiker verwijderd.');
-            } else {
-                error('Het is niet gelukt om de gebruiker te verwijderen.');
-            }
+        if ($this->profile_model->delete($id)) {
+            success('Gebruiker verwijderd.');
+        } else {
+            error('Het is niet gelukt om de gebruiker te verwijderen.');
         }
+
         redirect('/beheer/leden');
     }
 

@@ -42,7 +42,7 @@ class Post_model extends CI_Model {
 	 * @return stdClass All the posts currently in the database.
 	 */
 	public function get_posts() {
-		$this->db->order_by( "post_timestamp", "desc" );
+		$this->db->order_by( 'post_id', 'desc' );
 		$query = $this->db->get( $this::POSTS_TABLE );
 
 		return $query->result();

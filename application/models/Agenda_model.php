@@ -191,27 +191,34 @@ class Agenda_model extends CI_Model {
 	}
 
 	/**
+	 * @param int|null $limit
+	 *
+	 * @return Event[]
+	 */
+	public function get_events( int $limit = null ): array {
+		$this->db->where( 'van >=', date( 'Y-m-d H:i:s' ) );
+		$this->db->order_by( 'van', 'ASC' );
+
+		if ( $limit !== null ) {
+			$this->db->limit( $limit );
+		}
+
+		$query = $this->db->get( self::TABLE );
+
+		return $query->custom_result_object( 'Event' );
+	}
+
+	/**
 	 * Function to get a list of events
 	 *
 	 * @param null|int $event_id If null an overview is loaded, when provided event with this ID is shown
 	 * @param null|int $limit    Limits the number of event we get
 	 *
-	 * @return bool|array FALSE on failure, an array of events on success
+	 * @return Event|Event[] FALSE on failure, an array of events on success
 	 */
 	public function get_event( int $event_id = null, int $limit = null ) {
 		if ( $event_id === null ) {
-			//Get all events
-			$this->db->where( 'van >=', date( 'Y-m-d H:i:s' ) );
-			$this->db->order_by( 'van', 'ASC' );
-			if ( $limit !== null ) {
-				$this->db->limit( $limit );
-			}
-			$query = $this->db->get( self::TABLE );
-			if ( $query->num_rows() > 0 ) {
-				return $query->result();
-			}
-
-			return false;
+			return $this->get_events( $limit );
 		}
 		else {
 			$this->db->select( '*' );
@@ -224,12 +231,17 @@ class Agenda_model extends CI_Model {
 		}
 	}
 
+	/**
+	 * Get a list of old events that will be displayed on the events page.
+	 *
+	 * @return mixed
+	 */
 	public function get_old_events() {
 		$this->db->where( 'van <', date( 'Y-m-d H:i:s' ) );
 		$this->db->order_by( 'van', 'DESC' );
 		$query = $this->db->get( self::TABLE );
 
-		return $query->result();
+		return $query->custom_result_object( 'Event' );
 	}
 
 	/**

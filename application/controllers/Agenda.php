@@ -42,7 +42,7 @@ class Agenda extends _SiteController {
 
 		$data['event']                = $event;
 		$data['aangemeld']            = $event->is_registered();
-		$data['inschrijvingen']       = $event->registrations();
+		$data['inschrijvingen']       = $event->get_registrations();
 		$data['aantal_aanmeldingen']  = $event->nr_of_registrations();
 		$data['registration_details'] = $data['aangemeld'] && $event->soort === 'nszk';
 		$data['ical']                 = $event->generate_ical_link();
@@ -152,12 +152,8 @@ class Agenda extends _SiteController {
 			}
 
 			success( 'Aanmelden gelukt!' );
-		} catch ( DeadlinePassedError $e ) {
-			error( 'Je kunt je niet meer aanmelden voor dit evenement.' );
-		} catch ( IsFullError $e ) {
-			error( 'Het evenement is al vol.' );
-		} catch ( AlreadyRegisteredError $e ) {
-			error( 'Je bent al voor dit evenement aangemeld.' );
+		} catch ( Error $e ) {
+			error( $e->getMessage() );
 		}
 
 		redirect( '/agenda/id/' . $event_id );
@@ -175,17 +171,14 @@ class Agenda extends _SiteController {
 			redirect( '/beheer/agenda/afmelden/' . $event_id . '/' . $id );
 		}
 
-		/**
-		 * @var $event Event
-		 */
 		$event = $this->agenda_model->get_event( $event_id );
 		$id    = $this->session->id;
 
 		try {
 			$event->cancel( $id );
 			success( 'Afmelden gelukt!' );
-		} catch ( DeadlinePassedError $e ) {
-			error( 'De deadline om af te melden is al geweest.' );
+		} catch ( Error $e ) {
+			error( $e->getMessage() );
 		}
 
 		redirect( '/agenda/id/' . $event_id );
