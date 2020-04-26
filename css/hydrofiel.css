@@ -1,0 +1,31 @@
+@import "./layout/_banner.css";
+@import "./layout/_footer.css";
+@import "./layout/_layout.css";
+@import "./layout/_menu.css";
+@import "./layout/_responsive.css";
+
+@import "./vendor/_fonts.css";
+@import "./vendor/_bootstrap-multiselect.css";
+@import "./vendor/_simplepicker.css";
+:root {
+	--primary-color: #FFAB3A;
+	--secondary-color: #2B4078;
+
+	--background-color: white;
+	--footer-color: #315265;
+	
+	/* The next two variables are transparant versions of the variables above. primary is 60% and secondary 90% */
+	--transparant-primary-color: #FFAB3A99;
+	--transparant-secondary-color: #2B4078E5;
+	
+	--breakpoint: 1000px;
+}
+
+@media( prefers-color-scheme: dark ){
+	:root{
+		--secondary-color: white;
+		--background-color: #424b54;
+		--footer-color: #011627;
+		--transparant-secondary-color: #424b54E5;
+	}
+}

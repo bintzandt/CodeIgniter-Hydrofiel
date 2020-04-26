@@ -2,12 +2,8 @@
 *.min.*
 
 #CSS files
-*.css*
-.sass-cache/
 node_modules/
-assets/*.js
-assets/*.css
-assets/components/*
+assets/*
 
 #Config files
 application/config/database.php
@@ -23,8 +19,6 @@ fotos/*
 images/*
 vendor/*
 
-css/
-
 *.png
 
 application/cache/
@@ -36,4 +30,3 @@ images
 application/tests/.phpunit.result.cache
 application/tests/build
 application/tests/application
-invalid.csv
