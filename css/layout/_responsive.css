@@ -41,6 +41,7 @@
 	  background: rgba(0, 0, 0, 0.83);
 	  position: absolute;
 	  width: 100%;
+	  z-index: 99;
 	}
   
 	.navbar-default .navbar-toggle {
