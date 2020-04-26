@@ -78,7 +78,7 @@ function generate_icon($name)
                                             class="fa fa-cogs"></span> <?= lang('general_control_panel') ?></a></li>
                         <?php } ?>
                         <li class="dropdown"><a href="/inloggen" class="dropdown-toggle"><span
-                                        class="fa fa-sign-out-alt"></span> <?= lang('general_sign_out') ?> </a></li>
+                                        class="fa fa-sign-out"></span> <?= lang('general_sign_out') ?> </a></li>
                         <?php
                     } else { ?>
                         <li class="dropdown"><a href="/inloggen" class="dropdown-toggle"><span
@@ -91,7 +91,7 @@ function generate_icon($name)
             </div>
         </nav>
     </div>
-    <div class="banner-info clickable-row" id="info" data-href="/">
+    <div class="banner-info" id="info">
         <p><?= lang('general_info') ?></p>
         <!--        <label></label>-->
         <h2>N.S.Z.&W.V. Hydrofiel</h2>

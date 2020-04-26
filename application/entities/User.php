@@ -87,7 +87,7 @@ class User {
 			$date = DateTime::createFromFormat( 'd-m-Y', $value );
 		}
 
-		$this->geboortedatum = $date->format( 'Y-m-d' ) ? $date : null;
+		$this->geboortedatum = $date ? $date->format( 'Y-m-d' ) : null;
 	}
 
 	/**

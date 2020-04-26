@@ -1,38 +1,40 @@
 jQuery(document).ready(function($) {
-	var van = $( '#van' ).datetimepicker( {
-		useCurrent: 'hour',
-	} );
+	$( "#van" ).flatpickr({
+		enableTime: true,
+		time_24hr: true,
+		dateFormat: "d-m-Y H:i",
+	});
 
-	var tot = $( '#tot' ).datetimepicker( {
-		useCurrent: false,
-	} );
+	$( "#tot" ).flatpickr({
+		enableTime: true,
+		time_24hr: true,
+		dateFormat: "d-m-Y H:i",
+	});
 
-	var inschrijf = $( '#inschrijf' ).datetimepicker( {
-		useCurrent: false,
-	} );
-	var afmeld = $( '#afmeld' ).datetimepicker( {
-		useCurrent: false,
-	} );
+	$( "#inschrijf" ).flatpickr({
+		enableTime: true,
+		time_24hr: true,
+		dateFormat: "d-m-Y H:i",
+	});
+	$( "#afmeld" ).flatpickr({
+		enableTime: true,
+		time_24hr: true,
+		dateFormat: "d-m-Y H:i",
+	});
 
-	var slag = $( '#slag');
+	var slag = $( "#slag");
 
-	van.on( "dp.change", function( e ) {
-		tot.data( "DateTimePicker" ).minDate( e.date );
-		inschrijf.data( "DateTimePicker" ).maxDate( e.date );
-		afmeld.data( "DateTimePicker" ).maxDate( e.date );
-	} );
-
-	$( '#soort' ).change( function() {
+	$( "#soort" ).change( function() {
 		// show current
-		if ( $( this ).val() === 'nszk' ) {
-			$( '#nszk' ).toggleClass( 'hidden', false );
+		if ( $( this ).val() === "nszk" ) {
+			$( "#nszk" ).toggleClass( "hidden", false );
 		} else {
-			$( '#nszk' ).toggleClass( 'hidden', true );
+			$( "#nszk" ).toggleClass( "hidden", true );
 		}
 
 	} );
 
-	$( '#add_button' ).click( function( e ) { //on add input button click
+	$( "#add_button" ).click( function( e ) { //on add input button click
 		e.preventDefault();
 		slag.append( '<div class="input-group date"><input type="text" class="form-control" name="slagen[]"><span class="input-group-addon"><i class="glyphicon glyphicon-trash"></i></span></div>' ); //add input box
 	} );
