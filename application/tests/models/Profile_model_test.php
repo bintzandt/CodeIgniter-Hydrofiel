@@ -1,6 +1,10 @@
 <?php
 
 class Profile_model_test extends TestCase {
+	const NEW_USER = './new_user.csv';
+	const UPDATE_USER = './update_user.csv';
+	const INVALID_USER = './invalid_user.csv';
+	
 	private Profile_model $obj;
 
 	public function setUp(): void {
@@ -15,6 +19,12 @@ class Profile_model_test extends TestCase {
 		$CI =& get_instance();
 		$CI->load->library( 'Seeder' );
 		$CI->seeder->call( 'ProfileSeeder' );
+	}
+
+	public static function tearDownAfterClass(): void {
+		parent::tearDownAfterClass();
+
+		unlink( Profile_model_test::INVALID_USER );
 	}
 
 	public function test_get_profile_array() {
@@ -76,15 +86,15 @@ class Profile_model_test extends TestCase {
 		 *      invalid.csv     -> A file that contains invalid data.
 		 * These files are provided to the upload_users() function to check the results.
 		 */
-		$new_user_file = fopen( './new_user.csv', 'wb');
+		$new_user_file = fopen( Profile_model_test::NEW_USER, 'wb');
 		fwrite( $new_user_file, '7;Test;;Gebruiker;;;;;01-01-1999;;;webmaster@hydrofiel.nl;Nee;;zwemmer');
 		fclose( $new_user_file );
 
-		$update_user_file = fopen( './update_user.csv', 'wb');
+		$update_user_file = fopen( Profile_model_test::UPDATE_USER, 'wb');
 		fwrite( $update_user_file, '7;Test;;Blabla;;;;;2000-01-01;;;webmaster@hydrofiel.nl;Nee;;zwemmer');
 		fclose( $update_user_file );
 
-		$invalid_file = fopen( './invalid.csv', 'wb');
+		$invalid_file = fopen( Profile_model_test::INVALID_USER, 'wb');
 		fwrite( $invalid_file, '-1;;dfs;Blabla;;asdad;;01-01-2000;;;webmaster@hydrofiel.nl;Nee;;zwemmer');
 		fclose( $invalid_file );
 
