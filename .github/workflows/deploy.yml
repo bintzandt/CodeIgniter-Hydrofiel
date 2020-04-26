@@ -24,6 +24,9 @@ jobs:
       - name: Build assets
         run: grunt build
 
+      - name: Start MySQL
+        run: sudo service mysql start
+
       - name: Setup database
         run: mysql -u root --password=root < ./docker/dump/hydrofiel.sql
 

@@ -28,7 +28,7 @@ jobs:
     - name: Build assets
       run: grunt build
 
-    - name: Start mysql
+    - name: Start MySQL
       run: sudo service mysql start
 
     - name: Setup database
