@@ -70,6 +70,8 @@
         });
     });
 </script>
+<script src="/assets/webauthnauthenticate.js"></script>
+<script src="/assets/webauthnregister.js"></script>
 <div class="row" style="width: 100%">
     <div class="col-md-4 col-md-offset-4 col-sm-6 col-sm-offset-3">
         <div class="alert alert-info alert-dismissible hidden" id="browser-supported" onclick="removeBanner()"

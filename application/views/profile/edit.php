@@ -1,4 +1,6 @@
 <?php echo validation_errors(); ?>
+<script src="/assets/webauthnauthenticate.js"></script>
+<script src="/assets/webauthnregister.js"></script>
 <script>
     function hasWebAuthnSupport() {
         return (window.PublicKeyCredential !== undefined || typeof window.PublicKeyCredential === "function");

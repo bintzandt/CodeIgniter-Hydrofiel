@@ -14,9 +14,8 @@ grunt.initConfig({
       }
     }
   },
-  // Tasks
-  uglify: {
-    my_target: {
+  terser: {
+    your_target: {
       files: [{
         expand: true,
         cwd: 'js',
@@ -25,6 +24,7 @@ grunt.initConfig({
       }]
     }
   },
+  // Tasks
   watch: { // Compile everything into one task with Watch Plugin
     css: {
       files: [ 'css/*.css' ],
@@ -32,15 +32,15 @@ grunt.initConfig({
     },
     js: {
       files: ['js/*.js', 'js/components/*.js'],
-      tasks: ['uglify'],
+      tasks: ['terser'],
     }
   }
 });
 // Load Grunt plugins
-grunt.loadNpmTasks('grunt-contrib-uglify');
 grunt.loadNpmTasks('grunt-contrib-watch');
 grunt.loadNpmTasks('grunt-contrib-cssmin');
+grunt.loadNpmTasks('grunt-terser');
 
 // Register Grunt tasks
 grunt.registerTask('default', ['watch']);
-grunt.registerTask('build', ['uglify', 'cssmin']);
+grunt.registerTask('build', ['terser', 'cssmin']);
