@@ -1,7 +1,7 @@
-<div class="container-fluid">
-    <h3 align="center"><b><?= $event->naam ?></b></h3>
+
+<h3 align="center"><b><?= $event->naam ?></b></h3>
     <p><?= $event->omschrijving ?></p>
-    <div class="col-sm-6" style="padding-left: 0">
+    <div class="col-md-6" style="padding-left: 0">
         <?php if (isset($inschrijvingen) && $event->inschrijfsysteem) { ?>
             <h4><?= lang('agenda_recent') ?></h4>
             <table style="width: 100%">
@@ -43,7 +43,7 @@
             </table>
         <?php } ?>
     </div>
-    <div class="col-sm-6" style="padding-left: 0">
+    <div class="col-md-6" style="padding-left: 0">
         <h4>Details</h4>
         <table style="width:100%;">
             <tr>
@@ -81,7 +81,7 @@
             } ?>
         </table>
     </div>
-    <div class="col-sm-12 no_padding margin_10_top">
+    <div class="col-md-12 no_padding margin_10_top">
         <?php if ($event->inschrijfsysteem) { ?>
             <?= form_open(
                 ($event->soort === 'nszk') ? '/agenda/nszk' : '/agenda/aanmelden',
@@ -98,10 +98,10 @@
                         $slagen = json_decode($event->slagen);
                         foreach ($slagen as $slag) { ?>
                             <div class="form-group">
-                                <div class="col-sm-4 no_padding">
+                                <div class="col-md-4 no_padding">
                                     <label><?= $slag ?></label>
                                 </div>
-                                <div class="col-sm-8 no_padding">
+                                <div class="col-md-8 no_padding">
                                     <input type="hidden" value="<?= $slag ?>" name="slag[]">
                                     <input type="text" class="form-control" name="tijd[]" placeholder="Tijd"/>
                                 </div>
@@ -146,7 +146,6 @@
         <?php } ?>
         <a href="<?= $ical ?>"><?= lang('agenda_add_to_calendar') ?></a>
     </div>
-</div>
 <script>
     function submitForm() {
         $("#aanmelden").submit();

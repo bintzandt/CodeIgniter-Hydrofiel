@@ -40,7 +40,7 @@ window.showBSModal = function self(options) {
             $('<button type="button" class="btn ' + (options.actions[i].cssClass || '') + '">' + (options.actions[i].label || '{Label Missing!}') + '</button>').appendTo(footer).on('click', options.actions[i].onClick);
         }
     } else {
-        $('<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>').appendTo(footer);
+        $('<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>').appendTo(footer);
     }
 
     self.$modal.modal(options);

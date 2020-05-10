@@ -21,25 +21,33 @@
 
 <div class="banner">
     <div class="header">
-        <nav class="navbar navbar-default">
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse"
-                        data-target="#bs-example-navbar-collapse-1">
-                    <span class="sr-only">Toggle navigation</span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-            </div>
-            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-                <ul class="nav navbar-nav navbar-right">
-                    <li><a href="/beheer">Pagina</a></li>
-                    <li><a href="/beheer/posts">Posts</a></li>
-                    <li><a href="/beheer/upload">Uploaden</a></li>
-                    <li><a href="/beheer/agenda">Agenda</a></li>
-                    <li><a href="/beheer/mail">Mail</a></li>
-                    <li><a href="/beheer/leden">Leden</a></li>
-                    <li><a href="">Terug</a></li>
+        <nav class="navbar navbar-expand-xl navbar-dark">
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#hydrofiel-nav" aria-controls="hydrofiel-nav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse justify-content-end" id="hydrofiel-nav">
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a href="/beheer" class="nav-link">Pagina</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="/beheer/posts" class="nav-link">Posts</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="/beheer/upload" class="nav-link">Uploaden</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="/beheer/agenda" class="nav-link">Agenda</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="/beheer/mail" class="nav-link">Mail</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="/beheer/leden" class="nav-link">Leden</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="" class="nav-link">Terug</a>
+                    </li>
                 </ul>
             </div>
         </nav>

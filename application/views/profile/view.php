@@ -2,7 +2,7 @@
         "profile_title"
     ) ?><?= $profile->naam ?><?= is_admin_or_requested_user( $profile->id ) ? ' <a href="/profile/edit/' . $profile->id . '"><span class="fa fa-pencil-alt"></span></a>' : '' ?><?= is_admin() ? ' <a href="/beheer/leden/delete/' . $profile->id . '"><span class="fa fa-trash"></span></a>' : '' ?></h3>
 <div class="table-responsive">
-    <table class="table table-condensed table-responsive table-user-information">
+    <table class="table table-sm table-responsive table-user-information">
         <tbody>
         <tr>
             <td>

@@ -1,5 +1,5 @@
 <div class="row" style="width: 100%">
-    <div class="col-md-4 col-md-offset-4 col-sm-6 col-sm-offset-3">
+    <div class="col-lg-4 col-lg-offset-4 col-md-6 col-md-offset-3">
         <?php echo validation_errors(); ?>
         <?= form_open("/inloggen/reset/" . $recovery, ["class" => "form-signin"]); ?>
         <input type="hidden" name="recovery" value="<?= $recovery ?>">

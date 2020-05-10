@@ -1,9 +1,9 @@
 <div align="right" style="padding: 20px"><a href="/beheer/leden/importeren"><b>Leden importeren</b></a></div>
 <div class="container-fluid">
-    <div class="col-md-6">
+    <div class="col-lg-6">
         <div class="table-responsive">
             <h2>Zwemmers</h2>
-            <table class="table table-condensed table-striped table-hover table-responsive">
+            <table class="table table-sm table-striped table-hover table-responsive">
                 <thead>
                 <th>Naam</th>
                 <th>Email</th>
@@ -21,10 +21,10 @@
             </table>
         </div>
     </div>
-    <div class="col-md-6">
+    <div class="col-lg-6">
         <h2>Waterpolo</h2>
         <div class="table-responsive">
-            <table class="table table-condensed table-striped table-hover table-responsive">
+            <table class="table table-sm table-striped table-hover table-responsive">
                 <thead>
                 <th>Naam</th>
                 <th>Email</th>

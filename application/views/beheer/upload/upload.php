@@ -8,9 +8,9 @@
 </div>
 <hr>
 <div class="row">
-    <div class="col-md-8">
+    <div class="col-lg-8">
         <h3>Foto's</h3>
-        <table class="table table-condensed table-striped table-hover table-responsive">
+        <table class="table table-sm table-striped table-hover table-responsive">
             <thead>
             <tr>
                 <th>Preview</th>
@@ -32,9 +32,9 @@
             </tbody>
         </table>
     </div>
-    <div class="col-md-4">
+    <div class="col-lg-4">
         <h3>Bestanden</h3>
-        <table class="table table-condensed table-striped table-hover table-responsive">
+        <table class="table table-sm table-striped table-hover table-responsive">
             <thead>
             <tr>
                 <th>Naam</th>

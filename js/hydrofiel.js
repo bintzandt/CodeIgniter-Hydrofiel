@@ -27,7 +27,7 @@ jQuery(document).ready(function($) {
     });
 
     $("img").each(function(){
-        $(this).addClass("img-responsive");
+        $(this).addClass("img-fluid");
     });
 });
 
@@ -51,10 +51,13 @@ window.addEventListener('keyup', e => {
 	pressed.splice( -secret.length - 1, pressed.length - secret.length );
 	if ( pressed.join("").includes( secret.join("") ) ){
 		if ( ! cornifyLoaded ){
-			$.getScript( "https://www.cornify.com/js/cornify.js", () => {
+			const script = document.createElement('script');
+			script.onload = () => {
 				cornifyLoaded = true;
 				magic();
-			} );
+			}
+			script.src = "https://www.cornify.com/js/cornify.js";
+			document.head.appendChild(script);
 		}
 		magic();
 	}
