@@ -1,13 +1,13 @@
 function hideAll(){
     $('.inschrijving').toggleClass('d-none', true);
-    $('.show_all').toggleClass('d-none', false);
-    $('.hide_all').toggleClass('d-none', true);
+    $('#show_all').toggleClass('d-none', false);
+    $('#hide_all').toggleClass('d-none', true);
 }
 
 function showAll(){
     $('.inschrijving').toggleClass('d-none', false);
-    $('.show_all').toggleClass('d-none', true);
-    $('.hide_all').toggleClass('d-none', false);
+    $('#show_all').toggleClass('d-none', true);
+    $('#hide_all').toggleClass('d-none', false);
 }
 
 function toggleInschrijf(val){

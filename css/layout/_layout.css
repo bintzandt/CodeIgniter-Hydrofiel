@@ -69,12 +69,15 @@ tbody, .text-primary {
 }
 
 a {
+	color: var(--primary-color);
 	cursor: pointer;
+	transition: 0.2s all;
 }
 
 a:hover {
 	color: var(--primary-color);
 	text-decoration: underline;
+	transform: scale(1.2);
 }
 
 .footer-link {

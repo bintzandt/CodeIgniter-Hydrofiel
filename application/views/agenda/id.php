@@ -25,8 +25,8 @@
                     } ?>
                 </table>
                 <?php if ($i > 6) { ?>
-                    <a class="show_all" onclick="showAll()"><?= lang('agenda_show_registrations') ?></a>
-                    <a class="hide_all d-none" onclick="hideAll()"><?= lang('agenda_hide_registrations') ?></a>
+                    <a id="show_all" onclick="showAll()"><?= lang('agenda_show_registrations') ?></a>
+                    <a id="hide_all" class="d-none" onclick="hideAll()"><?= lang('agenda_hide_registrations') ?></a>
                 <?php } ?>
             <?php } elseif ($event->inschrijfsysteem) { ?>
                 <br><br>
