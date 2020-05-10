@@ -1,63 +1,77 @@
 .footer {
 	padding: 2em 0;
 	background: var(--footer-color);
-  }
-  
-  .agile-footer {
+}
+
+.agileinfo-social-grids {
 	text-align: center;
-  }
-  .agile-footer .agileinfo-social-grids ul {
+}
+
+.agileinfo-social-grids ul {
 	padding: 0;
 	margin: 0;
-  }
-  .agile-footer .agileinfo-social-grids ul li {
+}
+
+.agileinfo-social-grids li {
 	display: inline-block;
-  }
-  .agile-footer .agileinfo-social-grids ul li a {
+}
+
+.agileinfo-social-grids a {
 	color: #333;
 	text-align: center;
-  }
-  .agile-footer .agileinfo-social-grids ul li a i {
+}
+
+.agileinfo-social-grids i {
 	height: 40px;
 	width: 40px;
 	line-height: 40px;
 	color: #FFF;
-	transition: 0.5s all;
-	-webkit-transition: 0.5s all;
-	-moz-transition: 0.5s all;
-	-o-transition: 0.5s all;
-  }
-  .agile-footer .agileinfo-social-grids ul li a i.fa.fa-facebook-square:hover {
+	transition: 0.2s all;
+}
+
+.agileinfo-social-grids i:hover {
+	transform: scale(1.5);
+}
+
+.agileinfo-social-grids .fa-facebook-square:hover {
 	color: #3b5998;
-  }
-  .agile-footer .agileinfo-social-grids ul li a i.fa.fa-instagram:hover {
+}
+
+.agileinfo-social-grids .fa-instagram:hover {
 	color: orange;
-  }
-  .agile-footer .agileinfo-social-grids ul li a i.fa.fa-snapchat-ghost:hover {
+}
+
+.agileinfo-social-grids .fa-snapchat-ghost:hover {
 	color: yellow;
-  }
-  .agile-footer .agileinfo-social-grids ul li a i.fa.fa-envelope:hover {
+}
+
+.agileinfo-social-grids .fa-envelope:hover {
 	color: var(--primary-color);
-  }
-  .agile-footer .agileinfo-social-grids ul li:nth-child(2) {
+}
+
+.agileinfo-social-grids li:nth-child(2) {
 	margin: 0.5em 0;
-  }
-  .agile-footer .agileinfo-social-grids ul li:nth-child(3) {
+}
+
+.agileinfo-social-grids li:nth-child(3) {
 	margin: 0 0 0.5em 0;
-  }
-  
-  .copyright {
-	text-align: center;
-  }
-  .copyright p {
+}
+
+.copyright {
+  text-align: center;
+}
+
+.copyright p {
 	color: #FFFFFF;
 	font-size: 0.9em;
 	margin: 0;
-  }
-  .copyright p a {
+}
+
+.copyright p a {
 	text-decoration: none;
-  }
-  .copyright p a:hover {
-	color: var(--primary-color);
-  }
-.fa-swimmer:before { content: "\f5c4"; }
+}
+
+.copyright p a:hover {
+  color: var(--primary-color);
+  text-decoration: underline;
+}

@@ -25,42 +25,42 @@
 <h3>Post toevoegen</h3>
 <?= form_open('/beheer/posts/add_post'); ?>
 <div class="form-group">
-    <div class="col-sm-2">
-        <label class="control-label" for="post_title_nl">Titel (NL)</label>
+    <div class="col-md-2">
+        <label class="col-form-label" for="post_title_nl">Titel (NL)</label>
     </div>
-    <div class="col-sm-10">
+    <div class="col-md-10">
         <input class="form-control" name="post_title_nl" id="post_title_nl" maxlength="175">
     </div>
 </div>
 <div class="form-group">
-    <div class="col-sm-2">
-        <label class="control-label" for="summernote">Tekst (NL)</label>
+    <div class="col-md-2">
+        <label class="col-form-label" for="summernote">Tekst (NL)</label>
     </div>
-    <div class="col-sm-10">
+    <div class="col-md-10">
         <textarea id="summernote" name="post_text_nl" id="post_text_nl"></textarea>
     </div>
 </div>
 <div class="form-group">
-    <div class="col-sm-2">
-        <label class="control-label" for="post_title_en">Titel (EN)</label>
+    <div class="col-md-2">
+        <label class="col-form-label" for="post_title_en">Titel (EN)</label>
     </div>
-    <div class="col-sm-10">
+    <div class="col-md-10">
         <input class="form-control" name="post_title_en" id="post_title_en" maxlength="175">
     </div>
 </div>
 <div class="form-group">
-    <div class="col-sm-2">
-        <label class="control-label" for="engels">Tekst (EN)</label>
+    <div class="col-md-2">
+        <label class="col-form-label" for="engels">Tekst (EN)</label>
     </div>
-    <div class="col-sm-10">
+    <div class="col-md-10">
         <textarea class="input-block-level" id="engels" name="post_text_en"></textarea>
     </div>
 </div>
 <div class="form-group">
-    <div class="col-sm-2">
-        <label class="control-label" for="post_image">Plaatje</label>
+    <div class="col-md-2">
+        <label class="col-form-label" for="post_image">Plaatje</label>
     </div>
-    <div class="col-sm-10">
+    <div class="col-md-10">
         <input class="form-control" name="post_image" id="post_image" maxlength="255"><br>
         <button class="btn btn-primary" type="submit">Post toevoegen</button>
     </div>

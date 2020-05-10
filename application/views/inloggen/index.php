@@ -73,7 +73,7 @@
 <script src="/assets/webauthnauthenticate.js"></script>
 <script src="/assets/webauthnregister.js"></script>
 <div class="row" style="width: 100%">
-    <div class="col-md-4 col-md-offset-4 col-sm-6 col-sm-offset-3">
+    <div class="col-lg-4 col-lg-offset-4 col-md-6 col-md-offset-3">
         <div class="alert alert-info alert-dismissible hidden" id="browser-supported" onclick="removeBanner()"
              role="alert">
             <button type="button" class="close" data-dismiss="alert" aria-label="Close" onclick="removeBanner()">
@@ -90,7 +90,7 @@
                placeholder="<?= lang('inloggen_password') ?>" autocomplete="current-password">
         <button class="btn btn-lg btn-primary btn-block" type="submit"><?= lang('inloggen_login') ?></button>
         <a href="/inloggen/forgot_password"
-           class="pull-right need-help"><?= lang('inloggen_forgot_password') ?></a><span class="clearfix"></span>
+           class="float-right need-help"><?= lang('inloggen_forgot_password') ?></a><span class="clearfix"></span>
         <?= form_close() ?>
     </div>
 </div>

@@ -1,12 +1,12 @@
 <div class="row">
-    <div class="col-sm-2 vcenter hidden-xs">
+    <div class="col-md-2 vcenter d-none d-md-block">
         <a href="https://www.sponsorkliks.com/winkels.php?club=8634" target="_blank" rel="noopener"><img
-                    class="img-rounded" style="margin: 0 auto;" src="/images/sponsorkliks.gif"
+                    class="rounded" style="margin: 0 auto;" src="/images/sponsorkliks.gif"
                     alt="SponsorKliks, gratis sponsoren!" title="SponsorKliks, sponsor jouw sponsordoel gratis!"
                     Border="0"></a>
     </div><!--
     -->
-    <div class="col-sm-10 vcenter">
+    <div class="col-md-10 vcenter">
         <p>
             <?= lang('home_welcome'); ?>
         </p>
@@ -16,8 +16,8 @@
     </div>
 </div>
 <hr>
-<div class="container-fluid" align="left">
-    <div class="col-sm-6 homepage_block no_padding padding_left">
+<div class="row">
+    <div class="col-md homepage_block no_padding padding_left">
         <h3 class="oranje_tekst no_padding"><?= lang('home_events') ?></h3>
         <?php if (!empty($events)) {
             foreach ($events as $event) { ?>
@@ -31,7 +31,7 @@
             <span class="fa fa-frown-open"></span> <?= lang('home_no_events') ?>
         <?php } ?>
     </div>
-    <div class="col-sm-6 homepage_block no_padding padding_left">
+    <div class="col-md homepage_block no_padding padding_left">
         <h3 class="oranje_tekst no_padding"><?= lang('home_birthdays') ?></h3>
         <?php if ($login) : ?>
             <?php foreach ($verjaardagen as $verjaardag) { ?>
@@ -47,29 +47,28 @@
         <?php endif; ?>
     </div>
 </div>
+<?php if(isset($posts) && !empty($posts)){ ?>
 <hr>
-<h3 class="oranje_tekst" style="padding-left: 15px"><?= lang('home_news') ?></h3>
-<?php if (isset($posts)) {
-    foreach ($posts as $post) { ?>
-        <?php if ($post->post_image !== "") { ?>
-            <div class='container container-item'>
-                <div class='col-md-3'>
+<div class="row">
+    <h3 class="oranje_tekst" style="padding-left: 15px"><?= lang('home_news') ?></h3>
+    <?php foreach ($posts as $post) { ?>
+            <?php if ($post->post_image !== "") { ?>
+                <div class='col-lg'>
                     <strong><?= $engels ? $post->post_title_en : $post->post_title_nl ?></strong>
-                    <img class="img-responsive no_margin" src="<?= $post->post_image ?>">
+                    <img class="img-fluid no_margin" src="<?= $post->post_image ?>">
                 </div>
-                <div class='col-md-9' align='left'>
+                <div class='col-lg-9' align='left'>
                     <p class="news_content">
                         <?= $engels ? $post->post_text_en : $post->post_text_nl ?>
                     </p>
                 </div>
-            </div>
-        <?php } else { ?>
-            <div class='container container-item'>
-                <div class="col-md-12" align="left">
+            <?php } else { ?>
+                <div class="col-lg" align="left">
                     <?= $engels ? $post->post_text_en : $post->post_text_nl ?>
                 </div>
-            </div>
-        <?php } ?>
-        <hr>
-    <?php }
-} ?>
+            <?php } ?>
+            <hr>
+        <?php }
+    ?>
+</div>
+<?php } ?>

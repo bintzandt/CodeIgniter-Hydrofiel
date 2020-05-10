@@ -27,7 +27,7 @@ grunt.initConfig({
   // Tasks
   watch: { // Compile everything into one task with Watch Plugin
     css: {
-      files: [ 'css/*.css' ],
+      files: [ 'css/**/*.css' ],
       tasks: [ 'cssmin' ],
     },
     js: {

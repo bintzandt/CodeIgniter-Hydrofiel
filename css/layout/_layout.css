@@ -1,46 +1,43 @@
 html, body {
-	max-width: 100%;
+	background-color: var(--background-color);
+	color: var(--secondary-color);
+}
+
+.container-fluid {
+	padding: 0 !important;
 	height: 100%;
-	overflow-x: hidden;
-	font-family: "Open Sans", sans-serif;
-	padding: 0;
-	margin: 0;
-  }
-  
-  .vcenter {
+}
+
+.container {
+	padding-top: 10px;
+}
+
+.vcenter {
 	display: inline-block;
 	vertical-align: middle;
 	float: none;
-  }
-  
-  body {
-	-webkit-overflow-scrolling: touch;
-  }
-  
-  font[face="Courier New"] {
-	font-family: "Open Sans", sans-serif !important;
-  }
-  
-  .no_padding {
+}
+
+.no_padding {
 	padding: 0;
 	margin-top: 3px;
 	margin-bottom: 3px;
-  }
-  
-  .padding_left {
+}
+
+.padding_left {
 	padding-left: 15px;
-  }
-  
-  .news_content {
+}
+
+.news_content {
 	padding-top: 15px;
-  }
-  
-  .container-item {
+}
+	
+.container-item {
 	margin-top: 10px;
 	margin-bottom: 15px;
-  }
-  
-  hr {
+}
+
+hr {
 	overflow: visible;
 	height: 10px;
 	border-style: solid;
@@ -48,72 +45,68 @@ html, body {
 	border-width: 4px 0 0 0;
 	margin-top: 2px;
 	margin-bottom: 2px;
-  }
-  
-  .form-horizontal {
-	padding-top: 10px;
-  }
-  
-  td {
-	background-color: var(--background-color);
-  }
-  tbody, .text-primary {
-	  color: var(--secondary-color);
-  }
+}
 
-  .clickable-row {
-	cursor: pointer;
+td {
 	background-color: var(--background-color);
-  }
-  
-  .center {
-	margin: auto 0;
-  }
-  
-  .margin_10_top {
-	margin-top: 10px;
-  }
-  
-  a {
-	cursor: pointer;
-  }
-  a:hover {
-	color: var(--primary-color);
-  }
-  
-  .footer-link {
-	color: white;
-  }
-  .footer-link:hover {
-	  color: var(--primary-color)
-  }
+}
 
-  [hidden] {
-	display: none !important;
-  }
-  
-  .oranje_tekst, h1, h2, h3, h4, h5, h6 {
-	color: var(--primary-color);
-  }
-  
-  .no_margin {
-	margin: 0 !important;
-  }
-  
-  .img-responsive {
-	margin: 10px;
-  }
-  
-  body {
-	background-color: var(--background-color);
+tbody, .text-primary {
 	color: var(--secondary-color);
-  }
-  
-  .form-signin {
+}
+
+.clickable-row {
+	cursor: pointer;
+	background-color: var(--background-color);
+}
+
+.center {
+	margin: auto 0;
+}
+
+.margin_10_top {
+	margin-top: 10px;
+}
+
+a {
+	cursor: pointer;
+}
+
+a:hover {
+	color: var(--primary-color);
+	text-decoration: underline;
+}
+
+.footer-link {
+	color: white;
+}
+
+.footer-link:hover {
+	color: var(--primary-color)
+}
+
+[hidden] {
+	display: none !important;
+}
+
+.oranje_tekst, h1, h2, h3, h4, h5, h6 {
+	color: var(--primary-color);
+}
+
+.no_margin {
+	margin: 0 !important;
+}
+
+.img-fluid {
+	margin: 10px;
+}
+
+.form-signin {
 	padding: 15px;
 	margin: 0 auto;
-  }
-  .form-signin .form-control {
+}
+
+.form-signin .form-control {
 	position: relative;
 	font-size: 100%;
 	height: auto;
@@ -121,12 +114,8 @@ html, body {
 	-webkit-box-sizing: border-box;
 	-moz-box-sizing: border-box;
 	box-sizing: border-box;
-  }
-  .form-signin input {
+}
+
+.form-signin input {
 	margin-bottom: 10px;
-  }
-  
-  .container-fluid {
-	padding: 0 !important;
-	height: 100%;
-  }
+}
