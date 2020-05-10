@@ -3,40 +3,6 @@ html, body {
 	color: var(--secondary-color);
 }
 
-.container-fluid {
-	padding: 0 !important;
-	height: 100%;
-}
-
-.container {
-	padding-top: 10px;
-}
-
-.vcenter {
-	display: inline-block;
-	vertical-align: middle;
-	float: none;
-}
-
-.no_padding {
-	padding: 0;
-	margin-top: 3px;
-	margin-bottom: 3px;
-}
-
-.padding_left {
-	padding-left: 15px;
-}
-
-.news_content {
-	padding-top: 15px;
-}
-	
-.container-item {
-	margin-top: 10px;
-	margin-bottom: 15px;
-}
-
 hr {
 	overflow: visible;
 	height: 10px;
@@ -51,6 +17,10 @@ td {
 	background-color: var(--background-color);
 }
 
+th {
+	color: var(--secondary-color);
+}
+
 tbody, .text-primary {
 	color: var(--secondary-color);
 }
@@ -58,14 +28,12 @@ tbody, .text-primary {
 .clickable-row {
 	cursor: pointer;
 	background-color: var(--background-color);
+	color: var(--secondary-color);
 }
 
-.center {
-	margin: auto 0;
-}
-
-.margin_10_top {
-	margin-top: 10px;
+.clickable-row:hover {
+	color: var(--primary-color);
+	text-decoration: underline;
 }
 
 a:not([type^="button"]) {
@@ -80,7 +48,7 @@ a:not([type^="button"]):hover {
 }
 
 .footer-link {
-	color: white;
+	color: var(--secondary-color);
 }
 
 .footer-link:hover {
@@ -93,14 +61,6 @@ a:not([type^="button"]):hover {
 
 .oranje_tekst, h1, h2, h3, h4, h5, h6 {
 	color: var(--primary-color);
-}
-
-.no_margin {
-	margin: 0 !important;
-}
-
-.img-fluid {
-	margin: 10px;
 }
 
 .form-signin {

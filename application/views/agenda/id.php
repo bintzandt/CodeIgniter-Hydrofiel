@@ -2,7 +2,7 @@
 <h3 align="center"><b><?= $event->naam ?></b></h3>
     <p><?= $event->omschrijving ?></p>
     <div class="row">
-        <div class="col-md-6" style="padding-left: 0">
+        <div class="col-md-6">
             <?php if (isset($inschrijvingen) && $event->inschrijfsysteem) { ?>
                 <h4><?= lang('agenda_recent') ?></h4>
                 <table style="width: 100%">
@@ -44,7 +44,7 @@
                 </table>
             <?php } ?>
         </div>
-        <div class="col-md-6" style="padding-left: 0">
+        <div class="col-md-6">
             <h4>Details</h4>
             <table style="width:100%;">
                 <tr>
@@ -83,7 +83,8 @@
             </table>
         </div>
     </div>
-    <div class="col-md-12 no_padding margin_10_top">
+    <div class="row pt-3">
+        <div class="col">
         <?php if ($event->inschrijfsysteem) { ?>
             <?= form_open(
                 ($event->soort === 'nszk') ? '/agenda/nszk' : '/agenda/aanmelden',
@@ -100,17 +101,17 @@
                         $slagen = json_decode($event->slagen);
                         foreach ($slagen as $slag) { ?>
                             <div class="form-group">
-                                <div class="col-md-4 no_padding">
+                                <div class="col-md-4">
                                     <label><?= $slag ?></label>
                                 </div>
-                                <div class="col-md-8 no_padding">
+                                <div class="col-md-8">
                                     <input type="hidden" value="<?= $slag ?>" name="slag[]">
                                     <input type="text" class="form-control" name="tijd[]" placeholder="Tijd"/>
                                 </div>
                             </div>
                         <?php }
                     } ?>
-                    <div class="form-group no_padding">
+                    <div class="form-group">
                         <input type="text" name="opmerking" maxlength="20" class="form-control" style="margin-top: 20px"
                                placeholder="<?= lang("agenda_remark"); ?>">
                         <?php if ($event->betalen) { ?>
@@ -147,6 +148,7 @@
                href="/agenda/edit_details/<?= $event->event_id ?>"><?= lang('agenda_change_registration') ?></a>
         <?php } ?>
         <a href="<?= $ical ?>"><?= lang('agenda_add_to_calendar') ?></a>
+    </div>
     </div>
 <script>
     function submitForm() {

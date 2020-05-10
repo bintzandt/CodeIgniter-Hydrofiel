@@ -10,20 +10,20 @@
 <div class="row">
     <div class="col-lg-8">
         <h3>Foto's</h3>
-        <table class="table table-sm table-striped table-hover table-responsive">
+        <table class="table table-lg table-striped">
             <thead>
             <tr>
-                <th>Preview</th>
-                <th class="d-xs-none">Naam</th>
-                <th>Beheer</th>
+                <th scope="col">Preview</th>
+                <th scope="col" class="d-none d-md-block">Naam</th>
+                <th scope="col">Beheer</th>
             </tr>
             </thead>
             <tbody>
             <?php foreach ($images as $item) { ?>
                 <tr>
-                    <td><a href="<?= $item->url ?>" target="_blank"><img src="<?= $item->thumb ?>"
+                    <th scope="row"><a href="<?= $item->url ?>" target="_blank"><img src="<?= $item->thumb ?>"
                                                                          style="max-width: 60px"></a></td>
-                    <td class="d-xs-none" onclick="CopyToClipboard('<?= $item->url ?>')"
+                    <td class="d-none d-md-block" onclick="CopyToClipboard('<?= $item->url ?>')"
                         style="cursor: pointer"><?= $item->naam ?></td>
                     <td><a onclick="showModal('<?= $item->naam ?>', '<?= $item->deleteUrl ?>')"><i
                                     class="fa fa-trash"></i></a></td>
@@ -34,7 +34,7 @@
     </div>
     <div class="col-lg-4">
         <h3>Bestanden</h3>
-        <table class="table table-sm table-striped table-hover table-responsive">
+        <table class="table table-sm table-striped table-hover">
             <thead>
             <tr>
                 <th>Naam</th>

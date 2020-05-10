@@ -5,7 +5,7 @@
 <?php } ?>
 <div style="text-align:right; vertical-align: top; padding: 20px;"><a
             href="/beheer/mail/history"><b>Geschiedenis</b></a></div>
-<?php echo form_open_multipart('beheer/mail', ['id' => 'postForm'); ?>
+<?php echo form_open_multipart('beheer/mail', ['id' => 'postForm']); ?>
 <div class="form-group">
     <label for="aan" class="col-md-2 col-form-label">Aan</label>
     <div class="col-md-10">

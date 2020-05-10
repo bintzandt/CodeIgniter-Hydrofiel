@@ -1,4 +1,5 @@
-<table class="table table-responsive table-striped">
+<h3>Posts</h3>
+<table class="table table-striped">
     <thead>
     <tr>
         <th>Titel</th>

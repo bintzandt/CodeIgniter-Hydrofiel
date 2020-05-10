@@ -2,7 +2,7 @@
 <?php if (isset($error)) { ?>
     <b>Er zijn geen inschrijvingen voor dit evenement of voor dit evenement kan niet worden ingeschreven.</b>
 <?php } else { ?>
-    <table class="table table-responsive table-striped">
+    <table class="table table-striped">
         <thead>
         <tr>
             <th>Naam</th>

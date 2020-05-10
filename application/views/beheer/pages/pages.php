@@ -39,7 +39,7 @@ function get_status($bereikbaar, $zichtbaar)
 </script>
 <body>
 <div align="right" style="padding: 20px"><a href="/beheer/pagina/toevoegen"><b>Pagina Toevoegen</b></a></div>
-<table class="table table-sm table-striped table-hover table-responsive">
+<table class="table table-sm table-striped table-hover">
     <thead>
     <tr>
         <th>Pagina naam</th>
@@ -64,8 +64,7 @@ function get_status($bereikbaar, $zichtbaar)
         <?php if ($hoofd->subpagina !== null) {
             foreach ($hoofd->subpagina as $sub) { ?>
                 <tr>
-                    <td class="clickable-row" data-href="/beheer/pagina/edit/<?= $sub->id ?>"
-                        style="padding-left: 20px;padding-right: 0;"><?= $sub->naam ?></td>
+                    <td class="clickable-row pl-4" data-href="/beheer/pagina/edit/<?= $sub->id ?>"><?= $sub->naam ?></td>
                     <td class="d-xs-none"><?= get_status($sub->bereikbaar, $sub->zichtbaar) ?></td>
                     <td><?= form_open(''); ?>
                         <a href="/beheer/pagina/up/<?= $sub->id ?>"><i class="fa fa-arrow-up"></i></a>

@@ -3,7 +3,7 @@
 <?php if (empty($events)) { ?>
     <b>Er zijn geen evenementen.</b>
 <?php } else { ?>
-    <table class="table table-responsive table-striped">
+    <table class="table">
         <thead>
         <tr>
             <th>Naam</th>
@@ -35,7 +35,7 @@ if (empty($old_events)) { ?>
     <b>Er zijn geen oude evenementen.</b>
 <?php } else { ?>
     <h3>Oude evenementen</h3>
-    <table class="table table-responsive table-striped">
+    <table class="table mb-0">
         <thead>
         <tr>
             <th>Naam</th>

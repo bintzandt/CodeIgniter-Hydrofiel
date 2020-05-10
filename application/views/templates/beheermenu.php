@@ -58,7 +58,7 @@
         <h2>N.S.Z.&W.V. Hydrofiel</h2>
     </div>
 </div>
-<div class="container" style="padding-top: 10px; padding-bottom: 10px">
+<div class="container ptb-3">
     <?php if ($this->session->success) { ?>
         <div class="alert alert-success">
             <strong><?= $this->session->success ?></strong>

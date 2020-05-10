@@ -87,7 +87,7 @@ function generate_icon($name)
         <h2>N.S.Z.&W.V. Hydrofiel</h2>
     </div>
 </div>
-<div class="container">
+<div class="container pt-3">
     <?php if ($this->session->success) { ?>
         <div class="alert alert-success">
             <strong><?= $this->session->success ?></strong>
