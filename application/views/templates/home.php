@@ -18,7 +18,7 @@
 <hr>
 <div class="row">
     <div class="col-md homepage_block">
-        <h3><?= lang('home_events') ?></h3>
+        <a href="/agenda"><h3><?= lang('home_events') ?></h3></a>
         <?php if (!empty($events)) {
             foreach ($events as $event) { ?>
                 <div>
