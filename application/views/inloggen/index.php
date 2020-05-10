@@ -4,7 +4,7 @@
     }
 
     function removeBanner() {
-        $("#browser-supported").addClass("hidden");
+        $("#browser-supported").addClass("d-none");
         Cookies.set("dismissAlert", true, {path: ""});
     }
 
@@ -18,7 +18,7 @@
         }
 
         if (hasWebAuthnSupport() && !alertDismissed) {
-            $("#browser-supported").removeClass("hidden");
+            $("#browser-supported").removeClass("d-none");
         }
 
         $("#form-signin").submit(async function (e) {
@@ -74,7 +74,7 @@
 <script src="/assets/webauthnregister.js"></script>
 <div class="row" style="width: 100%">
     <div class="col-lg-4 col-lg-offset-4 col-md-6 col-md-offset-3">
-        <div class="alert alert-info alert-dismissible hidden" id="browser-supported" onclick="removeBanner()"
+        <div class="alert alert-info alert-dismissible d-none" id="browser-supported" onclick="removeBanner()"
              role="alert">
             <button type="button" class="close" data-dismiss="alert" aria-label="Close" onclick="removeBanner()">
                 <span aria-hidden="true">&times;</span>

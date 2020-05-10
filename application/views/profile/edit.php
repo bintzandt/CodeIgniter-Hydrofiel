@@ -10,7 +10,7 @@
         let webauth_btn = $("#webauthn-add-button");
 
         if (hasWebAuthnSupport()) {
-            webauth_btn.removeClass("hidden");
+            webauth_btn.removeClass("d-none");
         }
 
         webauth_btn.click(async function () {
@@ -107,7 +107,7 @@
         <input type="submit" class="btn btn-primary" value="<?= lang('profile_save') ?>">
         <input type="reset" class="btn btn-warning" onclick="window.location.replace(document.referrer)"
                value="<?= lang('profile_cancel') ?>">
-        <input type="button" class="btn btn-success hidden" id="webauthn-add-button"
+        <input type="button" class="btn btn-success d-none" id="webauthn-add-button"
                value="Add a FIDO2 key"/>
     </div>
 </div>

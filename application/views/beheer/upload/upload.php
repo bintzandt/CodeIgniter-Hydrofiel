@@ -14,7 +14,7 @@
             <thead>
             <tr>
                 <th>Preview</th>
-                <th class="hidden-xs">Naam</th>
+                <th class="d-xs-none">Naam</th>
                 <th>Beheer</th>
             </tr>
             </thead>
@@ -23,7 +23,7 @@
                 <tr>
                     <td><a href="<?= $item->url ?>" target="_blank"><img src="<?= $item->thumb ?>"
                                                                          style="max-width: 60px"></a></td>
-                    <td class="hidden-xs" onclick="CopyToClipboard('<?= $item->url ?>')"
+                    <td class="d-xs-none" onclick="CopyToClipboard('<?= $item->url ?>')"
                         style="cursor: pointer"><?= $item->naam ?></td>
                     <td><a onclick="showModal('<?= $item->naam ?>', '<?= $item->deleteUrl ?>')"><i
                                     class="fa fa-trash"></i></a></td>

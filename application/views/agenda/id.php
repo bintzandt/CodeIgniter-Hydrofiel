@@ -16,7 +16,7 @@
                                     <td><?= $inschrijving->opmerking ?></td> <?php } ?>
                             </tr>
                         <?php } else { ?>
-                            <tr class="inschrijving hidden">
+                            <tr class="inschrijving d-none">
                                 <td><?= $inschrijving->naam ?></td>
                                 <?php if ($inschrijving->opmerking !== "") { ?>
                                     <td><?= $inschrijving->opmerking ?></td> <?php } ?>
@@ -26,7 +26,7 @@
                 </table>
                 <?php if ($i > 6) { ?>
                     <a class="show_all" onclick="showAll()"><?= lang('agenda_show_registrations') ?></a>
-                    <a class="hide_all hidden" onclick="hideAll()"><?= lang('agenda_hide_registrations') ?></a>
+                    <a class="hide_all d-none" onclick="hideAll()"><?= lang('agenda_hide_registrations') ?></a>
                 <?php } ?>
             <?php } elseif ($event->inschrijfsysteem) { ?>
                 <br><br>

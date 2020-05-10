@@ -62,7 +62,7 @@ if (empty($old_events)) { ?>
                     </td>
                 </tr>
             <?php } else { ?>
-                <tr class="hidden">
+                <tr class="d-none">
                     <td class="clickable-row"
                         data-href="/beheer/agenda/inschrijvingen/<?= $event->event_id ?>"><?= $event->nl_naam ?></td>
                     <td class="clickable-row"
@@ -86,10 +86,10 @@ if (empty($old_events)) { ?>
 <script>
     function showMore() {
         let elements = $("#oude_evenementen tr").filter(function () {
-            return $(this)[0].className === "hidden";
+            return $(this)[0].className === "d-none";
         });
         for (let i = 0; i < 5; i++) {
-            $(elements[i]).toggleClass("hidden");
+            $(elements[i]).toggleClass("d-none");
         }
     }
 

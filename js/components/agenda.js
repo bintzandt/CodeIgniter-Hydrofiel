@@ -27,9 +27,9 @@ jQuery(document).ready(function($) {
 	$( "#soort" ).change( function() {
 		// show current
 		if ( $( this ).val() === "nszk" ) {
-			$( "#nszk" ).toggleClass( "hidden", false );
+			$( "#nszk" ).toggleClass( "d-none", false );
 		} else {
-			$( "#nszk" ).toggleClass( "hidden", true );
+			$( "#nszk" ).toggleClass( "d-none", true );
 		}
 
 	} );

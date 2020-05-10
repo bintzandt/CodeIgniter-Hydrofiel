@@ -43,7 +43,7 @@ function get_status($bereikbaar, $zichtbaar)
     <thead>
     <tr>
         <th>Pagina naam</th>
-        <th class="hidden-xs">Status</th>
+        <th class="d-xs-none">Status</th>
         <th>Beheer</th>
     </tr>
     </thead>
@@ -52,7 +52,7 @@ function get_status($bereikbaar, $zichtbaar)
         <tr>
             <td class="clickable-row" data-href="/beheer/pagina/edit/<?= $hoofd->id ?>"
                 style="padding-right: 0;"><?= $hoofd->naam ?></td>
-            <td class="hidden-xs"><?= get_status($hoofd->bereikbaar, $hoofd->zichtbaar) ?></td>
+            <td class="d-xs-none"><?= get_status($hoofd->bereikbaar, $hoofd->zichtbaar) ?></td>
             <td><?= form_open(''); ?>
                 <a href="/beheer/pagina/up/<?= $hoofd->id ?>"><i class="fa fa-arrow-up"></i></a>
                 <a href="/beheer/pagina/down/<?= $hoofd->id ?>"><i class="fa fa-arrow-down"></i></a>
@@ -66,7 +66,7 @@ function get_status($bereikbaar, $zichtbaar)
                 <tr>
                     <td class="clickable-row" data-href="/beheer/pagina/edit/<?= $sub->id ?>"
                         style="padding-left: 20px;padding-right: 0;"><?= $sub->naam ?></td>
-                    <td class="hidden-xs"><?= get_status($sub->bereikbaar, $sub->zichtbaar) ?></td>
+                    <td class="d-xs-none"><?= get_status($sub->bereikbaar, $sub->zichtbaar) ?></td>
                     <td><?= form_open(''); ?>
                         <a href="/beheer/pagina/up/<?= $sub->id ?>"><i class="fa fa-arrow-up"></i></a>
                         <a href="/beheer/pagina/down/<?= $sub->id ?>"><i class="fa fa-arrow-down"></i></a>

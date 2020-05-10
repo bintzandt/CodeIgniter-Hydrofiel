@@ -1,23 +1,23 @@
 function hideAll(){
-    $('.inschrijving').toggleClass('hidden', true);
-    $('.show_all').toggleClass('hidden', false);
-    $('.hide_all').toggleClass('hidden', true);
+    $('.inschrijving').toggleClass('d-none', true);
+    $('.show_all').toggleClass('d-none', false);
+    $('.hide_all').toggleClass('d-none', true);
 }
 
 function showAll(){
-    $('.inschrijving').toggleClass('hidden', false);
-    $('.show_all').toggleClass('hidden', true);
-    $('.hide_all').toggleClass('hidden', false);
+    $('.inschrijving').toggleClass('d-none', false);
+    $('.show_all').toggleClass('d-none', true);
+    $('.hide_all').toggleClass('d-none', false);
 }
 
 function toggleInschrijf(val){
 	if (val==="1") {
-		$('#inschrijfdeadline').toggleClass('hidden', false);
-		$('#afmelddeadline').toggleClass('hidden', false);
+		$('#inschrijfdeadline').toggleClass('d-none', false);
+		$('#afmelddeadline').toggleClass('d-none', false);
 	}
 	else {
-		$('#afmelddeadline').toggleClass('hidden', true);
-		$('#inschrijfdeadline').toggleClass('hidden', true);
+		$('#afmelddeadline').toggleClass('d-none', true);
+		$('#inschrijfdeadline').toggleClass('d-none', true);
 	}
 }
 

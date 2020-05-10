@@ -17,7 +17,7 @@
         <input disabled id="opmerking" class="form-control" type="text" value="<?= $inschrijving->opmerking ?>">
     </div>
 </div>
-<div class="<?= ($nszk) ? '' : 'hidden' ?>">
+<div class="<?= ($nszk) ? '' : 'd-none' ?>">
     <hr>
     <h3>Slagen</h3><br>
     <?php if (!empty($slagen)) {

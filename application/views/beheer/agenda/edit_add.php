@@ -107,7 +107,7 @@
                                            value="0" <?= ($edit_mode && !$event->inschrijfsysteem) ? 'checked' : '' ?>>Nee</label>
     </div>
 </div>
-<div class="form-group <?= ($edit_mode && $event->inschrijfsysteem) ? '' : 'hidden' ?>" id="inschrijfdeadline">
+<div class="form-group <?= ($edit_mode && $event->inschrijfsysteem) ? '' : 'd-none' ?>" id="inschrijfdeadline">
     <label for="inschrijfdeadline" class="col-md-2 col-form-label">Inschrijfdeadline</label>
     <div class="col-md-10">
         <div class="input-group date">
@@ -120,7 +120,7 @@
         </div>
     </div>
 </div>
-<div class="form-group <?= ($edit_mode && $event->inschrijfsysteem) ? '' : 'hidden' ?>" id="afmelddeadline">
+<div class="form-group <?= ($edit_mode && $event->inschrijfsysteem) ? '' : 'd-none' ?>" id="afmelddeadline">
     <label for="afmelddeadline" class="col-md-2 col-form-label">Afmelddeadline</label>
     <div class="col-md-10">
         <div class="input-group date">
@@ -152,7 +152,7 @@
         <span class="form-text">De standaardwaarde 0 betekent dat er geen limiet is op het aantal aanmeldingen!</span>
     </div>
 </div>
-<div id="nszk" class="<?= ($edit_mode && $event->soort === 'nszk') ? '' : 'hidden' ?>">
+<div id="nszk" class="<?= ($edit_mode && $event->soort === 'nszk') ? '' : 'd-none' ?>">
     <div class="form-group">
         <label for="slagen" class="col-md-2 col-form-label">Slagen</label>
         <div class="col-md-10" id="wrapper">
