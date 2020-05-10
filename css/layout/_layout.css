@@ -68,16 +68,15 @@ tbody, .text-primary {
 	margin-top: 10px;
 }
 
-a {
+a:not([type^="button"]) {
 	color: var(--primary-color);
 	cursor: pointer;
 	transition: 0.2s all;
 }
 
-a:hover {
-	color: var(--primary-color);
+a:not([type^="button"]):hover {
 	text-decoration: underline;
-	transform: scale(1.2);
+	color: var(--primary-color);
 }
 
 .footer-link {
