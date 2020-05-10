@@ -1,85 +1,87 @@
 
 <h3 align="center"><b><?= $event->naam ?></b></h3>
     <p><?= $event->omschrijving ?></p>
-    <div class="col-md-6" style="padding-left: 0">
-        <?php if (isset($inschrijvingen) && $event->inschrijfsysteem) { ?>
-            <h4><?= lang('agenda_recent') ?></h4>
-            <table style="width: 100%">
-                <?php $i = 0;
-                foreach ($inschrijvingen as $inschrijving) {
-                    $i++;
-                    if ($i <= 5) { ?>
+    <div class="row">
+        <div class="col-md-6" style="padding-left: 0">
+            <?php if (isset($inschrijvingen) && $event->inschrijfsysteem) { ?>
+                <h4><?= lang('agenda_recent') ?></h4>
+                <table style="width: 100%">
+                    <?php $i = 0;
+                    foreach ($inschrijvingen as $inschrijving) {
+                        $i++;
+                        if ($i <= 5) { ?>
+                            <tr>
+                                <td><?= $inschrijving->naam ?></td>
+                                <?php if ($inschrijving->opmerking !== "") { ?>
+                                    <td><?= $inschrijving->opmerking ?></td> <?php } ?>
+                            </tr>
+                        <?php } else { ?>
+                            <tr class="inschrijving hidden">
+                                <td><?= $inschrijving->naam ?></td>
+                                <?php if ($inschrijving->opmerking !== "") { ?>
+                                    <td><?= $inschrijving->opmerking ?></td> <?php } ?>
+                            </tr>
+                        <?php }
+                    } ?>
+                </table>
+                <?php if ($i > 6) { ?>
+                    <a class="show_all" onclick="showAll()"><?= lang('agenda_show_registrations') ?></a>
+                    <a class="hide_all hidden" onclick="hideAll()"><?= lang('agenda_hide_registrations') ?></a>
+                <?php } ?>
+            <?php } elseif ($event->inschrijfsysteem) { ?>
+                <br><br>
+                <table style="width: 100%;">
+                    <tr>
+                        <td><?= lang('agenda_no_registrations') ?></td>
+                    </tr>
+                </table>
+            <?php } else { ?>
+                <br><br>
+                <table style="width: 100%">
+                    <tr>
+                        <td><?= lang('agenda_no_registrations_needed') ?></td>
+                    </tr>
+                </table>
+            <?php } ?>
+        </div>
+        <div class="col-md-6" style="padding-left: 0">
+            <h4>Details</h4>
+            <table style="width:100%;">
+                <tr>
+                    <td><b><?= lang('agenda_from') ?></b></td>
+                    <td><?= date_format(date_create($event->van), 'd-m-Y H:i') ?></td>
+                </tr>
+                <tr>
+                    <td><b><?= lang('agenda_until') ?></b></td>
+                    <td><?= date_format(date_create($event->tot), 'd-m-Y H:i') ?></td>
+                </tr>
+                <tr>
+                    <td><b><?= lang('agenda_location'); ?></b></td>
+                    <td><?= $event->locatie ?></td>
+                </tr>
+                <?php if ($event->inschrijfsysteem) { ?>
+                    <tr>
+                        <td><b><?= lang('agenda_registration_deadline') ?></b></td>
+                        <td><?= date_format(date_create($event->inschrijfdeadline), 'd-m-Y H:i') ?></td>
+                    </tr>
+                    <tr>
+                        <td><b><?= lang('agenda_cancelation_deadline') ?></b></td>
+                        <td><?= date_format(date_create($event->afmelddeadline), 'd-m-Y H:i') ?></td>
+                    </tr>
+                    <?php if ($event->maximum > 0) { ?>
                         <tr>
-                            <td><?= $inschrijving->naam ?></td>
-                            <?php if ($inschrijving->opmerking !== "") { ?>
-                                <td><?= $inschrijving->opmerking ?></td> <?php } ?>
+                            <td><b><?= lang('agenda_nr_maximum') ?></b></td>
+                            <td><?= $aantal_aanmeldingen . '/' . $event->maximum ?></td>
                         </tr>
                     <?php } else { ?>
-                        <tr class="inschrijving hidden">
-                            <td><?= $inschrijving->naam ?></td>
-                            <?php if ($inschrijving->opmerking !== "") { ?>
-                                <td><?= $inschrijving->opmerking ?></td> <?php } ?>
+                        <tr>
+                            <td><b><?= lang('agenda_nr_maximum') ?></b></td>
+                            <td><?= $aantal_aanmeldingen ?></td>
                         </tr>
                     <?php }
                 } ?>
             </table>
-            <?php if ($i > 6) { ?>
-                <a class="show_all" onclick="showAll()"><?= lang('agenda_show_registrations') ?></a>
-                <a class="hide_all hidden" onclick="hideAll()"><?= lang('agenda_hide_registrations') ?></a>
-            <?php } ?>
-        <?php } elseif ($event->inschrijfsysteem) { ?>
-            <br><br>
-            <table style="width: 100%;">
-                <tr>
-                    <td><?= lang('agenda_no_registrations') ?></td>
-                </tr>
-            </table>
-        <?php } else { ?>
-            <br><br>
-            <table style="width: 100%">
-                <tr>
-                    <td><?= lang('agenda_no_registrations_needed') ?></td>
-                </tr>
-            </table>
-        <?php } ?>
-    </div>
-    <div class="col-md-6" style="padding-left: 0">
-        <h4>Details</h4>
-        <table style="width:100%;">
-            <tr>
-                <td><b><?= lang('agenda_from') ?></b></td>
-                <td><?= date_format(date_create($event->van), 'd-m-Y H:i') ?></td>
-            </tr>
-            <tr>
-                <td><b><?= lang('agenda_until') ?></b></td>
-                <td><?= date_format(date_create($event->tot), 'd-m-Y H:i') ?></td>
-            </tr>
-            <tr>
-                <td><b><?= lang('agenda_location'); ?></b></td>
-                <td><?= $event->locatie ?></td>
-            </tr>
-            <?php if ($event->inschrijfsysteem) { ?>
-                <tr>
-                    <td><b><?= lang('agenda_registration_deadline') ?></b></td>
-                    <td><?= date_format(date_create($event->inschrijfdeadline), 'd-m-Y H:i') ?></td>
-                </tr>
-                <tr>
-                    <td><b><?= lang('agenda_cancelation_deadline') ?></b></td>
-                    <td><?= date_format(date_create($event->afmelddeadline), 'd-m-Y H:i') ?></td>
-                </tr>
-                <?php if ($event->maximum > 0) { ?>
-                    <tr>
-                        <td><b><?= lang('agenda_nr_maximum') ?></b></td>
-                        <td><?= $aantal_aanmeldingen . '/' . $event->maximum ?></td>
-                    </tr>
-                <?php } else { ?>
-                    <tr>
-                        <td><b><?= lang('agenda_nr_maximum') ?></b></td>
-                        <td><?= $aantal_aanmeldingen ?></td>
-                    </tr>
-                <?php }
-            } ?>
-        </table>
+        </div>
     </div>
     <div class="col-md-12 no_padding margin_10_top">
         <?php if ($event->inschrijfsysteem) { ?>
