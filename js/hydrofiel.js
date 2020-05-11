@@ -41,7 +41,7 @@ let cornifyLoaded = false;
 
 function magic(){
 	document.documentElement.style.setProperty('--background-color', 'magenta' );
-	document.documentElement.style.setProperty('--primary-color', 'magenta' );
+	document.documentElement.style.setProperty('--primary-color', '#982cd5');
 	document.documentElement.style.setProperty('--footer-color', 'pink' );
 	if ( cornifyLoaded ) cornify_add();
 }
