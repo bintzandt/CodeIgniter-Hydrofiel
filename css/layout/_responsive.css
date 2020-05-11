@@ -17,13 +17,16 @@
 }
 @media (min-width: 1200px) {
 	.banner-info {
-		margin-top: 10em;
+		margin-top: 7em;
 	}
 }
 
-@media (max-width: 600px) {
+@media (max-width: 640px) {
 	.banner-info h2 {
 		font-size: 2em;
+	}
+	.banner {
+		height: 15em;
 	}
 }
 
@@ -62,5 +65,15 @@
 
 	.footer {
 		padding: 1em 0;
+	}
+}
+
+@media (max-width: 216px){
+	.banner-info h2 {
+		font-size: 0.6em;
+	}
+
+	.banner {
+		height: 7em !important;
 	}
 }

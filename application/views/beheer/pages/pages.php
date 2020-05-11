@@ -57,7 +57,7 @@ function get_status($bereikbaar, $zichtbaar)
                 <a href="/beheer/pagina/up/<?= $hoofd->id ?>"><i class="fa fa-arrow-up"></i></a>
                 <a href="/beheer/pagina/down/<?= $hoofd->id ?>"><i class="fa fa-arrow-down"></i></a>
                 <a href="/beheer/pagina/edit/<?= $hoofd->id ?>"><i class="fa fa-pencil-alt"></i></a>
-                <a href="#" onclick="showModal('<?= $hoofd->naam ?>', <?= $hoofd->id ?>)" <i class="fa fa-trash"></i></a>
+                <a onclick="showModal('<?= $hoofd->naam ?>', <?= $hoofd->id ?>)"><i class="fa fa-trash"></i></a>
                 <?= form_close() ?>
             </td>
         </tr>
@@ -70,7 +70,7 @@ function get_status($bereikbaar, $zichtbaar)
                         <a href="/beheer/pagina/up/<?= $sub->id ?>"><i class="fa fa-arrow-up"></i></a>
                         <a href="/beheer/pagina/down/<?= $sub->id ?>"><i class="fa fa-arrow-down"></i></a>
                         <a href="/beheer/pagina/edit/<?= $sub->id ?>"><i class="fa fa-pencil-alt"></i></a>
-                        <a href="#" onclick="showModal('<?= $sub->naam ?>', <?= $sub->id ?>)"><i class="fa fa-trash"></i></a>
+                        <a onclick="showModal('<?= $sub->naam ?>', <?= $sub->id ?>)"><i class="fa fa-trash"></i></a>
                         <?= form_close(); ?>
                     </td>
                 </tr>

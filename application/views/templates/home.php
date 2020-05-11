@@ -51,16 +51,14 @@
 <hr>
 <h3><?= lang('home_news') ?></h3>
     <?php foreach ($posts as $post) { ?>
+        <h4><?= $engels ? $post->post_title_en : $post->post_title_nl ?></h4>
         <div class="row">
             <?php if ($post->post_image !== "") { ?>
                 <div class='col-lg pb-lg-3'>
-                    <h4><?= $engels ? $post->post_title_en : $post->post_title_nl ?></h4>
                     <img class="img-fluid" src="<?= $post->post_image ?>">
                 </div>
-                <div class='col-lg-9' align='left'>
-                    <p class="pt-lg-3">
-                        <?= $engels ? $post->post_text_en : $post->post_text_nl ?>
-                    </p>
+                <div class="col-lg-9 pt-md-2 pt-sm-2">
+                    <?= $engels ? $post->post_text_en : $post->post_text_nl ?>
                 </div>
             <?php } else { ?>
                 <div class="col-lg" align="left">

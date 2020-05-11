@@ -1,6 +1,6 @@
 <h3><?= lang(
         "profile_title"
-    ) ?><?= $profile->naam ?><?= is_admin_or_requested_user( $profile->id ) ? ' <a href="/profile/edit/' . $profile->id . '"><span class="fa fa-pencil-alt"></span></a>' : '' ?><?= is_admin() ? ' <a href="/beheer/leden/delete/' . $profile->id . '"><span class="fa fa-trash"></span></a>' : '' ?></h3>
+    ) ?><?= $profile->naam ?><?= is_admin_or_requested_user( $profile->id ) ? ' <a href="/profile/edit/' . $profile->id . '"><i class="fa fa-pencil-alt"></i></a>' : '' ?><?= is_admin() ? ' <a href="/beheer/leden/delete/' . $profile->id . '"><i class="fa fa-trash"></i></a>' : '' ?></h3>
 <table class="table table-sm table-user-information">
     <tbody>
     <tr>

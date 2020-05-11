@@ -21,6 +21,14 @@ th {
 	color: var(--secondary-color);
 }
 
+i {
+	transition: 0.2s all;
+}
+
+i:hover {
+	transform: scale(1.2);
+}
+
 tbody, .text-primary {
 	color: var(--secondary-color);
 }

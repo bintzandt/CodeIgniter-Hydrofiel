@@ -31,7 +31,7 @@ window.showBSModal = function self(options) {
 
     self.$modal.data('bs.modal', false);
     self.$modal.find('.modal-dialog').removeClass().addClass('modal-dialog ' + (modalClass[options.size] || ''));
-    self.$modal.find('.modal-content').html('<div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button><h4 class="modal-title">${title}</h4></div><div class="modal-body">${body}</div><div class="modal-footer"></div>'.replace('${title}', options.title).replace('${body}', options.body));
+    self.$modal.find('.modal-content').html('<div class="modal-header" style="background-color: var(--background-color)"><button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button><h4 class="modal-title">${title}</h4></div><div class="modal-body" style="background-color: var(--background-color)">${body}</div><div class="modal-footer" style="background-color: var(--background-color)"></div>'.replace('${title}', options.title).replace('${body}', options.body));
 
     var footer = self.$modal.find('.modal-footer');
     if (Object.prototype.toString.call(options.actions) == "[object Array]") {

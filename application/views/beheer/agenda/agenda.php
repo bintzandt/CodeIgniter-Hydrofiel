@@ -22,9 +22,9 @@
                         'd-m-Y H:i'
                     ) ?></td>
                 <td>
-                    <a href="/beheer/agenda/edit/<?= $event->event_id ?>"><span class="fa fa-edit"></span></a>
-                    <a onclick="showModal('<?= $event->nl_naam ?>', <?= $event->event_id ?>)"><span
-                                class="fa fa-trash"></span></a>
+                    <a href="/beheer/agenda/edit/<?= $event->event_id ?>"><i class="fa fa-edit"></i></a>
+                    <a onclick="showModal('<?= $event->nl_naam ?>', <?= $event->event_id ?>)"><i
+                                class="fa fa-trash"></i></a>
                 </td>
             </tr>
         <?php } ?>
@@ -56,9 +56,9 @@ if (empty($old_events)) { ?>
                             'd-m-Y H:i'
                         ) ?></td>
                     <td>
-                        <a href="/beheer/agenda/edit/<?= $event->event_id ?>"><span class="fa fa-edit"></span></a>
-                        <a onclick="showModal('<?= $event->nl_naam ?>', <?= $event->event_id ?>)"><span
-                                    class="fa fa-trash"></span></a>
+                        <a href="/beheer/agenda/edit/<?= $event->event_id ?>"><i class="fa fa-edit"></i></a>
+                        <a onclick="showModal('<?= $event->nl_naam ?>', <?= $event->event_id ?>)"><i
+                                    class="fa fa-trash"></i></a>
                     </td>
                 </tr>
             <?php } else { ?>
@@ -71,9 +71,9 @@ if (empty($old_events)) { ?>
                             'd-m-Y H:i'
                         ) ?></td>
                     <td>
-                        <a href="/beheer/agenda/edit/<?= $event->event_id ?>"><span class="fa fa-edit"></span></a>
-                        <a onclick="showModal('<?= $event->nl_naam ?>', <?= $event->event_id ?>)"><span
-                                    class="fa fa-trash"></span></a>
+                        <a href="/beheer/agenda/edit/<?= $event->event_id ?>"><i class="fa fa-edit"></i></a>
+                        <a onclick="showModal('<?= $event->nl_naam ?>', <?= $event->event_id ?>)"><i
+                                    class="fa fa-trash"></i></a>
                     </td>
                 </tr>
             <?php } ?>

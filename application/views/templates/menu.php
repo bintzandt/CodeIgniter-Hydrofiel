@@ -33,7 +33,7 @@ function generate_icon($name)
                 <?php foreach ($hoofdmenus as $hoofdmenu) {
                         if ($hoofdmenu['submenu'] !== null) { ?>
                             <li class="nav-item dropdown">
-                                <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" aria-haspopup="true" aria-expanded="false">
+                                <a class="nav-link dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                     <span class="<?= generate_icon( $hoofdmenu['naam'] ) ?>"></span>
                                     <?= $engels ? $hoofdmenu['engelse_naam'] : $hoofdmenu['naam'] ?>
                                     <span class="caret"></span>
