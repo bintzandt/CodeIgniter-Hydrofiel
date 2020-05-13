@@ -1,51 +1,52 @@
 name: Test & Deploy
 on:
-	push:
-		branches:
-			- master
+  push:
+    branches:
+      - master
 jobs:
-	build:
-		name: build
-		runs-on: ubuntu-latest
-		steps:
-		- uses: actions/checkout@v2
-		
-		- name: Validate composer.json and composer.lock
-		  run: composer validate
-	  
-		- name: Install dependencies
-		  run: composer install --prefer-dist --no-progress --no-suggest
-	  
-		- name: Install yarn
-		  run: curl -o- -L https://yarnpkg.com/install.sh | bash
-	  
-		- name: Install JS dependencies
-		  run: yarn install
-	  
-		- name: Build assets
-		  run: grunt build
-	  
-		- name: Start MySQL
-		  run: sudo service mysql start
-	  
-		- name: Setup database
-		  run: mysql -u root --password=root < ./docker/dump/hydrofiel.sql
-	  
-		- name: Run test suite
-		  run: composer run-script test
-		
-		- name: SSH Remote Commands
-		  uses: appleboy/ssh-action@v0.0.9
-		  with:
-			host: ${{ secrets.HOST }}
-			username: ${{ secrets.USERNAME }}
-			key: ${{ secrets.KEY }}
-			port: ${{ secrets.PORT }}
-			passphrase: ${{ secrets.PASSPHRASE }}
-			script: |
-				cd public_html
-				git pull
-				yarn install
-				composer install --no-dev
-				./node_modules/.bin/grunt build
-				rm -rf node_modules
+  build:
+    name: build
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+
+    - name: Validate composer.json and composer.lock
+      run: composer validate
+
+    - name: Install dependencies
+      run: composer install --prefer-dist --no-progress --no-suggest
+
+    - name: Install yarn
+      run: curl -o- -L https://yarnpkg.com/install.sh | bash
+
+    - name: Install JS dependencies
+      run: yarn install
+
+    - name: Build assets
+      run: grunt build
+
+    - name: Start MySQL
+      run: sudo service mysql start
+
+    - name: Setup database
+      run: mysql -u root --password=root < ./docker/dump/hydrofiel.sql
+
+    - name: Run test suite
+      run: composer run-script test
+
+    - name: SSH Remote Commands
+      uses: appleboy/ssh-action@v0.0.9
+      with:
+        host: ${{ secrets.HOST }}
+        username: ${{ secrets.USERNAME }}
+        key: ${{ secrets.KEY }}
+        port: ${{ secrets.PORT }}
+        passphrase: ${{ secrets.PASSPHRASE }}
+        script: |
+          cd public_html
+          git pull
+          yarn install
+          composer install --no-dev
+          ./node_modules/.bin/grunt build
+          rm -rf node_modules
