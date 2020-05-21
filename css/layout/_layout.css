@@ -17,6 +17,10 @@ td {
 	background-color: var(--background-color);
 }
 
+.banner-info {
+	cursor: pointer;
+}
+
 th {
 	color: var(--secondary-color);
 }

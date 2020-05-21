@@ -1,5 +1,3 @@
-<html>
-<body>
 <script>
     $(document).ready(function () {
         let slag = $("#slag");
@@ -17,8 +15,6 @@
         });
     });
 </script>
-<script lang="text/javascript" src="/assets/components/agenda.js"></script>
-
 <div style="text-align:right; vertical-align: top; padding: 20px;"><a href="/beheer/agenda"><b>Terug</b></a></div>
 <?= $edit_mode ? form_open_multipart(
     '/beheer/agenda/save',
@@ -73,10 +69,10 @@
     <label class="col-md-2 col-form-label" for="van">Van/Tot</label>
     <div class="col-md-10">
         <div class="input-daterange input-group" id="datepicker">
-            <input type="text" class="form-control-sm form-control" name="van" id="van"
+            <input type="text" class="form-control-sm form-control flatpickr" name="van" id="van"
                    value="<?= ($edit_mode) ? date_format(date_create($event->van), 'd-m-Y H:i') : '' ?>"/>
             <span class="input-group-addon">tot</span>
-            <input type="text" class="form-control-sm form-control" name="tot" id="tot"
+            <input type="text" class="form-control-sm form-control flatpickr" name="tot" id="tot"
                    value="<?= ($edit_mode) ? date_format(date_create($event->tot), 'd-m-Y H:i') : '' ?>"/>
         </div>
     </div>
@@ -111,7 +107,7 @@
     <label for="inschrijfdeadline" class="col-md-2 col-form-label">Inschrijfdeadline</label>
     <div class="col-md-10">
         <div class="input-group date">
-            <input type="text" class="form-control" name="inschrijfdeadline" id="inschrijf"
+            <input type="text" class="form-control flatpickr" name="inschrijfdeadline" id="inschrijf"
                    value="<?= ($edit_mode && $event->inschrijfsysteem) ? date_format(
                        date_create($event->inschrijfdeadline),
                        'd-m-Y H:i'
@@ -124,7 +120,7 @@
     <label for="afmelddeadline" class="col-md-2 col-form-label">Afmelddeadline</label>
     <div class="col-md-10">
         <div class="input-group date">
-            <input type="text" class="form-control" name="afmelddeadline" id="afmeld"
+            <input type="text" class="form-control flatpickr" name="afmelddeadline" id="afmeld"
                    value="<?= ($edit_mode && $event->inschrijfsysteem && $event->afmelddeadline) ? date_format(
                        date_create($event->afmelddeadline),
                        'd-m-Y H:i'
@@ -180,5 +176,4 @@
     </div>
 </div>
 <?= form_close(); ?>
-</body>
-</html>
+<script lang="text/javascript" src="/assets/components/agenda.js"></script>

@@ -28,7 +28,9 @@ jQuery(document).ready(function($) {
 
     $("img").each(function(){
         $(this).addClass("img-fluid");
-    });
+	});
+	
+	$("#info").click( () => window.location = "/" );
 });
 
 $(document).on('click',function(){

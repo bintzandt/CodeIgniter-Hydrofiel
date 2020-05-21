@@ -72,8 +72,8 @@
 </script>
 <script src="/assets/webauthnauthenticate.js"></script>
 <script src="/assets/webauthnregister.js"></script>
-<div class="row" style="width: 100%">
-    <div class="col-lg-4 col-lg-offset-4 col-md-6 col-md-offset-3">
+<div class="row justify-content-center">
+    <div class="col-sm-7 col-lg-4">
         <div class="alert alert-info alert-dismissible d-none" id="browser-supported" onclick="removeBanner()"
              role="alert">
             <button type="button" class="close" data-dismiss="alert" aria-label="Close" onclick="removeBanner()">

@@ -1,35 +1,33 @@
-jQuery(document).ready(function($) {
-	$( "#van" ).flatpickr({
-		enableTime: true,
-		time_24hr: true,
-		dateFormat: "d-m-Y H:i",
-	});
+jQuery(document).ready( $ => {
+	document.querySelectorAll( ".flatpickr" ).forEach( element => {
+		const baseConfig = { 
+			minDate: "today",
+			enableTime: true,
+			time_24hr: true,
+			dateFormat: "d-m-Y H:i",
+		};
 
-	$( "#tot" ).flatpickr({
-		enableTime: true,
-		time_24hr: true,
-		dateFormat: "d-m-Y H:i",
-	});
+		/**
+		 * If the start of the event changes, make sure to update the min and maxDates of all other pickers accordingly.
+		 */
+		if ( element.id === "van" ) {
+			baseConfig.onChange = ( _, dateString ) => {
+				document.querySelector( "#tot" )._flatpickr.config.minDate = dateString;
+				[ "#afmeld", "#inschrijf" ].map( id => document.querySelector( id )._flatpickr.config.maxDate = dateString );
+			}
+		}
 
-	$( "#inschrijf" ).flatpickr({
-		enableTime: true,
-		time_24hr: true,
-		dateFormat: "d-m-Y H:i",
-	});
-	$( "#afmeld" ).flatpickr({
-		enableTime: true,
-		time_24hr: true,
-		dateFormat: "d-m-Y H:i",
-	});
-
+		flatpickr( element, baseConfig );
+	} );
+	
 	var slag = $( "#slag");
 
 	$( "#soort" ).change( function() {
 		// show current
 		if ( $( this ).val() === "nszk" ) {
-			$( "#nszk" ).toggleClass( "d-none", false );
+			$( "#nszk" ).removeClass( "d-none" );
 		} else {
-			$( "#nszk" ).toggleClass( "d-none", true );
+			$( "#nszk" ).addClass( "d-none" );
 		}
 
 	} );
@@ -38,4 +36,4 @@ jQuery(document).ready(function($) {
 		e.preventDefault();
 		slag.append( '<div class="input-group date"><input type="text" class="form-control" name="slagen[]"><span class="input-group-addon"><i class="glyphicon glyphicon-trash"></i></span></div>' ); //add input box
 	} );
-});
+} );
