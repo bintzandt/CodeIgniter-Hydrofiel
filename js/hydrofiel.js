@@ -1,7 +1,7 @@
 function hideAll(){
-    $('.inschrijving').toggleClass('d-none', true);
-    $('#show_all').toggleClass('d-none', false);
-    $('#hide_all').toggleClass('d-none', true);
+    $('.inschrijving').addClass('d-none');
+    $('#show_all').removeClass('d-none');
+    $('#hide_all').addClass('d-none');
 }
 
 function showAll(){

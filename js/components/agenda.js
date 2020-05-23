@@ -32,8 +32,11 @@ jQuery(document).ready( $ => {
 
 	} );
 
+	// Define the HTML for the additional input field.
+	const additionalInput = '<div class="input-group date"><input type="text" class="form-control" name="slagen[]"><span class="input-group-addon"><i class="glyphicon glyphicon-trash"></i></span></div>';
+
 	$( "#add_button" ).click( function( e ) { //on add input button click
 		e.preventDefault();
-		slag.append( '<div class="input-group date"><input type="text" class="form-control" name="slagen[]"><span class="input-group-addon"><i class="glyphicon glyphicon-trash"></i></span></div>' ); //add input box
+		slag.append( additionalInput ); //add input box
 	} );
 } );
