@@ -1,4 +1,5 @@
 <?php
+require_once 'application/entities/Training.php';
 
 /**
  * Class Agenda_model
@@ -208,10 +209,10 @@ class Agenda_model extends CI_Model
         if ($event_id === null) {
             //Get all events
             $this->db->where('van >=', date('Y-m-d H:i:s'));
+            // Exclude the trainingen.
+            $this->db->where( 'soort !=', 'training' );
             $this->db->order_by('van', 'ASC');
-            if ($limit !== null) {
-                $this->db->limit($limit);
-            }
+            $this->db->limit($limit);
             $query = $this->db->get('agenda');
             if ($query->num_rows() > 0) {
                 return $query->result();
@@ -249,5 +250,26 @@ class Agenda_model extends CI_Model
         $query = $this->db->get_where('nszk_inschrijfsysteem', ['nszk_id' => $event_id, 'member_id' => $member_id]);
 
         return $query->row();
+    }
+
+    public function get_training( bool $waterpolo = false ){
+        // The event must be in the future.
+        $this->db->where('van >=', date('Y-m-d H:i:s'));
+        // The event must be in the upcoming week. 
+        $this->db->where('van <', date_format( new DateTime('2020-06-06'), 'Y-m-d H:i:s' ) );
+        $this->db->where('soort', 'training');
+        if ( $waterpolo ){
+            $this->db->where( 'nl_naam LIKE', 'Waterpolo%' );
+        } else {
+            $this->db->where( 'nl_naam LIKE', 'Zwemmen%' );
+        }
+        $this->db->order_by( 'van' );
+        $query = $this->db->get( 'agenda' );
+        return $query->custom_result_object( 'Training' );
+    }
+
+    public function view_training( int $id ): Training {
+        $result = $this->db->get_where( 'agenda', [ 'event_id' => $id ] );
+        return $result->first_row( 'Training' );
     }
 }

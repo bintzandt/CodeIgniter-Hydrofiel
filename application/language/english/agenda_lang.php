@@ -43,3 +43,4 @@ $lang["agenda_change_registration"] = "Change registration";
 $lang["agenda_no_registration"] = "It is no longer possible to register for this event.";
 $lang["agenda_remark"] = "Additional comment";
 $lang["agenda_add_to_calendar"] = "Add to Google";
+$lang["agenda_registration_not_open"] = "The registrations are not open yet for this training.";

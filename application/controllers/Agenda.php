@@ -236,4 +236,67 @@ class Agenda extends _SiteController
 	    }
 	    redirect( '/agenda/id/' . $event_id );
     }
+
+    /**
+     * Route for displaying the training data.
+     */
+    public function training(){
+        // Get training data.
+        $waterpolo = $this->agenda_model->get_training( true );
+        $swimming  = $this->agenda_model->get_training();
+
+        // Show the view.
+        return $this->loadView( 'agenda/training', [ 'waterpolo' => $waterpolo, 'swimming' => $swimming ] );
+    }
+
+    public function view_training( $id ){
+        /**
+         * @var Training
+         */
+        $training = $this->agenda_model->view_training( $id );
+        $user_id  = $this->session->id;
+
+        $data['event'] = (object) $training;
+        $data['aangemeld'] = $training->user_is_registered( $user_id );
+        $data['inschrijvingen'] = $training->registrations;
+        $data['aantal_aanmeldingen'] = sizeof($data['inschrijvingen']);
+        $data['registration_details'] = false;
+        
+        return $this->loadView( 'agenda/id', $data );
+    }
+
+    public function register_training(){
+        $user_id = $this->session->id;
+        $training_id = $this->input->post( 'event_id', true );
+
+        /**
+         * @var Training
+         */
+        $training = $this->agenda_model->view_training( $training_id );
+
+        try {
+            $training->register( $user_id );
+            success( "Je bent succesvol aangemeld voor deze training." );
+        } catch ( Error $e ){
+            error( $e->getMessage() );
+        }
+
+        redirect( '/agenda/view_training/' . $training_id );
+    }
+
+    public function cancel_training( $training_id ){
+        $user_id = $this->session->id;
+        /**
+         * @var Training
+         */
+        $training = $this->agenda_model->view_training( $training_id );
+        try {
+            $training->cancel( $user_id );
+            success( "Je bent succesvol afgemeld" );
+        } catch ( Error $e ){
+            error( $e->getMessage() );
+        }
+
+        redirect( '/agenda/view_training/' . $training_id );
+    }
 }

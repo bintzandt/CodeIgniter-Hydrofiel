@@ -35,14 +35,22 @@
                         <td><?= lang('agenda_no_registrations') ?></td>
                     </tr>
                 </table>
-            <?php } else { ?>
+            <?php } else { 
+                    if ( $event->soort === "training" ) { ?>
+                        <br><br>
+                <table style="width: 100%">
+                    <tr>
+                        <td><?= lang('agenda_registration_not_open') ?></td>
+                    </tr>
+                </table>
+                    <?php } else { ?>
                 <br><br>
                 <table style="width: 100%">
                     <tr>
                         <td><?= lang('agenda_no_registrations_needed') ?></td>
                     </tr>
                 </table>
-            <?php } ?>
+            <?php } } ?>
         </div>
         <div class="col-md-6">
             <h4>Details</h4>
@@ -85,14 +93,26 @@
     </div>
     <div class="row pt-3">
         <div class="col">
-        <?php if ($event->inschrijfsysteem) { ?>
-            <?= form_open(
-                ($event->soort === 'nszk') ? '/agenda/nszk' : '/agenda/aanmelden',
+        <?php if ($event->inschrijfsysteem) {
+            $registration_url = '/agenda/aanmelden';
+            $cancel_url = '/agenda/afmelden/' . $event->event_id;
+
+            if ( $event->soort === 'nszk' ){
+                $registration_url = '/agenda/nszk';
+            }
+            if ( $event->soort === 'training' ){
+                $registration_url = '/agenda/register_training';
+                $cancel_url = '/agenda/cancel_training/' . $event->event_id;
+            }
+
+            echo form_open(
+                $registration_url,
                 [
                     "id" => "aanmelden",
                     "name" => "aanmelden",
                 ]
-            ); ?>
+            );
+            ?>
             <input type="hidden" value="<?= $event->event_id ?>" name="event_id"/>
             <input type="hidden" value="<?= $event->soort ?>" name="event_soort">
             <?php if (!$aangemeld && date('Y-m-d H:i:s') <= $event->inschrijfdeadline) {
@@ -111,13 +131,15 @@
                             </div>
                         <?php }
                     } ?>
-                    <div class="form-group">
-                        <input type="text" name="opmerking" maxlength="20" class="form-control" style="margin-top: 20px"
-                               placeholder="<?= lang("agenda_remark"); ?>">
-                        <?php if ($event->betalen) { ?>
-                            <input type="checkbox" required> <?= lang('agenda_agree_terms') ?>
-                        <?php } ?>
-                    </div>
+                    <?php if ( $event->soort !== "training" ) { ?>
+                        <div class="form-group">
+                            <input type="text" name="opmerking" maxlength="20" class="form-control" style="margin-top: 20px"
+                                    placeholder="<?= lang("agenda_remark"); ?>">
+                            <?php if ($event->betalen) { ?>
+                                <input type="checkbox" required> <?= lang('agenda_agree_terms') ?>
+                            <?php } ?>
+                        </div>
+                    <?php } ?>
                     <div class="form-group">
                         <button type="submit"
                                 class="btn btn-primary form-control"><?= lang('agenda_register') ?></button>
@@ -133,7 +155,7 @@
                 </div>
             <?php } elseif (date('Y-m-d H:i:s') <= $event->afmelddeadline) { ?>
                 <div class="form-group">
-                    <a href="/agenda/afmelden/<?= $event->event_id ?>"
+                    <a href="<?= $cancel_url ?>"
                        class="btn btn-primary center-block"><?= lang('agenda_cancel'); ?></a>
                 </div>
             <?php } else { ?>
@@ -146,8 +168,10 @@
         if ($registration_details) { ?>
             <a type="button" class="btn btn-warning form-control"
                href="/agenda/edit_details/<?= $event->event_id ?>"><?= lang('agenda_change_registration') ?></a>
+        <?php }
+        if (isset( $ical ) ) { ?>
+            <a href="<?= $ical ?>"><?= lang('agenda_add_to_calendar') ?></a>
         <?php } ?>
-        <a href="<?= $ical ?>"><?= lang('agenda_add_to_calendar') ?></a>
     </div>
     </div>
 <script>

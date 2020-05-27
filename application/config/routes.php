@@ -57,6 +57,7 @@ $route['translate_uri_dashes'] = false;
 $route['page/id/1'] = '/';
 $route['404_override'] = 'page/page_missing';
 $route['uitloggen'] = 'inloggen';
+$route['training'] = '/agenda/training';
 
 if (file_exists(APPPATH . 'cache/routes.php')) {
     require_once APPPATH . 'cache/routes.php';
