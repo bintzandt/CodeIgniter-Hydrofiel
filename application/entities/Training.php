@@ -22,7 +22,7 @@ class Training {
 		$this->agenda_model = $CI->agenda_model;
 	}
 
-	private $related_ids = [ 71, 72, 73, 74, 75, 76, 85, 89 ];
+	private $related_ids = [ 70, 74, 82, 78, 71, 75, 83, 79 ];
 
 	public function __get( string $name ){
 		switch ( $name ) {
