@@ -241,8 +241,6 @@ class Agenda extends _SiteController
      * Route for displaying the training data.
      */
     public function training(){
-        var_dump( strtotime( 'now' ), strtotime( '2020-05-27 23:15' ) ); exit;
-
         // Get training data.
         $waterpolo = $this->agenda_model->get_training( true );
         $swimming  = $this->agenda_model->get_training();
