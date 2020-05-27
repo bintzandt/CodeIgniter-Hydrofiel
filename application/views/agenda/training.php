@@ -4,28 +4,6 @@
  * @var Training[] $swimming
  */
 ?>
-<h2>Waterpolo trainingen</h2>
-<table class="table table-striped">
-	<thead>
-		<tr>
-			<th>Naam</th>
-			<th>Van</th>
-			<th>Tot</th>
-			<th>Inschrijvingen</th>
-		</tr>
-	</thead>
-	<tbody>
-		<?php
-		foreach( $waterpolo as $waterpolo_training ){ ?>
-		<tr class="clickable-row" data-href="/agenda/view_training/<?= $waterpolo_training->event_id ?>">
-			<td><?= $waterpolo_training->naam ?></td>
-			<td><?= $waterpolo_training->van ?></td>
-			<td><?= $waterpolo_training->tot ?></td>
-			<td><?= $waterpolo_training->nr_of_registrations() . '/' . $waterpolo_training->maximum ?></td>
-		</tr>
-		<?php } ?>
-	</tbody>
-</table>
 <h2>Zwem trainingen</h2>
 <table class="table table-striped">
 	<thead>
@@ -48,3 +26,26 @@
 		<?php } ?>
 	</tbody>
 </table>
+<h2>Waterpolo trainingen</h2>
+<table class="table table-striped">
+	<thead>
+		<tr>
+			<th>Naam</th>
+			<th>Van</th>
+			<th>Tot</th>
+			<th>Inschrijvingen</th>
+		</tr>
+	</thead>
+	<tbody>
+		<?php
+		foreach( $waterpolo as $waterpolo_training ){ ?>
+		<tr class="clickable-row" data-href="/agenda/view_training/<?= $waterpolo_training->event_id ?>">
+			<td><?= $waterpolo_training->naam ?></td>
+			<td><?= $waterpolo_training->van ?></td>
+			<td><?= $waterpolo_training->tot ?></td>
+			<td><?= $waterpolo_training->nr_of_registrations() . '/' . $waterpolo_training->maximum ?></td>
+		</tr>
+		<?php } ?>
+	</tbody>
+</table>
+
