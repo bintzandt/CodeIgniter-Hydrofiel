@@ -4,6 +4,11 @@
  * @var Training[] $swimming
  */
 ?>
+<p>Via onderstaande inschrijving kun je je aanmelden voor de trainingen. De inschrijving gaat op <b>zaterdag om 10.00</b> open.</p>
+<p>Als je gezondheidsklachten krijgt, <b>schrijf je dan uit</b>. Bij een no-show zonder afmelding, ben je in het vervolg <b>niet meer welkom</b>.</p>
+<p>Voor zwemmers is het eerste uur van <i>19.45</i> tot <i>20.45</i> voor de <b>minder snelle</b> zwemmers (PR langzamer dan 1.15 op de 100 vrij). Het tweede uur (<i>20.45-21.45</i>) is voor de <b>snellere</b> zwemmers.</p>
+<p>Voor waterpolo geldt dat er van <i>21.45</i> tot <i>22.45</i> getraind kan worden. Er zijn 12 plekken voor vrouwen en 12 voor mannen.</p>
+<p>Als het druk wordt, kan het zijn dat we mensen die zich vaak hebben aangemeld vragen om zich voor een paar trainingen uit te schrijven, zodat ook andere leden een kans hebben.</p>
 <h2>Zwem trainingen</h2>
 <table class="table table-striped">
 	<thead>
