@@ -75,6 +75,8 @@ $server_addr = ($_SERVER['SERVER_NAME'] === 'hydrofiel.test')
 	define('ENVIRONMENT', ($_SERVER['REMOTE_ADDR']==='213.124.179.138' || $server_addr === 'development') ? 'development' : 'production');
 	//define('ENVIRONMENT', 'development');
 
+date_default_timezone_set( 'Europe/Amsterdam' );
+
 /*
  *---------------------------------------------------------------
  * ERROR REPORTING
