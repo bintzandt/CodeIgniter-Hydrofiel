@@ -97,7 +97,7 @@ class Login_model extends CI_Model
             'recovery_valid' => ($new_user ? date('Y-m-d H:i:s', strtotime('now + 1 year')) : date(
                 'Y-m-d H:i:s',
                 strtotime(
-                    'now + 1 hour'
+                    'now + 1 week'
                 )
             )),
         ];
