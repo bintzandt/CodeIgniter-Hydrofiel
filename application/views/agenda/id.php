@@ -149,11 +149,17 @@
                         <strong><?= lang('agenda_full'); ?></strong>
                     </div>
                 <?php } ?>
-            <?php } elseif (!$aangemeld) { ?>
+            <?php } elseif (!$aangemeld) {
+                if ( $event->soort === "training" ){ ?>
+                    <div class="form-group">
+                        <button type="submit"
+                                class="btn btn-primary form-control"><?= lang('agenda_register') ?></button>
+                    </div>
+                <?php } else { ?>
                 <div class="alert alert-warning">
                     <strong><?= lang('agenda_no_registration'); ?></strong>
                 </div>
-            <?php } elseif (date('Y-m-d H:i:s') <= $event->afmelddeadline) { ?>
+            <?php } } elseif (date('Y-m-d H:i:s') <= $event->afmelddeadline) { ?>
                 <div class="form-group">
                     <a href="<?= $cancel_url ?>"
                        class="btn btn-primary center-block"><?= lang('agenda_cancel'); ?></a>

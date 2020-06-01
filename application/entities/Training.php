@@ -40,14 +40,15 @@ class Training {
 	}
 
 	public function register( int $user_id ){
+		$related_check = true;
+
 		// Registration system should be turned on.
 		if ( strtotime( 'now' ) < strtotime( '2020-05-30 10:00am' ) ){
 			throw new Error( "Registratie nog niet open" );
 		}
 
-		// Registrations have been closed.
-		if ( date('Y-m-d H:i:s') > $this->inschrijfdeadline ){
-			throw new Error( "Registraties zijn gesloten" );
+		if ( strtotime( 'now + 1 day' ) >= $this->inschrijfdeadline ){
+			$related_check = false;
 		}
 
 		// Training is full.
@@ -56,7 +57,7 @@ class Training {
 		}
 
 		// Check if user is already registered for another event.
-		if ( $this->user_is_registered_for_related_training( $user_id ) ){
+		if ( $related_check && $this->user_is_registered_for_related_training( $user_id ) ){
 			throw new Error( "Je bent al aangemeld voor een training deze week" );
 		}
 
