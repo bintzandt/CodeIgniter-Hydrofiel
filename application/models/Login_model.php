@@ -93,7 +93,7 @@ class Login_model extends CI_Model
     public function set_recovery($email, $new_user = false)
     {
         $data = [
-            'recovery' => $this->getToken(32),
+            'recovery' => $this->getToken(8),
             'recovery_valid' => ($new_user ? date('Y-m-d H:i:s', strtotime('now + 1 year')) : date(
                 'Y-m-d H:i:s',
                 strtotime(
@@ -126,9 +126,7 @@ class Login_model extends CI_Model
     private function getToken($length = 32)
     {
         $token = "";
-        $codeAlphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-        $codeAlphabet .= "abcdefghijklmnopqrstuvwxyz";
-        $codeAlphabet .= "0123456789";
+        $codeAlphabet = "0123456789";
         for ($i = 0; $i < $length; $i++) {
             $token .= $codeAlphabet[$this->crypto_rand_secure(0, strlen($codeAlphabet))];
         }
