@@ -7,8 +7,8 @@ class User {
 	public ?string $webauthn;
 
 	protected int $id;
-	protected ?string $recovery;
-	protected ?string $recovery_valid;
+	public ?string $recovery;
+	public ?string $recovery_valid;
 	protected bool $engels;
 	protected bool $nieuwsbrief;
 	protected bool $zichtbaar_email;

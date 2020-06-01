@@ -54,9 +54,15 @@ class Inloggen extends _SiteController
 	        redirect('/inloggen');
         }
 
+        // Unset the recovery and recovery_valid on succesful login
+        $user->recovery = null;
+        $user->recovery_valid = null;
+
         if ( $user->needs_rehash() ){
         	$user->wachtwoord = $wachtwoord;
         	$this->profile_model->update( $user->id, $user );
+        } else {
+            $this->profile_model->update( $user->id, $user );
         }
 
         $userdata = [
