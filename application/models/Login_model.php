@@ -71,7 +71,7 @@ class Login_model extends CI_Model
             'gebruikers',
             [
                 'recovery' => $recovery,
-                'recovery_valid >=' => date('Y-m-d H:i:s'),
+                'recovery_valid >=' => now(),
             ]
         );
         $this->db->cache_on();

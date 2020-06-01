@@ -16,6 +16,7 @@ class Inloggen extends _SiteController
     {
         parent::__construct();
         $this->load->model('login_model');
+        $this->load->helper('date');
         load_language_file('inloggen');
     }
 
