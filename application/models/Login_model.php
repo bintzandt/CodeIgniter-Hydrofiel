@@ -93,11 +93,11 @@ class Login_model extends CI_Model
     public function set_recovery($email, $new_user = false)
     {
         $data = [
-            'recovery' => $this->getToken(8),
+            'recovery' => $this->getToken(12),
             'recovery_valid' => ($new_user ? date('Y-m-d H:i:s', strtotime('now + 1 year')) : date(
                 'Y-m-d H:i:s',
                 strtotime(
-                    'now + 1 week'
+                    'now + 2 hours'
                 )
             )),
         ];
