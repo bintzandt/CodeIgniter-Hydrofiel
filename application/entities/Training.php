@@ -47,7 +47,7 @@ class Training {
 			throw new Error( "Registratie nog niet open" );
 		}
 
-		if ( strtotime( 'now + 1 day' ) >= $this->inschrijfdeadline ){
+		if ( strtotime( 'now + 1 day' ) >=  strtotime( $this->inschrijfdeadline ) ){
 			$related_check = false;
 		}
 
