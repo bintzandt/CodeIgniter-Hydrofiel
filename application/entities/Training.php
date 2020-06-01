@@ -47,7 +47,8 @@ class Training {
 			throw new Error( "Registratie nog niet open" );
 		}
 
-		if ( strtotime( 'now + 1 day' ) >=  strtotime( $this->inschrijfdeadline ) ){
+		// Registrations open for everyone.
+		if ( date('Y-m-d H:i:s') >= $this->afmelddeadline ){
 			$related_check = false;
 		}
 
