@@ -17,7 +17,7 @@ class Training {
 	
 	private Agenda_model $agenda_model;
 	
-	private $related_ids = [ 70, 74, 82, 78, 71, 75, 83, 79 ];
+	private $related_ids = [ 72, 76, 84, 80, 73, 77, 85, 81 ];
 
 	public function __construct(){
 		$CI =& get_instance();
@@ -31,7 +31,7 @@ class Training {
 			case 'omschrijving': return is_english() ? $this->en_omschrijving : $this->nl_omschrijving;
 			case 'van': return date_format( date_create( $this->van ), 'd-m-Y H:i');
 			case 'tot': return date_format( date_create( $this->tot ), 'd-m-Y H:i');
-			case 'inschrijfsysteem': return ( strtotime( 'now' ) > strtotime( '2020-05-30 10:00am' ) ) ? true : false;
+			case 'inschrijfsysteem': return ( strtotime( 'now' ) > strtotime( '2020-06-06 10:00am' ) ) ? true : false;
 		}
 		
 		if ( $name === 'registrations' ){
@@ -43,7 +43,7 @@ class Training {
 		$related_check = true;
 
 		// Registration system should be turned on.
-		if ( strtotime( 'now' ) < strtotime( '2020-05-30 10:00am' ) ){
+		if ( strtotime( 'now' ) < strtotime( '2020-06-06 10:00am' ) ){
 			throw new Error( "Registratie nog niet open" );
 		}
 
