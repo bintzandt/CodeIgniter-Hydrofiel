@@ -63,6 +63,8 @@ function generate_icon($name)
                                         class="fa fa-calendar"></span> <?= lang('general_calendar') ?></a></li>
                         <li class="nav-item"><a href="/profile" class="nav-link"><span
                                         class="fa fa-user"></span> <?= lang('general_profile') ?> </a></li>
+                        <li class="nav-item"><a href="/training" class="nav-link"><span
+                            class="fa fa-dumbbell"></span> Training</a></li>
                         <?php if ($superuser) { ?>
                             <li class="nav-item"><a href="/beheer" class="nav-link"><span
                                             class="fa fa-cogs"></span> <?= lang('general_control_panel') ?></a></li>
