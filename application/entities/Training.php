@@ -16,8 +16,6 @@ class Training {
 	public string $maximum;
 	
 	private Agenda_model $agenda_model;
-	
-	private $related_ids = [ 72, 76, 84, 80, 73, 77, 85, 81 ];
 
 	public function __construct(){
 		$CI =& get_instance();
@@ -31,7 +29,7 @@ class Training {
 			case 'omschrijving': return is_english() ? $this->en_omschrijving : $this->nl_omschrijving;
 			case 'van': return date_format( date_create( $this->van ), 'd-m-Y H:i');
 			case 'tot': return date_format( date_create( $this->tot ), 'd-m-Y H:i');
-			case 'inschrijfsysteem': return ( strtotime( 'now' ) > strtotime( '2020-06-27 10:00am' ) ) ? true : false;
+			case 'inschrijfsysteem': return true;
 		}
 		
 		if ( $name === 'registrations' ){
@@ -40,36 +38,10 @@ class Training {
 	}
 
 	public function register( int $user_id ){
-		$related_check = true;
-
-		// Registration system should be turned on.
-		if ( strtotime( 'now' ) < strtotime( '2020-06-27 10:00am' ) ){
-			throw new Error( "Registratie nog niet open" );
-		}
-
-		// Registrations open for everyone.
-		if ( date('Y-m-d H:i:s') >= $this->afmelddeadline ){
-			$related_check = false;
-		}
-
-		// Training is full.
-		if ( $this->maximum > 0 && $this->nr_of_registrations() >= $this->maximum ){
-			throw new Error( "Training is vol" );
-		}
-
-		// Check if user is already registered for another event.
-		if ( $related_check && $this->user_is_registered_for_related_training( $user_id ) ){
-			throw new Error( "Je bent al aangemeld voor een training deze week" );
-		}
-
 		return $this->agenda_model->aanmelden( [ 'event_id' => $this->event_id, 'member_id' => $user_id ] );
 	}
 
 	public function cancel( int $user_id ){
-		if ( date('Y-m-d H:i:s') > $this->afmelddeadline ){
-			throw new Error( "Je kunt je niet meer afmelden voor deze training" );
-		}
-
 		return $this->agenda_model->afmelden( $user_id, $this->event_id );
 	}
 
@@ -79,16 +51,6 @@ class Training {
 
 	public function get_registrations(){
 		return $this->agenda_model->get_inschrijvingen( $this->event_id );
-	}
-
-	public function user_is_registered_for_related_training( $user_id ){
-		foreach( $this->related_ids as $event_id ){
-			if ( $this->agenda_model->get_inschrijvingen( $event_id, $user_id ) !== [] ){
-				return true;
-			}
-		}
-
-		return false;
 	}
 
 	public function user_is_registered( $user_id ){
