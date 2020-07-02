@@ -26,7 +26,7 @@
 			<td><?= $swimming_training->naam ?></td>
 			<td><?= $swimming_training->van ?></td>
 			<td><?= $swimming_training->tot ?></td>
-			<td><?= $swimming_training->nr_of_registrations() . '/' . $swimming_training->maximum ?></td>
+			<td><?= $swimming_training->nr_of_registrations() ?></td>
 		</tr>
 		<?php } ?>
 	</tbody>
@@ -48,7 +48,7 @@
 			<td><?= $waterpolo_training->naam ?></td>
 			<td><?= $waterpolo_training->van ?></td>
 			<td><?= $waterpolo_training->tot ?></td>
-			<td><?= $waterpolo_training->nr_of_registrations() . '/' . $waterpolo_training->maximum ?></td>
+			<td><?= $waterpolo_training->nr_of_registrations() ?></td>
 		</tr>
 		<?php } ?>
 	</tbody>
