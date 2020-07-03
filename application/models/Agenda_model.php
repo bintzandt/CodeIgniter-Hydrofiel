@@ -256,7 +256,7 @@ class Agenda_model extends CI_Model
         // The event must be in the future.
         $this->db->where('van >=', date('Y-m-d H:i:s'));
         // The event must be in the upcoming week. 
-        $this->db->where('van <', date_format( new DateTime('2020-07-04'), 'Y-m-d H:i:s' ) );
+        $this->db->where('van <', date_format( new DateTime('2020-07-11'), 'Y-m-d H:i:s' ) );
         $this->db->where('soort', 'training');
         if ( $waterpolo ){
             $this->db->where( 'nl_naam LIKE', 'Waterpolo%' );
