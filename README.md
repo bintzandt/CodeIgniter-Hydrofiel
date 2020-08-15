@@ -1,3 +1,5 @@
+# These sources are outdated. Check the new version [here](https://github.com/bintzandt/CodeIgniter-Hydrofiel-v2)
+
 # Codeigniter-Hydrofiel
 This repository contains all the necessary files for Hydrofiel.nl. Contact me at webmaster@hydrofiel.nl if you want the config files for the live version (implying that you are a member of Hydrofiel and are willing to work on the website).
 
